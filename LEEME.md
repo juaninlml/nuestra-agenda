@@ -48,6 +48,16 @@ En la pestaña **Chat** pueden:
 
 La pestaña muestra cuántos mensajes nuevos hay sin leer.
 
+**Pasar sus stickers de WhatsApp:**
+
+En 😊 → **Stickers** → **⬇ Importar** pueden elegir varios a la vez. Se guardan tal cual (los animados siguen animados y con fondo transparente) y le aparecen a los dos.
+
+- **Android:** en *Importar* busca la carpeta
+  `Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Stickers` (los archivos son `.webp` con nombres raros) y selecciona los que quieras.
+  Si el selector no deja entrar a esa carpeta, ábrela con la app *Archivos* del teléfono, cópialos a *Descargas* y elígelos desde ahí.
+- **iPhone:** WhatsApp no deja sacar los stickers en el iPhone. Usa WhatsApp Web en la compu: clic derecho en el sticker → *Guardar imagen como…*
+  (o *Copiar imagen* y luego **Ctrl+V** en la app con la pestaña Stickers abierta). Una vez importados en la compu, aparecen en el iPhone también.
+
 **Para activar el buscador de GIFs y stickers (gratis):**
 1. Entra a [developers.giphy.com](https://developers.giphy.com/dashboard/), crea una cuenta y luego **Create an App → API** (elige la opción gratis).
 2. Copia la **API Key**.

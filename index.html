@@ -492,6 +492,7 @@ dialog[open]::backdrop{animation:fade .3s ease}
 <input type="file" id="importFile" accept="application/json" class="hidden">
 <input type="file" id="chatFile" accept="image/*" class="hidden">
 <input type="file" id="stkFile" accept="image/*" class="hidden">
+<input type="file" id="stkImport" accept="image/webp,image/png,image/gif,image/jpeg,.webp" multiple class="hidden">
 
 <script>
 (() => {
@@ -1089,6 +1090,7 @@ document.addEventListener('click', e => {
     case 'pk-del': removeMedia(id); break;
     case 'pk-edit': pk.edit = !pk.edit; renderPicker(); break;
     case 'pk-new': if (dlg.open) closeDialog(); stickerDialog(); break;
+    case 'pk-import': $('#stkImport').click(); break;
     case 'pk-more': search(pk.tab, true); break;
     case 'goto': gotoActivity(el.dataset.coll, id, date); break;
     case 'msg-del': {
@@ -1632,7 +1634,8 @@ function gridHtml(name, items, kind, opts = {}){
     const del = opts.del && pk.edit ? `<button type="button" class="pk-del" data-act="pk-del" data-id="${esc(it.id)}" aria-label="Quitar">✕</button>` : '';
     return `<div class="pk-item"><button type="button" class="pk-pick" data-act="pk-send" data-k="${kind}" data-l="${name}" data-i="${i}" aria-label="Enviar ${kind === 'sticker' ? 'sticker' : 'GIF'}"><img ${mediaSrc(it, true)} alt=""></button>${star}${del}</div>`;
   }).join('');
-  const lead = opts.create ? `<div class="pk-item"><button type="button" class="pk-new" data-act="pk-new"><b>+</b>Crear sticker</button></div>` : '';
+  const lead = opts.create ? `<div class="pk-item"><button type="button" class="pk-new" data-act="pk-new"><b>+</b>Crear sticker</button></div>
+    <div class="pk-item"><button type="button" class="pk-new" data-act="pk-import" title="Importa varios a la vez, por ejemplo los de WhatsApp"><b>⬇</b>Importar</button></div>` : '';
   return `<div class="pk-grid${kind === 'sticker' ? ' stk' : ''}">${lead}${tiles}</div>`;
 }
 function renderPicker(){
@@ -1775,10 +1778,56 @@ $('#stkFile').addEventListener('change', async e => {
   try {
     const data = await readData(f);
     stk.img = await loadImg(data);
-    stk.gif = f.type === 'image/gif'; stk.raw = stk.gif && f.size < 1.4e6 ? data : null;
+    // GIF, WebP (como los de WhatsApp) y PNG se guardan tal cual si no se recortan: conservan animación y transparencia.
+    stk.gif = /^image\/(gif|webp|png)$/.test(f.type); stk.raw = stk.gif && f.size < STK_MAX ? data : null;
     drawSticker();
   } catch(err){ toast('No se pudo abrir la imagen'); }
 });
+/* Importar varios stickers de una vez (por ejemplo los .webp de WhatsApp) */
+const STK_MAX = 1.05e6; // el servidor acepta hasta ~1.1 MB por sticker
+async function stickerData(file){
+  const type = /^image\//.test(file.type) ? file.type : /\.webp$/i.test(file.name || '') ? 'image/webp' : '';
+  if (!type) throw new Error('tipo');
+  // Algunos Android entregan el .webp sin tipo: se lo ponemos para que el servidor lo acepte.
+  const data = (await readData(file)).replace(/^data:[^;,]*/, 'data:' + type);
+  const img = await loadImg(data);
+  // Tal cual si es ligero: mantiene animación y fondo transparente.
+  if (/^image\/(webp|png|gif)$/.test(type) && file.size < STK_MAX) return { data, w:img.naturalWidth, h:img.naturalHeight };
+  // Si no, se reduce a 512 px (queda sin animación).
+  const S = 512, s = Math.min(S / img.naturalWidth, S / img.naturalHeight, 1);
+  const w = Math.round(img.naturalWidth * s), h = Math.round(img.naturalHeight * s);
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  c.getContext('2d').drawImage(img, 0, 0, w, h);
+  let out = c.toDataURL('image/webp', 0.86); if (!/^data:image\/webp/.test(out)) out = c.toDataURL('image/png');
+  return { data:out, w, h };
+}
+async function importStickers(files){
+  files = [...files].filter(f => /^image\//.test(f.type) || /\.webp$/i.test(f.name || ''));
+  if (!files.length){ toast('Elige imágenes o stickers (.webp)'); return; }
+  let ok = 0;
+  for (let i = 0; i < files.length; i++){
+    toast(files.length > 1 ? `Importando ${i + 1} de ${files.length}…` : 'Importando sticker…');
+    try {
+      const s = await stickerData(files[i]);
+      const r = await apiTo('/api/media', 'POST', { sticker:s, by:me() });
+      if (!r.ok) throw 0;
+      const d = await r.json(); imgCache.set(d.item.id, s.data); ok++;
+    } catch(e){}
+  }
+  const fail = files.length - ok;
+  toast(ok ? `${ok} sticker${ok > 1 ? 's' : ''} agregado${ok > 1 ? 's' : ''} 💟${fail ? ` · ${fail} no se pudo` : ''}` : 'No se pudo importar');
+  pk.tab = 'stk'; await loadSaved();
+  if (ui.view === 'chat' && $('#picker') && $('#picker').hidden) togglePicker(true);
+}
+$('#stkImport').addEventListener('change', e => { const f = e.target.files; if (f && f.length) importStickers(f); e.target.value = ''; });
+// Pegar (Ctrl+V) un sticker copiado, por ejemplo desde WhatsApp Web, con la pestaña Stickers abierta.
+document.addEventListener('paste', e => {
+  if (e.target.id === 'chatIn' || !$('#pkBody') || pk.tab !== 'stk') return;
+  const p = $('#picker'); if (p && p.hidden && !dlg.open) return;
+  const files = [...(e.clipboardData && e.clipboardData.files || [])].filter(x => /^image\//.test(x.type));
+  if (files.length){ e.preventDefault(); importStickers(files); }
+});
+
 async function createSticker(){
   const c = $('#stkCanvas');
   const shape = (form.querySelector('[name=shape]:checked') || {}).value, txt = (($('#stkTxt') || {}).value || '').trim();
