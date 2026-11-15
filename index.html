@@ -349,9 +349,10 @@ button,a,input,select,textarea{touch-action:manipulation}
 .done-btn.pop{animation:check .5s var(--spring)}
 .mark{border-radius:12px;transition:transform .15s var(--ease)}
 .mark:active{transform:scale(.97)}
-.daychips{scroll-snap-type:x proximity;scrollbar-width:none}
+/* Selector de días del celular: siempre caben exactos 5 y nunca queda uno cortado */
+.daychips{--gap:6px;gap:var(--gap);scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 8px;margin-bottom:4px}
 .daychips::-webkit-scrollbar{display:none}
-.daychips button{scroll-snap-align:center;border-radius:14px;min-width:56px;padding:8px 10px}
+.daychips button{flex:0 0 calc((100% - 4 * var(--gap)) / 5);min-width:0;scroll-snap-align:start;border-radius:14px;padding:8px 0}
 .daychips button[aria-pressed="true"]{box-shadow:var(--shadow);transform:translateY(-1px)}
 .cell{border-radius:14px;transition:transform .15s var(--ease),box-shadow .2s}
 @media (hover:hover){ .cell:hover{box-shadow:var(--shadow);transform:translateY(-1px)} }
@@ -359,6 +360,26 @@ button,a,input,select,textarea{touch-action:manipulation}
 .up-row{border-radius:12px;padding:10px 8px;transition:background .2s}
 .up-row:hover{background:var(--soft)}
 .note{transition:transform .3s var(--spring),box-shadow .3s}
+/* Notitas: GIF/sticker pegado y respuestas */
+.note footer{flex-wrap:wrap;row-gap:6px}
+.note .sws{display:flex;gap:5px;flex-wrap:wrap}
+.note .swatch{width:20px;height:20px}
+.note.has-media textarea{min-height:56px}
+.note-media{position:relative;align-self:flex-start;max-width:100%}
+.note-media img{display:block;border-radius:10px;max-width:100%;max-height:220px;width:auto;height:auto}
+.note-media.stk img{width:130px;height:130px;object-fit:contain}
+.nm-del{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:12px;display:grid;place-items:center;padding:0}
+.replies{display:flex;flex-direction:column;gap:8px;margin-top:2px;padding-left:10px;border-left:2.5px solid rgba(0,0,0,.12)}
+.reply{border-radius:4px 12px 12px 12px;padding:8px 10px 6px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 4px 10px -4px rgba(31,35,40,.18);display:flex;flex-direction:column;gap:6px;animation:rise .3s var(--ease)}
+.reply-h{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#4d4d4d}
+.reply-h .meta{flex:1}
+.reply .note-tag{font-size:11px}
+.reply textarea{border:0;background:transparent;resize:none;min-height:44px;font-size:14.5px;line-height:1.4;outline:none;color:#2b2b2b;padding:0}
+.mini{border:0;background:rgba(0,0,0,.07);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;color:#4d4d4d;font-size:12px;padding:0}
+.reply-btn{align-self:flex-start;border:0;background:rgba(0,0,0,.08);color:#3a3a3a;border-radius:999px;padding:7px 14px;font-weight:600;font-size:13.5px;min-height:36px;transition:transform .14s var(--ease),background .2s}
+.reply-btn:hover{background:rgba(0,0,0,.12)}
+.reply-btn:active,.mini:active{transform:scale(.93)}
+.pk-body.note-pk{height:min(440px,58dvh);padding:8px 2px 4px}
 @media (hover:hover){ .note:hover{transform:rotate(0) translateY(-3px);box-shadow:0 2px 0 rgba(0,0,0,.06),0 18px 30px -10px rgba(31,35,40,.3)} }
 label.f input,label.f select,label.f textarea{border-radius:12px;transition:border-color .2s,box-shadow .2s}
 label.f input:focus,label.f select:focus,label.f textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
@@ -669,11 +690,27 @@ function render(){
     else chatUpdate();
     return;
   }
-  if (ui.view === 'semana') main.innerHTML = viewWeek();
+  if (ui.view === 'semana'){ main.innerHTML = viewWeek(); centerDayChips(); }
   else if (ui.view === 'mes') main.innerHTML = viewMonth();
-  else if (ui.view === 'notas') main.innerHTML = viewNotes();
+  else if (ui.view === 'notas'){ main.innerHTML = viewNotes(); loadImgs(main); }
   else main.innerHTML = viewSettings();
 }
+// Deja el día elegido en medio de los 5 visibles (en lunes/martes y sábado/domingo se queda en la orilla).
+// Parte de donde estaba la tira y se desliza suave hasta su lugar.
+function centerDayChips(){
+  const el = document.querySelector('.daychips');
+  if (!el || getComputedStyle(el).display === 'none') return;
+  const chips = el.children; if (!chips.length) return;
+  const start = Math.max(0, Math.min(chips.length - 5, ui.day - 2));
+  const target = chips[start].offsetLeft - chips[0].offsetLeft;
+  el.scrollLeft = ui.chipScroll || 0;
+  ui.chipScroll = target;
+  if (Math.abs(el.scrollLeft - target) > 1) el.scrollTo({ left:target, behavior:'smooth' });
+}
+document.addEventListener('scroll', e => {
+  if (e.target.classList && e.target.classList.contains('daychips')) ui.chipScroll = e.target.scrollLeft;
+}, true);
+
 let pendingRender = false;
 function safeRender(){
   const a = document.activeElement;
@@ -771,16 +808,36 @@ function viewMonth(){
     <div class="upcoming"><h3>Próximas fechas</h3>${upHtml}</div>`;
 }
 
+// GIF o sticker pegado en una notita
+function noteMediaHtml(n){
+  if (!n.media) return '';
+  return `<div class="note-media ${n.media.kind === 'sticker' ? 'stk' : 'gif'}"><img ${mediaSrc(n.media)} alt="${n.media.kind === 'sticker' ? 'Sticker' : 'GIF'}">
+    <button type="button" class="nm-del" data-act="note-media-del" data-id="${esc(n.id)}" aria-label="Quitar ${n.media.kind === 'sticker' ? 'sticker' : 'GIF'}">✕</button></div>`;
+}
+const shortDate = t => { const d = new Date(t); return `${d.getDate()} ${MONTHS[d.getMonth()].slice(0,3)}`; };
 function viewNotes(){
-  const notes = live('notes').sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  const all = live('notes'), ids = new Set(all.map(n => n.id));
+  // Las respuestas viven dentro de su notita; si la original ya no existe, se muestran solas.
+  const notes = all.filter(n => !n.parent || !ids.has(n.parent)).sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  const repliesOf = id => all.filter(r => r.parent === id).sort((a,b) => (a.createdAt||0) - (b.createdAt||0));
   const cards = notes.map((n, i) => {
     const sw = NOTE_COLORS.map(c => `<button type="button" class="swatch" style="background:${c}" data-act="note-color" data-id="${esc(n.id)}" data-c="${c}" aria-label="Cambiar color"></button>`).join('');
-    const when = new Date(n.createdAt || n.updatedAt);
-    return `<article class="note" style="background:${esc(n.color||NOTE_COLORS[0])};--rot:${[-1.2,0.8,-0.4,1.1,-0.9,0.5][i%6]}deg">
+    const reps = repliesOf(n.id).map(r => `<div class="reply" style="background:${esc(r.color || '#ffffff')}">
+        <div class="reply-h"><span class="note-tag">↩ ${esc(r.author ? nameOf(r.author) : 'Respuesta')}</span><span class="meta">${shortDate(r.createdAt || r.updatedAt)}</span>
+          <button type="button" class="mini" data-act="note-media" data-id="${esc(r.id)}" aria-label="Agregar GIF o sticker a la respuesta" title="GIF o sticker">🎞️</button>
+          <button type="button" class="mini" data-act="note-del" data-id="${esc(r.id)}" aria-label="Borrar respuesta">✕</button></div>
+        ${noteMediaHtml(r)}
+        <textarea data-note="${esc(r.id)}" rows="2" aria-label="Texto de la respuesta" placeholder="${r.media ? 'Agrega un mensaje…' : 'Escribe tu respuesta…'}">${esc(r.text)}</textarea>
+      </div>`).join('');
+    return `<article class="note${n.media ? ' has-media' : ''}" style="background:${esc(n.color||NOTE_COLORS[0])};--rot:${[-1.2,0.8,-0.4,1.1,-0.9,0.5][i%6]}deg">
       ${n.author ? `<span class="note-tag">${esc(nameOf(n.author))}</span>` : ''}
-      <textarea data-note="${esc(n.id)}" aria-label="Texto de la notita" placeholder="Escribe aquí…">${esc(n.text)}</textarea>
-      <footer><span class="meta">${when.getDate()} ${MONTHS[when.getMonth()].slice(0,3)}</span>${sw}
+      ${noteMediaHtml(n)}
+      <textarea data-note="${esc(n.id)}" aria-label="Texto de la notita" placeholder="${n.media ? 'Agrega un mensaje…' : 'Escribe aquí…'}">${esc(n.text)}</textarea>
+      <footer><span class="meta">${shortDate(n.createdAt || n.updatedAt)}</span><span class="sws">${sw}</span>
+        <button type="button" class="del" data-act="note-media" data-id="${esc(n.id)}" aria-label="Agregar GIF o sticker" title="GIF o sticker">🎞️</button>
         <button type="button" class="del" data-act="note-del" data-id="${esc(n.id)}" aria-label="Borrar notita">✕</button></footer>
+      ${reps ? `<div class="replies">${reps}</div>` : ''}
+      <button type="button" class="reply-btn" data-act="note-reply" data-id="${esc(n.id)}">↩ Responder</button>
     </article>`;
   }).join('');
   return `<div class="bar"><h2>Notitas</h2><div class="spacer"></div>
@@ -947,7 +1004,9 @@ function whoAmIDialog(){
 document.addEventListener('click', e => {
   const v = e.target.closest('[data-view]');
   if (v){ go(v.dataset.view); return; }
-  const el = e.target.closest('[data-act]'); if (!el || el.closest('dialog')) return;
+  const el = e.target.closest('[data-act]');
+  // Dentro de una ventana solo responden los botones del panel de GIFs/stickers (para las notitas).
+  if (!el || (el.closest('dialog') && !/^(pk-|emo)/.test(el.dataset.act))) return;
   const a = el.dataset.act, id = el.dataset.id, date = el.dataset.date;
   switch (a){
     case 'wk': ui.week = addDays(ui.week, 7 * Number(el.dataset.n)); render(); break;
@@ -971,8 +1030,24 @@ document.addEventListener('click', e => {
     case 'note-color': { const n = live('notes').find(x => x.id === id); if (n) upsert('notes', { ...n, color:el.dataset.c }); break; }
     case 'note-del': {
       if (!el.dataset.sure){ el.dataset.sure = '1'; el.textContent = '¿?'; el.setAttribute('aria-label','Toca otra vez para borrar'); setTimeout(() => { if (el.isConnected){ delete el.dataset.sure; el.textContent = '✕'; } }, 2500); break; }
-      removeItem('notes', id); toast('Notita borrada'); break;
+      // Al borrar una notita también se borran sus respuestas.
+      const t = now();
+      S.notes.forEach(r => { if (r.parent === id && !r.deleted){ r.deleted = true; r.updatedAt = t; } });
+      const wasReply = !!(live('notes').find(x => x.id === id) || {}).parent;
+      removeItem('notes', id); toast(wasReply ? 'Respuesta borrada' : 'Notita borrada'); break;
     }
+    case 'note-reply': {
+      const p = live('notes').find(x => x.id === id); if (!p) break;
+      const mine = me(), pref = mine === 'b' ? '#ffd6e5' : '#cfe9ff';
+      const color = pref === p.color ? '#d4f5d6' : pref;
+      const r = { id:uid(), parent:id, text:'', color, author:mine, createdAt:now() };
+      upsert('notes', r);
+      const ta = document.querySelector(`[data-note="${r.id}"]`);
+      if (ta){ ta.focus(); ta.closest('.reply').scrollIntoView({ block:'nearest', behavior:'smooth' }); }
+      break;
+    }
+    case 'note-media': notePicker(id); break;
+    case 'note-media-del': { const n = live('notes').find(x => x.id === id); if (n){ const c = { ...n }; delete c.media; upsert('notes', c); } break; }
     case 'chat-img': $('#chatFile').click(); break;
     case 'chat-act': pickDialog(); break;
     case 'yt': {
@@ -1001,7 +1076,9 @@ document.addEventListener('click', e => {
     case 'emo-cat': { const h = $('#emo-' + el.dataset.i); if (h) $('#pkBody').scrollTop = h.offsetTop - 44; break; }
     case 'pk-send': {
       const it = (pk.lists[el.dataset.l] || [])[Number(el.dataset.i)];
-      if (it) sendMedia(el.dataset.k, it);
+      if (!it) break;
+      if (el.closest('dialog') && pk.target) attachToNote(pk.target, el.dataset.k, it);
+      else sendMedia(el.dataset.k, it);
       break;
     }
     case 'pk-save': {
@@ -1011,7 +1088,7 @@ document.addEventListener('click', e => {
     }
     case 'pk-del': removeMedia(id); break;
     case 'pk-edit': pk.edit = !pk.edit; renderPicker(); break;
-    case 'pk-new': stickerDialog(); break;
+    case 'pk-new': if (dlg.open) closeDialog(); stickerDialog(); break;
     case 'pk-more': search(pk.tab, true); break;
     case 'goto': gotoActivity(el.dataset.coll, id, date); break;
     case 'msg-del': {
@@ -1498,8 +1575,33 @@ function addRecent(kind, item, max){
   store.set(LS_RECENT, JSON.stringify(all));
 }
 
+// El mismo panel de GIFs y stickers, pero en una ventana para pegarlos en una notita.
+function notePicker(noteId){
+  pk.target = noteId; pk.edit = false;
+  if (pk.tab === 'emoji') pk.tab = 'gif';
+  openDialog('Agregar a la notita', `
+    <div class="pk-tabs" role="tablist">
+      <button type="button" role="tab" data-act="pk-tab" data-t="gif">GIF</button>
+      <button type="button" role="tab" data-act="pk-tab" data-t="stk">💟 Stickers</button>
+    </div>
+    <div class="pk-body note-pk" id="pkBody"></div>`, null);
+  renderPicker(); loadSaved();
+  if (pk.gifSearch && !pk.res[pk.tab]) search(pk.tab);
+}
+function attachToNote(noteId, kind, it){
+  const n = live('notes').find(x => x.id === noteId); if (!n) return;
+  const media = it.src === 'own' ? { kind, src:'own', id:it.id, w:it.w, h:it.h } : { kind, src:'giphy', url:it.url, preview:it.preview, w:it.w, h:it.h };
+  addRecent(kind, media, 16);
+  closeDialog();
+  upsert('notes', { ...n, media });
+  toast(kind === 'sticker' ? 'Sticker agregado 💟' : 'GIF agregado 🎞️');
+}
+// Enter en el buscador no debe cerrar la ventana
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('pk-search')) e.preventDefault(); });
+
 function togglePicker(open){
   const p = $('#picker'); if (!p) return;
+  pk.target = null;
   const show = open === undefined ? p.hidden : open;
   p.hidden = !show;
   const tg = $('#pkToggle'); tg.setAttribute('aria-expanded', String(show)); tg.textContent = show ? '⌨️' : '😊';
@@ -1516,7 +1618,8 @@ async function loadSaved(){
     pk.saved = d.saved || []; pk.gifSearch = !!d.gifSearch;
     store.set(LS_MEDIA, JSON.stringify({ saved:pk.saved, gifSearch:pk.gifSearch }));
     const a = document.activeElement;
-    if (!$('#picker').hidden && !(a && a.classList.contains('pk-search'))) renderPicker();
+    const p = $('#picker'), open = $('#pkBody') && (!p || !p.hidden); // panel del chat o ventana de notitas
+    if (open && !(a && a.classList.contains('pk-search'))) renderPicker();
     if (pk.gifSearch && pk.tab === 'gif' && !pk.res.gif) search('gif');
   } catch(e){}
 }
@@ -1692,6 +1795,7 @@ async function createSticker(){
     toast('Sticker creado 💟');
     pk.tab = 'stk'; await loadSaved();
     if (ui.view === 'chat'){ togglePicker(true); }
+    else if (ui.view === 'notas' && pk.target) notePicker(pk.target); // regresa a elegir para la notita
   } catch(err){ toast(err.message === 'grande' ? 'La imagen es muy pesada para sticker' : 'No se pudo crear el sticker'); }
 }
 
