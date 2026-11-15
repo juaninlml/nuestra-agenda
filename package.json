@@ -1,0 +1,8 @@
+{
+  "name": "nuestra-agenda",
+  "private": true,
+  "description": "Agenda de pareja con chat y avisos",
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}

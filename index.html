@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fffdf9">
 <title>Nuestra agenda</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Agenda">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -144,6 +149,56 @@ dialog::backdrop{background:rgba(20,20,24,.45)}
 .choice input{accent-color:var(--accent)}
 .daylist{display:flex;flex-direction:column;gap:6px}
 .hidden{display:none!important}
+/* Chat */
+.tabs .badge{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:4px;border-radius:999px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;vertical-align:1px}
+.tabs .badge:empty{display:none}
+.chat{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;max-width:820px;margin:0 auto;height:70vh;min-height:340px}
+.chat-list{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:4px;overscroll-behavior:contain}
+.chat-empty{margin:auto;text-align:center;color:var(--muted);max-width:300px;font-size:14px}
+.msg{display:flex;flex-direction:column;align-items:flex-start;max-width:min(80%,440px)}
+.msg.mine{align-self:flex-end;align-items:flex-end}
+.bubble{background:var(--soft);border-radius:18px 18px 18px 6px;padding:8px 12px;overflow-wrap:anywhere;white-space:pre-wrap;max-width:100%}
+.msg.mine .bubble{background:var(--accent);color:#fff;border-radius:18px 18px 6px 18px}
+.bubble a{color:inherit;text-decoration:underline}
+.bubble.gone{font-style:italic;color:var(--muted);background:transparent;border:1px dashed var(--line)}
+.msg.mine .bubble.gone{color:var(--muted);background:transparent}
+.msg.sending{opacity:.6}
+.msg.failed .bubble{outline:2px solid #e0503f;outline-offset:1px}
+.m-media{display:flex;flex-direction:column;gap:6px;margin-top:2px;max-width:100%}
+.msg.mine .m-media{align-items:flex-end}
+.m-meta{font-size:11px;color:var(--muted);margin:2px 8px 6px;display:flex;gap:10px;align-items:center}
+.m-meta button{border:0;background:none;padding:0;color:inherit;font-size:11px;text-decoration:underline}
+.day-sep{align-self:center;font-size:12px;font-weight:600;color:var(--muted);background:var(--soft);border-radius:999px;padding:3px 12px;margin:10px 0 6px}
+.m-img{display:block;max-width:min(100%,320px);max-height:360px;width:auto;height:auto;border-radius:14px;background:var(--soft);cursor:zoom-in;border:0;padding:0}
+.m-img img,.m-img video{display:block;max-width:100%;max-height:360px;width:auto;height:auto;border-radius:14px}
+.yt{display:block;width:min(360px,68vw);aspect-ratio:16/9;border:0;border-radius:14px;background:#000 center/cover no-repeat;position:relative;padding:0}
+.yt.tall{width:min(240px,58vw);aspect-ratio:9/16}
+.yt span{position:absolute;inset:0;margin:auto;width:60px;height:42px;border-radius:12px;background:rgba(230,0,0,.92);color:#fff;display:grid;place-items:center;font-size:18px}
+iframe.yt{background:#000}
+.tt{width:min(325px,72vw);height:575px;border:0;border-radius:14px;background:#000}
+.ig{width:min(340px,72vw);height:540px;border:0;border-radius:14px;background:#fff}
+.sp{width:min(340px,72vw);height:152px;border:0;border-radius:14px}
+.sp.big{height:352px}
+.linkcard{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:10px 12px;text-decoration:none;max-width:320px}
+.linkcard b{display:block;font-size:14px}
+.linkcard small{display:block;color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:240px}
+.linkcard .ico{font-size:22px}
+.actcard{display:flex;flex-direction:column;gap:2px;text-align:left;border:1.5px solid var(--t-bd);background:var(--t-bg);color:var(--t-tx);border-radius:14px;padding:10px 12px;min-width:min(240px,68vw);max-width:100%}
+.actcard .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;opacity:.85}
+.actcard b{font-size:15.5px;line-height:1.25}
+.actcard small{font-size:12.5px;opacity:.9}
+.actcard .go{font-size:12.5px;font-weight:600;margin-top:4px;text-decoration:underline}
+.chat-note{font-size:13px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--line);background:var(--soft)}
+.chat-note:empty{display:none}
+.composer{display:flex;align-items:flex-end;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--card)}
+.composer .icon-btn{flex-shrink:0;font-size:18px}
+.composer textarea{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:20px;padding:9px 14px;background:var(--bg);resize:none;max-height:140px;min-height:40px;height:40px;line-height:1.35;font-size:15px;outline-color:var(--accent)}
+.composer .btn{flex-shrink:0}
+.pick{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border-radius:10px;padding:8px 10px;background:var(--t-bg);color:var(--t-tx);border:1px solid color-mix(in srgb,var(--t-bd) 50%,transparent)}
+.pick small{display:block;font-size:12px;opacity:.85}
+.imgview{max-width:100%;max-height:75vh;display:block;margin:0 auto;border-radius:12px}
+.check{display:flex;align-items:center;gap:10px;font-size:15px;min-height:40px}
+.check input{width:20px;height:20px;accent-color:var(--accent)}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;font-weight:500;box-shadow:var(--shadow);z-index:10}
 
 @media (max-width:900px){
@@ -160,7 +215,12 @@ dialog::backdrop{background:rgba(20,20,24,.45)}
   .wrap{padding:12px}
   .brand h1{font-size:24px}
   .tabs{width:100%}
-  .tabs button{flex:1;padding:8px 6px}
+  .tabs button{flex:1;padding:8px 4px;font-size:14px}
+  .tabs .badge{margin-left:2px}
+  .chat{border-radius:12px}
+  .chat-list{padding:10px 8px}
+  .msg{max-width:88%}
+  .composer .btn{padding:8px 12px}
 }
 </style>
 </head>
@@ -176,6 +236,7 @@ dialog::backdrop{background:rgba(20,20,24,.45)}
     <nav class="tabs" aria-label="Secciones">
       <button data-view="semana">Semana</button>
       <button data-view="mes">Mes</button>
+      <button data-view="chat">Chat<span class="badge" id="chatBadge"></span></button>
       <button data-view="notas">Notitas</button>
       <button data-view="ajustes">Ajustes</button>
     </nav>
@@ -187,6 +248,7 @@ dialog::backdrop{background:rgba(20,20,24,.45)}
 
 <dialog id="dlg"><form class="dlg" id="dlgForm" method="dialog"></form></dialog>
 <input type="file" id="importFile" accept="application/json" class="hidden">
+<input type="file" id="chatFile" accept="image/*" class="hidden">
 
 <script>
 (() => {
@@ -194,6 +256,8 @@ dialog::backdrop{background:rgba(20,20,24,.45)}
 
 /* ---------- Constantes ---------- */
 const LS = 'agenda-pareja-v1', LS_ME = 'agenda-pareja-yo', LS_PIN = 'agenda-pareja-pin';
+const LS_CHAT = 'agenda-pareja-chat', LS_READ = 'agenda-pareja-leido', LS_NOTIF = 'agenda-pareja-avisos', LS_SENT = 'agenda-pareja-avisados';
+const LEAD_MIN = 10; // minutos de anticipación para los avisos
 const DAYS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const DAYS_S = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
 const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -344,7 +408,7 @@ const me = () => store.get(LS_ME) || '';
 const nameOf = w => w === 'a' ? S.settings.nameA : w === 'b' ? S.settings.nameB : w === 'ambos' ? 'Ambos' : 'Cada quien';
 const whoOk = b => ui.who === 'todos' || b.who === ui.who || b.who === 'ambos' || b.who === 'cada';
 
-function blocksFor(date){
+function blocksFor(date, all = false){
   const key = dk(date), wd = wdi(date), n = Math.ceil(date.getDate() / 7);
   return live('blocks').filter(b => {
     if (b.freq === 'once') return b.date === key;
@@ -352,7 +416,7 @@ function blocksFor(date){
     if (b.freq === '13') return n === 1 || n === 3;
     if (b.freq === '24') return n === 2 || n === 4;
     return true;
-  }).filter(whoOk).sort((x, y) => (x.start||'').localeCompare(y.start||'') || x.title.localeCompare(y.title));
+  }).filter(b => all || whoOk(b)).sort((x, y) => (x.start||'').localeCompare(y.start||'') || x.title.localeCompare(y.title));
 }
 const eventsFor = key => live('events').filter(e => e.date === key).sort((a,b) => (a.title||'').localeCompare(b.title||''));
 const isDone = (id, key) => S.checks.some(c => c.id === `${id}|${key}` && c.done && !c.deleted);
@@ -360,6 +424,12 @@ const isDone = (id, key) => S.checks.some(c => c.id === `${id}|${key}` && c.done
 function render(){
   document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.view === ui.view ? 'page' : 'false'));
   const main = $('#main');
+  if (ui.view === 'chat'){
+    // El chat se arma una sola vez y luego se actualiza por partes (para no cortar videos que se estén viendo).
+    if (!$('#chatShell')){ main.innerHTML = viewChat(); fitChat(); chatUpdate(true); $('#chatIn') && matchMedia('(pointer:fine)').matches && $('#chatIn').focus(); }
+    else chatUpdate();
+    return;
+  }
   if (ui.view === 'semana') main.innerHTML = viewWeek();
   else if (ui.view === 'mes') main.innerHTML = viewMonth();
   else if (ui.view === 'notas') main.innerHTML = viewNotes();
@@ -503,6 +573,7 @@ function viewSettings(){
       </div>
       <div class="row"><button class="btn" data-act="pin-save">Guardar PIN</button><button class="btn" data-act="sync-now">Sincronizar ahora</button></div>
     </section>
+    ${notifPanel()}
     <section class="panel"><h3>Respaldo</h3>
       <p>Descarga una copia de todo o restaura una que hayas guardado.</p>
       <div class="row">
@@ -514,9 +585,10 @@ function viewSettings(){
 
 /* ---------- Diálogos ---------- */
 const dlg = $('#dlg'), form = $('#dlgForm');
-let onSave = null, onDelete = null;
-function openDialog(title, body, save, del){
-  onSave = save; onDelete = del || null;
+let onSave = null, onDelete = null, onShare = null;
+function openDialog(title, body, save, del, share){
+  onSave = save; onDelete = del || null; onShare = share || null;
+  if (share) body += `<button type="button" class="btn" data-dlg="share" style="align-self:flex-start">💬 Enviar al chat</button>`;
   form.innerHTML = `<h3>${esc(title)}</h3>${body}
     <div class="actions">${del ? '<button type="button" class="btn danger" data-dlg="del">Borrar</button>' : ''}
       <button type="button" class="btn" data-dlg="cancel">Cancelar</button>
@@ -535,7 +607,15 @@ form.addEventListener('click', e => {
   if (b.dataset.dlg === 'del' && onDelete && confirmDel(b)){ onDelete(); closeDialog(); }
   if (b.dataset.dlg === 'add-ev'){ const k = b.dataset.date; closeDialog(); eventDialog(null, k); }
   if (b.dataset.dlg === 'ev'){ const id = b.dataset.id; closeDialog(); eventDialog(live('events').find(x => x.id === id)); }
+  if (b.dataset.dlg === 'share' && onShare){ const f = onShare; closeDialog(); f(); }
+  if (b.dataset.dlg === 'send-act'){
+    const item = live(b.dataset.coll).find(x => x.id === b.dataset.id);
+    const note = (form.querySelector('[name=note]') || {}).value || '';
+    closeDialog();
+    if (item) shareActivity(b.dataset.coll, item, b.dataset.date, note.trim());
+  }
 });
+form.addEventListener('change', e => { if (e.target.id === 'pickDate') $('#pickList').innerHTML = pickList(e.target.value); });
 dlg.addEventListener('close', () => { if (pendingRender){ pendingRender = false; render(); } });
 function confirmDel(b){
   if (b.dataset.sure) return true;
@@ -573,7 +653,8 @@ function blockDialog(b, dateKey){
       if (!nb.title) return false;
       upsert('blocks', nb); toast('Guardado');
     },
-    isNew ? null : () => { removeItem('blocks', b.id); toast('Actividad borrada'); });
+    isNew ? null : () => { removeItem('blocks', b.id); toast('Actividad borrada'); },
+    isNew ? null : () => shareActivity('blocks', b, dateKey || b.date || todayKey()));
   const toggleFreq = () => { const once = $('#freqSel').value === 'once'; $('#daySel').classList.toggle('hidden', once); $('#dateSel').classList.toggle('hidden', !once); };
   $('#freqSel').addEventListener('change', toggleFreq); toggleFreq();
 }
@@ -593,7 +674,8 @@ function eventDialog(e, dateKey){
       if (!ne.title || !ne.date) return false;
       upsert('events', ne); toast('Fecha guardada');
     },
-    isNew ? null : () => { removeItem('events', e.id); toast('Fecha borrada'); });
+    isNew ? null : () => { removeItem('events', e.id); toast('Fecha borrada'); },
+    isNew ? null : () => shareActivity('events', e, e.date));
 }
 
 function dayDialog(key){
@@ -614,13 +696,13 @@ function whoAmIDialog(){
     <div class="choice">
       <label><input type="radio" name="me" value="a" checked> ${esc(S.settings.nameA)}</label>
       <label><input type="radio" name="me" value="b"> ${esc(S.settings.nameB)}</label>
-    </div>`, fd => { store.set(LS_ME, fd.get('me')); render(); });
+    </div>`, fd => { store.set(LS_ME, fd.get('me')); render(); refreshPush(); });
 }
 
 /* ---------- Eventos de la página ---------- */
 document.addEventListener('click', e => {
   const v = e.target.closest('[data-view]');
-  if (v){ ui.view = v.dataset.view; render(); window.scrollTo(0,0); return; }
+  if (v){ go(v.dataset.view); return; }
   const el = e.target.closest('[data-act]'); if (!el || el.closest('dialog')) return;
   const a = el.dataset.act, id = el.dataset.id, date = el.dataset.date;
   switch (a){
@@ -646,7 +728,30 @@ document.addEventListener('click', e => {
       if (!el.dataset.sure){ el.dataset.sure = '1'; el.textContent = '¿?'; el.setAttribute('aria-label','Toca otra vez para borrar'); setTimeout(() => { if (el.isConnected){ delete el.dataset.sure; el.textContent = '✕'; } }, 2500); break; }
       removeItem('notes', id); toast('Notita borrada'); break;
     }
-    case 'pin-save': store.set(LS_PIN, $('#pinIn').value.trim()); toast('PIN guardado'); push(); break;
+    case 'chat-img': $('#chatFile').click(); break;
+    case 'chat-act': pickDialog(); break;
+    case 'yt': {
+      const vid = el.dataset.id;
+      if (!/^[\w-]{11}$/.test(vid)) break;
+      const f = document.createElement('iframe');
+      f.className = el.className; f.src = `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&playsinline=1&rel=0`;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = 'Video de YouTube';
+      el.replaceWith(f); break;
+    }
+    case 'img-view': {
+      const src = el.querySelector('img') && el.querySelector('img').src; if (!src) break;
+      openDialog('', `<img class="imgview" src="${esc(src)}" alt="">`, null); break;
+    }
+    case 'goto': gotoActivity(el.dataset.coll, id, date); break;
+    case 'msg-del': {
+      if (!el.dataset.sure){ el.dataset.sure = '1'; el.textContent = '¿Borrar? Toca otra vez'; setTimeout(() => { if (el.isConnected){ delete el.dataset.sure; el.textContent = 'Borrar'; } }, 3000); break; }
+      chatDelete(id); break;
+    }
+    case 'msg-retry': chatRetry(id); break;
+    case 'notif-on': enableNotifs(); break;
+    case 'notif-off': disableNotifs(); break;
+    case 'notif-test': testNotif(); break;
+    case 'pin-save': store.set(LS_PIN, $('#pinIn').value.trim()); toast('PIN guardado'); push(); chatPull(); refreshPush(); break;
     case 'sync-now': push(); toast('Sincronizando…'); break;
     case 'export': {
       const blob = new Blob([JSON.stringify(S, null, 2)], { type:'application/json' });
@@ -667,7 +772,8 @@ document.addEventListener('change', e => {
   if (el.dataset.act === 'toggle'){
     const cid = `${el.dataset.id}|${el.dataset.date}`;
     upsert('checks', { id:cid, done:el.checked });
-  } else if (el.dataset.act === 'me'){ store.set(LS_ME, el.value); }
+  } else if (el.dataset.act === 'me'){ store.set(LS_ME, el.value); refreshPush(); }
+  else if (el.dataset.pref){ setPrefs({ [el.dataset.pref]:el.checked }); refreshPush(); }
   else if (el.dataset.set){
     const val = el.value.trim(); if (!val) return;
     S.settings = { ...S.settings, [el.dataset.set]:val, updatedAt:now() }; commit();
@@ -698,11 +804,12 @@ function setMode(m){
   el.querySelector('span').textContent = { cloud:'Sincronizado', local:'Solo en este teléfono', pin:'Falta PIN', error:'Sin conexión', checking:'Conectando…' }[m];
   if (ui.view === 'ajustes') safeRender();
 }
-async function api(method, body){
+async function apiTo(path, method, body){
   const h = { 'Content-Type':'application/json' }, pin = store.get(LS_PIN);
   if (pin) h['x-pin'] = pin;
-  return fetch('/api/state', { method, headers:h, cache:'no-store', body:body ? JSON.stringify(body) : undefined });
+  return fetch(path, { method, headers:h, cache:'no-store', body:body ? JSON.stringify(body) : undefined });
 }
+const api = (method, body) => apiTo('/api/state', method, body);
 function applyRemote(rs){
   if (!rs) return;
   const before = JSON.stringify(S);
@@ -731,10 +838,500 @@ setInterval(pull, 20000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) pull(); });
 window.addEventListener('online', push);
 
+/* ---------- Navegación ---------- */
+function go(view){
+  ui.view = view; render(); window.scrollTo(0,0);
+  if (view === 'chat'){ chatPull(); markRead(); }
+}
+function gotoDate(key){
+  const d = parseDk(key);
+  ui.week = mondayOf(d); ui.day = wdi(d); ui.month = new Date(d.getFullYear(), d.getMonth(), 1);
+}
+function gotoActivity(coll, id, key){
+  if (key) gotoDate(key);
+  go('semana');
+  const item = live(coll).find(x => x.id === id);
+  if (!item){ toast('Esa actividad ya no existe'); return; }
+  if (coll === 'events') eventDialog(item); else blockDialog(item, key);
+}
+function openUrl(url){
+  let u; try { u = new URL(url, location.href); } catch(e){ return; }
+  const view = u.searchParams.get('view'), date = u.searchParams.get('date');
+  if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) gotoDate(date);
+  if (['semana','mes','chat','notas','ajustes'].includes(view)) go(view);
+}
+
+/* ---------- Chat ---------- */
+const chat = { msgs:new Map(), cursor:0, status:'checking', pulling:false, tick:0, outbox:new Map() };
+const imgCache = new Map();
+try {
+  const c = JSON.parse(store.get(LS_CHAT));
+  if (c && Array.isArray(c.msgs)){ c.msgs.forEach(m => chat.msgs.set(m.id, m)); chat.cursor = c.cursor || 0; }
+} catch(e){}
+const byAt = (a, b) => (a.at||0) - (b.at||0);
+const sortedMsgs = () => [...chat.msgs.values()].sort(byAt);
+function saveChat(){
+  const arr = sortedMsgs().filter(m => !m.local).slice(-300);
+  store.set(LS_CHAT, JSON.stringify({ cursor:chat.cursor, msgs:arr }));
+}
+
+function viewChat(){
+  return `<div class="chat" id="chatShell">
+    <div class="chat-list" id="chatList"></div>
+    <div class="chat-note" id="chatNote">${chatNoteText()}</div>
+    <form class="composer" id="composer" autocomplete="off">
+      <button type="button" class="icon-btn" data-act="chat-img" aria-label="Enviar imagen, meme o GIF" title="Imagen, meme o GIF">🖼️</button>
+      <button type="button" class="icon-btn" data-act="chat-act" aria-label="Compartir una actividad de la agenda" title="Compartir actividad">📅</button>
+      <textarea id="chatIn" rows="1" maxlength="2000" placeholder="Mensaje o link…" aria-label="Mensaje"></textarea>
+      <button type="submit" class="btn primary">Enviar</button>
+    </form>
+  </div>`;
+}
+function chatNoteText(){
+  return { local:'El chat necesita la base de datos en la nube (Ajustes → Sincronización). Mientras tanto no se pueden enviar mensajes.',
+    pin:'Falta el PIN: escríbelo en Ajustes → Sincronización para ver el chat.',
+    error:'Sin conexión. Los mensajes llegarán cuando vuelva el internet.' }[chat.status] || '';
+}
+function fitChat(){
+  const sh = $('#chatShell'); if (!sh) return;
+  const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  const top = sh.getBoundingClientRect().top;
+  sh.style.height = Math.max(340, vh - top - 14) + 'px';
+}
+window.addEventListener('resize', fitChat);
+if (window.visualViewport) window.visualViewport.addEventListener('resize', () => { fitChat(); const l = $('#chatList'); if (l) l.scrollTop = l.scrollHeight; });
+
+/* Links, videos y GIFs */
+const URL_RE = /https?:\/\/[^\s<>"']+[^\s<>"'.,;:!?¡¿)\]]/gi;
+function linkify(text){
+  let out = '', last = 0;
+  for (const m of text.matchAll(URL_RE)){
+    out += esc(text.slice(last, m.index)) + `<a href="${esc(m[0])}" target="_blank" rel="noopener noreferrer">${esc(m[0])}</a>`;
+    last = m.index + m[0].length;
+  }
+  return out + esc(text.slice(last));
+}
+function linkCard(u, name, ico){
+  return `<a class="linkcard" href="${esc(u.href)}" target="_blank" rel="noopener noreferrer"><span class="ico">${ico}</span><span><b>Abrir en ${esc(name)}</b><small>${esc(u.hostname + u.pathname)}</small></span></a>`;
+}
+const imgTag = (src, extra = '') => `<button type="button" class="m-img" data-act="img-view"><img src="${esc(src)}" alt="Imagen" loading="lazy" referrerpolicy="no-referrer" ${extra}></button>`;
+function embedFor(url){
+  let u; try { u = new URL(url); } catch(e){ return ''; }
+  const h = u.hostname.replace(/^(www|m|mobile)\./, ''), p = u.pathname;
+  let m;
+  // YouTube (videos, shorts, en vivo)
+  let yt = null;
+  if (h === 'youtu.be') yt = p.slice(1, 12);
+  else if (h.endsWith('youtube.com')) yt = u.searchParams.get('v') || ((m = p.match(/^\/(?:shorts|embed|live|v)\/([\w-]{11})/)) && m[1]);
+  if (yt && /^[\w-]{11}$/.test(yt)){
+    const tall = /^\/shorts\//.test(p);
+    return `<button type="button" class="yt${tall?' tall':''}" data-act="yt" data-id="${yt}" style="background-image:url('https://i.ytimg.com/vi/${yt}/hqdefault.jpg')" aria-label="Reproducir video de YouTube"><span>▶</span></button>`;
+  }
+  // TikTok
+  if (h.endsWith('tiktok.com')){
+    if ((m = p.match(/\/video\/(\d+)/))) return `<iframe class="tt" src="https://www.tiktok.com/embed/v2/${m[1]}" loading="lazy" allow="encrypted-media; fullscreen" allowfullscreen title="Video de TikTok"></iframe>`;
+    return linkCard(u, 'TikTok', '🎵');
+  }
+  // Instagram (posts y reels)
+  if (h === 'instagram.com' && (m = p.match(/^\/(?:p|reels?|tv)\/([\w-]+)/)))
+    return `<iframe class="ig" src="https://www.instagram.com/p/${m[1]}/embed" loading="lazy" title="Publicación de Instagram"></iframe>`;
+  // Spotify
+  if (h === 'open.spotify.com' && (m = p.match(/^\/(?:intl-[\w-]+\/)?(track|album|playlist|episode|show)\/(\w+)/)))
+    return `<iframe class="sp${m[1]==='track'||m[1]==='episode'?'':' big'}" src="https://open.spotify.com/embed/${m[1]}/${m[2]}" loading="lazy" allow="encrypted-media" title="Spotify"></iframe>`;
+  // GIPHY
+  if (h.endsWith('giphy.com')){
+    let id = (m = p.match(/\/media\/(?:v1\.[^/]+\/)?([A-Za-z0-9]{6,})\//)) ? m[1] : null;
+    if (!id && /^\/(gifs|stickers)\//.test(p)) id = p.split('/')[2].split('-').pop();
+    if (id && /^[A-Za-z0-9]{6,}$/.test(id)) return imgTag(`https://media.giphy.com/media/${id}/giphy.gif`);
+  }
+  // Imágenes y videos directos (incluye media.tenor.com)
+  if (/\.(gif|png|jpe?g|webp|avif)$/i.test(p)) return imgTag(u.href);
+  if (/\.(mp4|webm)$/i.test(p)) return `<div class="m-img"><video src="${esc(u.href)}" autoplay loop muted playsinline controls></video></div>`;
+  if (h === 'facebook.com' || h === 'fb.watch') return linkCard(u, 'Facebook', '📘');
+  if (h === 'x.com' || h === 'twitter.com') return linkCard(u, 'X', '✖️');
+  return '';
+}
+
+function dayLabel(key){
+  const t = todayKey(), y = dk(addDays(new Date(), -1)), tm = dk(addDays(new Date(), 1));
+  if (key === t) return 'Hoy';
+  if (key === y) return 'Ayer';
+  if (key === tm) return 'Mañana';
+  const d = parseDk(key);
+  return `${DAYS[wdi(d)]} ${d.getDate()} de ${MONTHS[d.getMonth()]}`;
+}
+function actCardHtml(a){
+  let style = '', cls = '';
+  if (a.coll === 'events'){ const c = (KINDS[a.kind]||KINDS.otro).c; style = `--t-bd:${c};--t-bg:color-mix(in srgb,${c} 16%,var(--card));--t-tx:var(--ink)`; }
+  else cls = ` t-${esc(a.kind)}`;
+  const bits = [a.date ? dayLabel(a.date) : '', a.time, a.who].filter(Boolean).map(esc).join(' · ');
+  return `<button type="button" class="actcard${cls}" style="${style}" data-act="goto" data-coll="${esc(a.coll)}" data-id="${esc(a.id)}" data-date="${esc(a.date)}">
+    <span class="lbl">📅 ${esc(a.label || 'Actividad')}</span><b>${esc(a.title)}</b><small>${bits}</small><span class="go">Ver en la agenda ›</span></button>`;
+}
+function hm(ts){ const d = new Date(ts); const h = d.getHours(); return `${h%12||12}:${pad(d.getMinutes())} ${h<12?'AM':'PM'}`; }
+
+function msgHtml(m){
+  const mine = !!m.author && m.author === me();
+  const cls = `msg${mine?' mine':''}${m.local==='sending'?' sending':''}${m.local==='failed'?' failed':''}`;
+  if (m.deleted) return `<div class="${cls}"><div class="bubble gone">Mensaje borrado</div></div>`;
+  const media = [];
+  if (m.act) media.push(actCardHtml(m.act));
+  if (m.localImg) media.push(imgTag(m.localImg));
+  else if (m.img) media.push(`<button type="button" class="m-img" data-act="img-view"><img data-img="${esc(m.img)}" alt="Imagen" ${m.w&&m.h?`width="${m.w}" height="${m.h}"`:''}></button>`);
+  const first = m.text && (m.text.match(URL_RE) || [])[0];
+  const emb = first ? embedFor(first) : '';
+  if (emb) media.push(emb);
+  // Si el mensaje es solo un link con vista previa, no repetimos el link en texto.
+  const onlyLink = emb && m.text.trim() === first;
+  const text = m.text && !onlyLink ? `<div class="bubble">${linkify(m.text)}</div>` : '';
+  let meta = hm(m.at || Date.now());
+  if (!mine && m.author) meta = esc(nameOf(m.author)) + ' · ' + meta;
+  if (m.local === 'sending') meta += ' · Enviando…';
+  if (m.local === 'failed') meta += ` · No se envió <button type="button" data-act="msg-retry" data-id="${esc(m.id)}">Reintentar</button>`;
+  else if (mine && !m.local) meta += ` <button type="button" data-act="msg-del" data-id="${esc(m.id)}">Borrar</button>`;
+  return `<div class="${cls}">${text}${media.length ? `<div class="m-media">${media.join('')}</div>` : ''}<div class="m-meta">${meta}</div></div>`;
+}
+
+// Actualiza la lista sin rehacer los mensajes que no cambiaron.
+function chatUpdate(forceBottom){
+  const list = $('#chatList'); if (!list) return;
+  const note = $('#chatNote'); if (note) note.textContent = chatNoteText();
+  const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 120;
+  const items = [];
+  let lastDay = '';
+  for (const m of sortedMsgs()){
+    const day = dk(new Date(m.at || Date.now()));
+    if (day !== lastDay){ items.push({ key:'d-'+day, ver:dayLabel(day), html:`<div class="day-sep">${esc(dayLabel(day))}</div>` }); lastDay = day; }
+    items.push({ key:'m-'+m.id, ver:`${m.upd||0}|${m.local||''}|${m.deleted?1:0}|${me()}`, html:null, m });
+  }
+  if (!items.length){ list.innerHTML = `<div class="chat-empty">Aquí pueden mandarse memes, GIFs, videos de YouTube o TikTok y compartir actividades de la agenda con el botón 📅.</div>`; return; }
+  const empty = list.querySelector('.chat-empty'); if (empty) empty.remove();
+  const nodes = new Map([...list.children].map(n => [n.dataset.key, n]));
+  let cur = list.firstElementChild;
+  for (const it of items){
+    const ex = nodes.get(it.key);
+    if (ex && ex.dataset.ver === it.ver){
+      if (ex !== cur) list.insertBefore(ex, cur); else cur = cur.nextElementSibling;
+      continue;
+    }
+    const tmp = document.createElement('div'); tmp.innerHTML = it.html || msgHtml(it.m);
+    const n = tmp.firstElementChild; n.dataset.key = it.key; n.dataset.ver = it.ver;
+    if (ex){ if (ex === cur) cur = cur.nextElementSibling; ex.replaceWith(n); if (n.nextElementSibling !== cur) list.insertBefore(n, cur); }
+    else list.insertBefore(n, cur);
+  }
+  while (cur){ const nx = cur.nextElementSibling; cur.remove(); cur = nx; }
+  loadImgs(list);
+  if (forceBottom || nearBottom) list.scrollTop = list.scrollHeight;
+  list.querySelectorAll('img').forEach(i => { if (!i.complete) i.addEventListener('load', () => { if (forceBottom || nearBottom) list.scrollTop = list.scrollHeight; }, { once:true }); });
+}
+async function loadImgs(root){
+  for (const img of root.querySelectorAll('img[data-img]:not([src])')){
+    const id = img.dataset.img;
+    if (imgCache.has(id)){ img.src = imgCache.get(id); continue; }
+    if (!store.get(LS_PIN)){ img.src = `/api/chat?img=${encodeURIComponent(id)}`; continue; }
+    try {
+      const r = await apiTo(`/api/chat?img=${encodeURIComponent(id)}`, 'GET');
+      if (!r.ok) continue;
+      const url = URL.createObjectURL(await r.blob());
+      imgCache.set(id, url); img.src = url;
+    } catch(e){}
+  }
+}
+
+function setChatStatus(s){
+  if (chat.status === s) return;
+  chat.status = s;
+  const note = $('#chatNote'); if (note) note.textContent = chatNoteText();
+}
+async function chatPull(){
+  if (location.protocol === 'file:'){ setChatStatus('local'); return; }
+  if (chat.pulling) return;
+  chat.pulling = true;
+  try {
+    const r = await apiTo('/api/chat' + (chat.cursor ? `?since=${chat.cursor}` : ''), 'GET');
+    if (r.status === 401) setChatStatus('pin');
+    else if (r.status === 404 || r.status === 501) setChatStatus('local');
+    else if (!r.ok) setChatStatus('error');
+    else { const d = await r.json(); setChatStatus('ok'); chatMerge(d.messages || []); }
+  } catch(e){ setChatStatus('error'); }
+  chat.pulling = false;
+}
+function chatMerge(list){
+  let changed = false;
+  for (const m of list){
+    const old = chat.msgs.get(m.id);
+    if (!old || old.local || (m.upd||0) > (old.upd||0)){ chat.msgs.set(m.id, m); changed = true; }
+    if ((m.upd||0) > chat.cursor) chat.cursor = m.upd;
+  }
+  if (changed){ saveChat(); chatUpdate(); markRead(); updateBadge(); }
+}
+function unread(){
+  const last = Number(store.get(LS_READ) || 0), mine = me();
+  return [...chat.msgs.values()].filter(m => !m.deleted && !m.local && m.author !== mine && (m.at||0) > last).length;
+}
+function updateBadge(){
+  const n = unread(), b = $('#chatBadge');
+  b.textContent = ui.view === 'chat' || !n ? '' : n > 9 ? '9+' : String(n);
+  document.title = n && ui.view !== 'chat' ? `(${n}) Nuestra agenda` : 'Nuestra agenda';
+}
+function markRead(){
+  if (ui.view !== 'chat' || document.hidden) return;
+  const max = Math.max(0, ...[...chat.msgs.values()].map(m => m.at || 0));
+  if (max > Number(store.get(LS_READ) || 0)) store.set(LS_READ, String(max));
+  updateBadge();
+}
+
+async function chatPost(msg, image){
+  try {
+    const r = await apiTo('/api/chat', 'POST', { msg:{ id:msg.id, author:msg.author, text:msg.text, act:msg.act }, image, endpoint:notif.endpoint });
+    if (r.status === 413) throw new Error('grande');
+    if (!r.ok) throw new Error(String(r.status));
+    const d = await r.json(), m = d.message;
+    if (image && m.img) imgCache.set(m.img, image.data);
+    chat.outbox.delete(msg.id);
+    chat.msgs.set(m.id, m); saveChat(); chatUpdate(true);
+    return true;
+  } catch(e){
+    msg.local = 'failed'; chat.msgs.set(msg.id, { ...msg }); chatUpdate();
+    toast(e.message === 'grande' ? 'La imagen es muy pesada' : 'No se pudo enviar el mensaje');
+    return false;
+  }
+}
+function chatSend({ text = '', act = null, image = null }){
+  if (!me()){ whoAmIDialog(); return false; }
+  if (chat.status === 'local' || chat.status === 'pin'){ toast(chat.status === 'pin' ? 'Falta el PIN (Ajustes)' : 'El chat necesita la base de datos en la nube'); return false; }
+  const msg = { id:uid(), author:me(), text, act, at:Date.now(), local:'sending' };
+  if (image) msg.localImg = image.data;
+  chat.outbox.set(msg.id, { msg, image });
+  chat.msgs.set(msg.id, msg); chatUpdate(true);
+  chatPost(msg, image);
+  return true;
+}
+function chatRetry(id){
+  const o = chat.outbox.get(id); if (!o) return;
+  o.msg.local = 'sending'; chat.msgs.set(id, { ...o.msg }); chatUpdate();
+  chatPost(o.msg, o.image);
+}
+async function chatDelete(id){
+  try {
+    const r = await apiTo('/api/chat', 'POST', { del:id });
+    if (!r.ok) throw 0;
+    const d = await r.json(); chat.msgs.set(id, d.message); saveChat(); chatUpdate();
+  } catch(e){ toast('No se pudo borrar'); }
+}
+
+// Imágenes: se reducen antes de enviarlas; los GIF se mandan tal cual para que sigan animados.
+const readData = f => new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = ko; r.readAsDataURL(f); });
+const loadImg = src => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
+async function prepImage(file){
+  if (!/^image\//.test(file.type)) throw new Error('tipo');
+  const data = await readData(file);
+  const img = await loadImg(data);
+  if (file.type === 'image/gif'){
+    if (file.size > 2.8 * 1024 * 1024) throw new Error('gif');
+    return { data, w:img.naturalWidth, h:img.naturalHeight };
+  }
+  const max = 1280, s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+  const w = Math.round(img.naturalWidth * s), h = Math.round(img.naturalHeight * s);
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); ctx.drawImage(img, 0, 0, w, h);
+  return { data:c.toDataURL('image/jpeg', 0.82), w, h };
+}
+async function sendImageFile(file){
+  if (!me()){ whoAmIDialog(); return; }
+  try { chatSend({ text:($('#chatIn') && $('#chatIn').value.trim()) || '', image:await prepImage(file) }); if ($('#chatIn')){ $('#chatIn').value = ''; growInput(); } }
+  catch(e){ toast(e.message === 'gif' ? 'Ese GIF pesa más de 2.8 MB' : e.message === 'tipo' ? 'Solo se pueden enviar imágenes' : 'No se pudo leer la imagen'); }
+}
+$('#chatFile').addEventListener('change', e => { const f = e.target.files[0]; if (f) sendImageFile(f); e.target.value = ''; });
+function growInput(){ const t = $('#chatIn'); if (!t) return; t.style.height = '40px'; t.style.height = Math.min(140, t.scrollHeight + 3) + 'px'; }
+function submitChat(){
+  const t = $('#chatIn'); if (!t) return;
+  const text = t.value.trim(); if (!text) return;
+  if (!me()){ whoAmIDialog(); return; }
+  t.value = ''; growInput();
+  chatSend({ text });
+}
+document.addEventListener('submit', e => { if (e.target.id === 'composer'){ e.preventDefault(); submitChat(); } });
+document.addEventListener('keydown', e => {
+  if (e.target.id === 'chatIn' && e.key === 'Enter' && !e.shiftKey && !e.isComposing && matchMedia('(pointer:fine)').matches){ e.preventDefault(); submitChat(); }
+});
+document.addEventListener('input', e => { if (e.target.id === 'chatIn') growInput(); });
+document.addEventListener('paste', e => {
+  if (e.target.id !== 'chatIn') return;
+  const f = [...(e.clipboardData && e.clipboardData.files || [])].find(x => /^image\//.test(x.type));
+  if (f){ e.preventDefault(); sendImageFile(f); }
+});
+
+/* Compartir actividades */
+function actSnap(coll, item, date){
+  if (coll === 'events'){
+    const k = KINDS[item.kind] || KINDS.otro;
+    return { coll, id:item.id, date:item.date, title:item.title, time:'', who:'', kind:item.kind, label:k.l };
+  }
+  return { coll:'blocks', id:item.id, date, title:item.title, time:range(item.start, item.end), who:nameOf(item.who), kind:item.type, label:TYPES[item.type] || 'Actividad' };
+}
+function shareActivity(coll, item, date, text = ''){
+  if (chatSend({ text, act:actSnap(coll, item, date) }) && ui.view !== 'chat') toast('Enviado al chat');
+}
+function pickList(key){
+  if (!key) return '';
+  const d = parseDk(key);
+  const evs = eventsFor(key).map(e => { const k = KINDS[e.kind] || KINDS.otro;
+    return `<button type="button" class="pick" style="--t-bd:${k.c};--t-bg:color-mix(in srgb,${k.c} 16%,var(--card));--t-tx:var(--ink)" data-dlg="send-act" data-coll="events" data-id="${esc(e.id)}" data-date="${key}"><span>📌</span><span><b>${esc(e.title)}</b><small>${esc(k.l)}</small></span></button>`; });
+  const bl = blocksFor(d, true).map(b => `<button type="button" class="pick t-${esc(b.type)}" data-dlg="send-act" data-coll="blocks" data-id="${esc(b.id)}" data-date="${key}"><span><b>${esc(b.title)}</b><small>${esc(range(b.start, b.end))} · ${esc(nameOf(b.who))}</small></span></button>`);
+  const all = evs.concat(bl);
+  return all.length ? all.join('') : '<div class="empty">No hay actividades ese día.</div>';
+}
+function pickDialog(){
+  const key = todayKey();
+  openDialog('Compartir una actividad', `
+    <label class="f">Día<input type="date" id="pickDate" value="${key}"></label>
+    <label class="f">Mensaje (opcional)<input name="note" maxlength="300" placeholder="Ej. ¿Vamos a esta?"></label>
+    <div class="daylist" id="pickList" style="max-height:46vh;overflow:auto">${pickList(key)}</div>`, null);
+}
+
+setInterval(() => {
+  if (document.hidden) return;
+  chat.tick++;
+  if (ui.view === 'chat' || chat.tick % 5 === 0) chatPull();
+}, 4000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden){ chatPull(); markRead(); } });
+
+/* ---------- Avisos (notificaciones) ---------- */
+const notif = { reg:null, endpoint:'', push:false };
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+function prefs(){ try { return Object.assign({ on:false, acts:true, chat:true }, JSON.parse(store.get(LS_NOTIF))); } catch(e){ return { on:false, acts:true, chat:true }; } }
+function setPrefs(p){ store.set(LS_NOTIF, JSON.stringify({ ...prefs(), ...p })); }
+const canNotify = () => 'Notification' in window && Notification.permission === 'granted';
+
+function notifPanel(){
+  const p = prefs(), supported = 'Notification' in window && 'serviceWorker' in navigator;
+  let body;
+  if (!supported && isIOS && !standalone()){
+    body = `<p>En iPhone los avisos solo funcionan si la app está en la pantalla de inicio: toca <b>Compartir → Agregar a pantalla de inicio</b>, ábrela desde ahí y vuelve a esta sección.</p>`;
+  } else if (!supported){
+    body = `<p>Este navegador no permite avisos. Prueba con Chrome, Edge, Firefox o Safari actualizado.</p>`;
+  } else if (Notification.permission === 'denied'){
+    body = `<p>Los avisos están bloqueados para este sitio. Actívalos en los permisos del navegador (el candado junto a la dirección) y vuelve aquí.</p>`;
+  } else if (!p.on || !canNotify()){
+    body = `<p>Recibe un aviso ${LEAD_MIN} minutos antes de cada actividad y cuando te llegue un mensaje en el chat.</p>
+      <div class="row"><button class="btn primary" data-act="notif-on">🔔 Activar avisos en este teléfono</button></div>`;
+  } else {
+    const st = notif.push ? 'Activados: llegan aunque la app esté cerrada.' : 'Activados mientras la app esté abierta. Para recibirlos con la app cerrada hace falta la base de datos en la nube y el cron (ver LEEME.md).';
+    body = `<p>${st}</p>
+      <label class="check"><input type="checkbox" data-pref="acts" ${p.acts?'checked':''}> Avisarme ${LEAD_MIN} minutos antes de cada actividad</label>
+      <label class="check"><input type="checkbox" data-pref="chat" ${p.chat?'checked':''}> Avisarme de mensajes nuevos en el chat</label>
+      ${me() ? '' : '<p>Elige arriba quién usa este teléfono para recibir solo tus actividades y las de los dos.</p>'}
+      <div class="row"><button class="btn" data-act="notif-test">Probar aviso</button><button class="btn" data-act="notif-off">Desactivar</button></div>`;
+  }
+  return `<section class="panel"><h3>Avisos</h3>${body}</section>`;
+}
+
+async function swReg(){
+  if (notif.reg) return notif.reg;
+  if (!('serviceWorker' in navigator) || location.protocol === 'file:') return null;
+  try { notif.reg = await navigator.serviceWorker.register('/sw.js'); await navigator.serviceWorker.ready; } catch(e){ notif.reg = null; }
+  return notif.reg;
+}
+function b64u(s){
+  const p = '='.repeat((4 - s.length % 4) % 4), b = atob((s + p).replace(/-/g, '+').replace(/_/g, '/'));
+  return Uint8Array.from(b, c => c.charCodeAt(0));
+}
+async function refreshPush(){
+  const p = prefs();
+  if (!p.on || !canNotify()) return;
+  const reg = await swReg();
+  if (!reg || !('PushManager' in window)){ notif.push = false; return; }
+  try {
+    const r = await apiTo('/api/push', 'GET');
+    if (!r.ok) throw 0;
+    const { publicKey } = await r.json();
+    let sub = await reg.pushManager.getSubscription();
+    if (sub && sub.options && sub.options.applicationServerKey){
+      const cur = btoa(String.fromCharCode(...new Uint8Array(sub.options.applicationServerKey))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+      if (cur !== publicKey){ await sub.unsubscribe(); sub = null; }
+    }
+    if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:b64u(publicKey) });
+    notif.endpoint = sub.endpoint;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+    const s = await apiTo('/api/push', 'POST', { sub:sub.toJSON(), who:me(), tz, acts:p.acts, chat:p.chat });
+    notif.push = s.ok;
+  } catch(e){ notif.push = false; }
+  if (ui.view === 'ajustes') safeRender();
+}
+async function enableNotifs(){
+  if (!('Notification' in window)){ toast('Este navegador no permite avisos'); return; }
+  const perm = await Notification.requestPermission();
+  if (perm !== 'granted'){ toast('No se dio permiso para los avisos'); render(); return; }
+  setPrefs({ on:true });
+  await swReg();
+  render();
+  toast('Avisos activados');
+  await refreshPush();
+  localReminders();
+}
+async function disableNotifs(){
+  setPrefs({ on:false });
+  try {
+    const reg = await swReg(), sub = reg && await reg.pushManager.getSubscription();
+    if (sub){ await apiTo('/api/push', 'POST', { remove:sub.endpoint }); await sub.unsubscribe(); }
+  } catch(e){}
+  notif.push = false; notif.endpoint = '';
+  render(); toast('Avisos desactivados');
+}
+async function showLocal(title, body, tag, url){
+  try {
+    const reg = await swReg();
+    const opts = { body, tag, icon:'/icon-192.png', badge:'/icon-192.png', data:{ url } };
+    if (reg) await reg.showNotification(title, opts);
+    else { const n = new Notification(title, opts); n.onclick = () => { window.focus(); openUrl(url); n.close(); }; }
+  } catch(e){}
+}
+async function testNotif(){
+  if (notif.push && notif.endpoint){
+    try { const r = await apiTo('/api/push', 'POST', { test:notif.endpoint }); if (r.ok && (await r.json()).ok){ toast('Aviso de prueba enviado'); return; } } catch(e){}
+  }
+  showLocal('Nuestra agenda', '¡Listo! Así se verán los avisos.', 'test', '/');
+}
+
+// Mientras la app está abierta también revisa cada 30 s (por si el cron del servidor no está configurado).
+// Usa la misma etiqueta que el servidor, así el teléfono no muestra el aviso dos veces.
+function localReminders(){
+  const p = prefs();
+  if (!p.on || !p.acts || !canNotify()) return;
+  let sent = {};
+  try { sent = JSON.parse(store.get(LS_SENT)) || {}; } catch(e){}
+  const t = now();
+  for (const k in sent) if (t - sent[k] > 2 * 864e5) delete sent[k];
+  const d0 = new Date(), nowMin = d0.getHours() * 60 + d0.getMinutes(), mine = me();
+  [[d0, 0], [addDays(d0, 1), 1440]].forEach(([d, off]) => {
+    const key = dk(d);
+    for (const b of blocksFor(d, true)){
+      if (!b.start || isDone(b.id, key)) continue;
+      if (mine && (b.who === 'a' || b.who === 'b') && b.who !== mine) continue;
+      const [h, m] = b.start.split(':').map(Number);
+      const until = h * 60 + m + off - nowMin;
+      const tag = `act:${b.id}|${key}`;
+      if (until <= 0 || until > LEAD_MIN || sent[tag]) continue;
+      sent[tag] = t;
+      const who = b.who === 'ambos' || b.who === 'a' || b.who === 'b' ? ' · ' + nameOf(b.who) : '';
+      showLocal(`En ${until} min: ${b.title}`, range(b.start, b.end) + who, tag, `/?view=semana&date=${key}`);
+      if (!document.hidden) toast(`En ${until} min: ${b.title}`);
+    }
+  });
+  store.set(LS_SENT, JSON.stringify(sent));
+}
+setInterval(localReminders, 30000);
+if ('serviceWorker' in navigator) navigator.serviceWorker.addEventListener('message', e => { if (e.data && e.data.type === 'open') openUrl(e.data.url); });
+
 /* ---------- Inicio ---------- */
 saveLocal();
 render();
 push();
+chatPull().then(updateBadge);
+if (new URLSearchParams(location.search).has('view')){ openUrl(location.href); history.replaceState(null, '', location.pathname); }
+if (prefs().on && canNotify()){ swReg().then(refreshPush); localReminders(); }
 if (!me()) setTimeout(whoAmIDialog, 300);
 })();
 </script>
