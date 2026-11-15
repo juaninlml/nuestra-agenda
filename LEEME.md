@@ -36,11 +36,24 @@ Con eso la agenda ya funciona, pero cada teléfono guarda sus propios datos
 En la pestaña **Chat** pueden:
 
 - Escribir mensajes y pegar links. Los de **YouTube** (también Shorts), **TikTok**, **Instagram**, **Spotify** y **GIPHY** se ven dentro del chat.
-- Mandar **memes, fotos y GIFs** con el botón 🖼️ (o pegándolos con Ctrl+V en la compu). Las fotos se reducen solas; los GIF se mandan tal cual (máximo 2.8 MB).
+- Mandar **memes, fotos y GIFs** con el botón 📎 (o pegándolos con Ctrl+V en la compu). Las fotos se reducen solas; los GIF se mandan tal cual (máximo 2.8 MB).
+- Tocar **😊** para abrir el panel con pestañas, como en WhatsApp:
+  - **Emoji:** por categorías, con los que más usas en *Recientes*.
+  - **GIF:** buscador de GIFs, *Recientes* y *Nuestros GIFs* (toca ☆ en un GIF para guardarlo).
+  - **Stickers:** buscador de stickers, *Recientes* y *Nuestros stickers*. Con **+ Crear sticker** haces uno con cualquier foto (original, cuadrado o en círculo, con texto tipo meme). También puedes tocar una foto del chat → **✂️ Hacer sticker**.
+  - Los GIFs y stickers guardados son **de los dos**: lo que guarda uno le aparece al otro. **Editar** sirve para quitarlos.
+  - Al tocar un GIF o sticker que te mandaron puedes **☆ Guardarlo** o **Enviarlo otra vez**.
 - Compartir una **actividad de la agenda** con el botón 📅, o desde cualquier actividad con **💬 Enviar al chat**. Al tocar la tarjeta en el chat, se abre esa actividad en la agenda.
 - Borrar sus propios mensajes con **Borrar** debajo del mensaje.
 
 La pestaña muestra cuántos mensajes nuevos hay sin leer.
+
+**Para activar el buscador de GIFs y stickers (gratis):**
+1. Entra a [developers.giphy.com](https://developers.giphy.com/dashboard/), crea una cuenta y luego **Create an App → API** (elige la opción gratis).
+2. Copia la **API Key**.
+3. En Vercel → **Settings → Environment Variables** agrega `GIPHY_API_KEY` con esa llave y haz **Redeploy**.
+
+Sin la llave todo lo demás funciona (stickers propios, GIFs guardados, pegar links de GIPHY); solo no aparece el buscador.
 
 ## 4. Instalarla en el teléfono
 

@@ -15,6 +15,13 @@ function clean(m) {
     author: ['a', 'b'].includes(m.author) ? m.author : '',
     text: String(m.text || '').slice(0, MAX_TEXT),
   };
+  if (m.media && typeof m.media === 'object') {
+    // GIF o sticker: uno propio (guardado en /api/media) o de GIPHY
+    const md = m.media, kind = md.kind === 'sticker' ? 'sticker' : 'gif';
+    const w = Math.min(4000, Number(md.w) || 0), h = Math.min(4000, Number(md.h) || 0);
+    if (md.src === 'own' && ID_RE.test(md.id || '')) out.media = { kind, src: 'own', id: md.id, w, h };
+    else if (/^https:\/\/(media\d*|i)\.giphy\.com\/[^\s"'<>]{4,300}$/.test(md.url || '')) out.media = { kind, src: 'giphy', url: md.url, w, h };
+  }
   if (m.act && typeof m.act === 'object') {
     const a = m.act;
     out.act = {
@@ -55,6 +62,7 @@ async function notifyOthers(msg, endpoint) {
     let txt = msg.text;
     if (msg.act) txt = `📅 ${msg.act.title}${msg.act.time ? ' · ' + msg.act.time : ''}${txt ? ' — ' + txt : ''}`;
     if (msg.img) txt = '📷 ' + (txt || 'Te mandó una imagen');
+    if (msg.media) txt = msg.media.kind === 'sticker' ? '💟 Sticker' : '🎞️ GIF';
     await sendTo(subs, { title: from, body: (txt || '').slice(0, 140), tag: 'chat', kind: 'chat', url: '/?view=chat' });
   } catch (e) {}
 }
@@ -110,7 +118,7 @@ module.exports = async (req, res) => {
         msg.w = Number(b.image.w) || 0;
         msg.h = Number(b.image.h) || 0;
       }
-      if (!msg.text && !msg.img && !msg.act) return res.status(400).json({ error: 'empty' });
+      if (!msg.text && !msg.img && !msg.act && !msg.media) return res.status(400).json({ error: 'empty' });
       msg.at = t; msg.upd = t;
       await redis(['HSET', K.msgs, msg.id, JSON.stringify(msg)]);
       await redis(['ZADD', K.idx, String(t), msg.id]);

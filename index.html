@@ -191,9 +191,48 @@ iframe.yt{background:#000}
 .chat-note{font-size:13px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--line);background:var(--soft)}
 .chat-note:empty{display:none}
 .composer{display:flex;align-items:flex-end;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--card)}
-.composer .icon-btn{flex-shrink:0;font-size:18px}
-.composer textarea{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:20px;padding:9px 14px;background:var(--bg);resize:none;max-height:140px;min-height:40px;height:40px;line-height:1.35;font-size:15px;outline-color:var(--accent)}
-.composer .btn{flex-shrink:0}
+.inbox{flex:1;min-width:0;display:flex;align-items:flex-end;background:var(--bg);border:1.5px solid var(--line);border-radius:24px;padding:0 4px}
+.inbox:focus-within{border-color:var(--accent)}
+.ib{flex-shrink:0;width:38px;height:42px;border:0;background:transparent;font-size:19px;display:grid;place-items:center;border-radius:50%;padding:0}
+.ib[aria-expanded="true"]{color:var(--accent)}
+.inbox textarea{flex:1;min-width:0;border:0;background:transparent;resize:none;max-height:140px;min-height:42px;height:42px;padding:11px 4px;line-height:1.3;font-size:15.5px;outline:none}
+.send{flex-shrink:0;width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-size:18px;display:grid;place-items:center;padding:0 0 0 3px;box-shadow:var(--shadow)}
+/* Panel de emojis, GIFs y stickers */
+.picker{border-top:1px solid var(--line);background:var(--card);height:min(310px,42vh);display:flex;flex-direction:column}
+.picker[hidden]{display:none}
+.pk-tabs{display:flex;border-bottom:1px solid var(--line)}
+.pk-tabs button{flex:1;border:0;background:transparent;padding:9px 4px;font-weight:600;font-size:14px;color:var(--muted);border-bottom:2.5px solid transparent}
+.pk-tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.pk-body{flex:1;overflow-y:auto;padding:8px 10px 12px;overscroll-behavior:contain}
+.pk-search{width:100%;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--bg);font-size:15px;margin-bottom:8px;outline-color:var(--accent)}
+.pk-h{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:8px 2px 6px}
+.pk-h button{border:0;background:none;color:var(--accent);font-weight:600;font-size:12.5px;text-transform:none;letter-spacing:0;padding:2px 4px}
+.emo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:2px}
+.emo-grid button{border:0;background:transparent;font-size:26px;height:44px;border-radius:10px;padding:0;line-height:1}
+.emo-grid button:hover{background:var(--soft)}
+.emo-cats{display:flex;gap:2px;overflow-x:auto;margin:-2px 0 4px;position:sticky;top:-8px;background:var(--card);padding:4px 0;z-index:1}
+.emo-cats button{flex:0 0 auto;border:0;background:transparent;font-size:20px;width:38px;height:34px;border-radius:8px;padding:0}
+.emo-cats button:hover{background:var(--soft)}
+.pk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px}
+.pk-grid.stk{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}
+.pk-item{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--soft)}
+.pk-grid.stk .pk-item{background:transparent}
+.pk-pick{display:block;width:100%;height:100%;border:0;padding:0;background:transparent}
+.pk-pick img{width:100%;height:100%;object-fit:cover;display:block}
+.pk-grid.stk .pk-pick img{object-fit:contain;padding:4px}
+.pk-star,.pk-del{position:absolute;top:3px;right:3px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:14px;display:grid;place-items:center;padding:0}
+.pk-del{background:#e0503f}
+.pk-new{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;border:2px dashed var(--line);border-radius:10px;background:transparent;color:var(--muted);font-size:12px;font-weight:600}
+.pk-new b{font-size:26px;line-height:1;color:var(--accent)}
+.pk-note{color:var(--muted);font-size:13px;padding:6px 2px}
+.pk-more{display:block;margin:10px auto 0}
+.giphy{font-size:11px;color:var(--muted);text-align:right;margin-top:8px}
+/* GIFs y stickers en el chat */
+.stk-msg{border:0;background:transparent;padding:0;width:150px;height:150px;display:block}
+.stk-msg img{width:100%;height:100%;object-fit:contain;display:block}
+.gif-msg{position:relative}
+.gif-msg::after{content:'GIF';position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:6px}
+.stk-preview{width:220px;height:220px;margin:0 auto;display:block;border-radius:14px;background:repeating-conic-gradient(var(--soft) 0 25%,var(--card) 0 50%) 50%/20px 20px}
 .pick{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border-radius:10px;padding:8px 10px;background:var(--t-bg);color:var(--t-tx);border:1px solid color-mix(in srgb,var(--t-bd) 50%,transparent)}
 .pick small{display:block;font-size:12px;opacity:.85}
 .imgview{max-width:100%;max-height:75vh;display:block;margin:0 auto;border-radius:12px}
@@ -229,7 +268,8 @@ iframe.yt{background:#000}
   .chat{border-radius:12px}
   .chat-list{padding:10px 8px}
   .msg{max-width:88%}
-  .composer .btn{padding:8px 12px}
+  .composer{padding:6px}
+  .ib{width:34px}
 }
 </style>
 </head>
@@ -259,6 +299,7 @@ iframe.yt{background:#000}
 <dialog id="dlg"><form class="dlg" id="dlgForm" method="dialog"></form></dialog>
 <input type="file" id="importFile" accept="application/json" class="hidden">
 <input type="file" id="chatFile" accept="image/*" class="hidden">
+<input type="file" id="stkFile" accept="image/*" class="hidden">
 
 <script>
 (() => {
@@ -596,9 +637,9 @@ function viewSettings(){
 
 /* ---------- Diálogos ---------- */
 const dlg = $('#dlg'), form = $('#dlgForm');
-let onSave = null, onDelete = null, onShare = null;
+let onSave = null, onDelete = null, onShare = null, dlgExtra = {};
 function openDialog(title, body, save, del, share){
-  onSave = save; onDelete = del || null; onShare = share || null;
+  onSave = save; onDelete = del || null; onShare = share || null; dlgExtra = {};
   if (share) body += `<button type="button" class="btn" data-dlg="share" style="align-self:flex-start">💬 Enviar al chat</button>`;
   form.innerHTML = `<h3>${esc(title)}</h3>${body}
     <div class="actions">${del ? '<button type="button" class="btn danger" data-dlg="del">Borrar</button>' : ''}
@@ -618,6 +659,7 @@ form.addEventListener('click', e => {
   if (b.dataset.dlg === 'del' && onDelete && confirmDel(b)){ onDelete(); closeDialog(); }
   if (b.dataset.dlg === 'add-ev'){ const k = b.dataset.date; closeDialog(); eventDialog(null, k); }
   if (b.dataset.dlg === 'ev'){ const id = b.dataset.id; closeDialog(); eventDialog(live('events').find(x => x.id === id)); }
+  if (b.dataset.dlg.startsWith('x:') && dlgExtra[b.dataset.dlg.slice(2)]) dlgExtra[b.dataset.dlg.slice(2)]();
   if (b.dataset.dlg === 'share' && onShare){ const f = onShare; closeDialog(); f(); }
   if (b.dataset.dlg === 'send-act'){
     const item = live(b.dataset.coll).find(x => x.id === b.dataset.id);
@@ -751,8 +793,34 @@ document.addEventListener('click', e => {
     }
     case 'img-view': {
       const src = el.querySelector('img') && el.querySelector('img').src; if (!src) break;
-      openDialog('', `<img class="imgview" src="${esc(src)}" alt="">`, null); break;
+      openDialog('', `<img class="imgview" src="${esc(src)}" alt="">
+        <div class="row" style="justify-content:center"><button type="button" class="btn" data-dlg="x:stk">✂️ Hacer sticker</button></div>`, null);
+      dlgExtra = { stk:() => { closeDialog(); stickerDialog(src); } };
+      break;
     }
+    case 'media-view': { const m = chat.msgs.get(id); if (m) mediaView(m); break; }
+    case 'picker': togglePicker(); break;
+    case 'pk-tab': {
+      pk.tab = el.dataset.t; pk.edit = false; renderPicker();
+      if (pk.tab !== 'emoji' && pk.gifSearch && !pk.res[pk.tab]) search(pk.tab);
+      break;
+    }
+    case 'emo': insertEmoji(el.dataset.e); break;
+    case 'emo-cat': { const h = $('#emo-' + el.dataset.i); if (h) $('#pkBody').scrollTop = h.offsetTop - 44; break; }
+    case 'pk-send': {
+      const it = (pk.lists[el.dataset.l] || [])[Number(el.dataset.i)];
+      if (it) sendMedia(el.dataset.k, it);
+      break;
+    }
+    case 'pk-save': {
+      const it = (pk.lists[el.dataset.l] || [])[Number(el.dataset.i)];
+      if (it){ el.textContent = '★'; saveMedia(pk.tab === 'gif' ? 'gif' : 'sticker', it); }
+      break;
+    }
+    case 'pk-del': removeMedia(id); break;
+    case 'pk-edit': pk.edit = !pk.edit; renderPicker(); break;
+    case 'pk-new': stickerDialog(); break;
+    case 'pk-more': search(pk.tab, true); break;
     case 'goto': gotoActivity(el.dataset.coll, id, date); break;
     case 'msg-del': {
       if (!el.dataset.sure){ el.dataset.sure = '1'; el.textContent = '¿Borrar? Toca otra vez'; setTimeout(() => { if (el.isConnected){ delete el.dataset.sure; el.textContent = 'Borrar'; } }, 3000); break; }
@@ -893,11 +961,22 @@ function viewChat(){
     <div class="chat-list" id="chatList"></div>
     <div class="chat-note" id="chatNote">${chatNoteText()}</div>
     <form class="composer" id="composer" autocomplete="off">
-      <button type="button" class="icon-btn" data-act="chat-img" aria-label="Enviar imagen, meme o GIF" title="Imagen, meme o GIF">🖼️</button>
-      <button type="button" class="icon-btn" data-act="chat-act" aria-label="Compartir una actividad de la agenda" title="Compartir actividad">📅</button>
-      <textarea id="chatIn" rows="1" maxlength="2000" placeholder="Mensaje o link…" aria-label="Mensaje"></textarea>
-      <button type="submit" class="btn primary">Enviar</button>
+      <div class="inbox">
+        <button type="button" class="ib" id="pkToggle" data-act="picker" aria-label="Emojis, GIFs y stickers" aria-expanded="false" title="Emojis, GIFs y stickers">😊</button>
+        <textarea id="chatIn" rows="1" maxlength="2000" placeholder="Mensaje" aria-label="Mensaje"></textarea>
+        <button type="button" class="ib" data-act="chat-img" aria-label="Enviar foto o meme" title="Foto o meme">📎</button>
+        <button type="button" class="ib" data-act="chat-act" aria-label="Compartir una actividad de la agenda" title="Compartir actividad">📅</button>
+      </div>
+      <button type="submit" class="send" aria-label="Enviar">➤</button>
     </form>
+    <div class="picker" id="picker" hidden>
+      <div class="pk-tabs" role="tablist">
+        <button type="button" role="tab" data-act="pk-tab" data-t="emoji">😊 Emoji</button>
+        <button type="button" role="tab" data-act="pk-tab" data-t="gif">GIF</button>
+        <button type="button" role="tab" data-act="pk-tab" data-t="stk">💟 Stickers</button>
+      </div>
+      <div class="pk-body" id="pkBody"></div>
+    </div>
   </div>`;
 }
 function chatNoteText(){
@@ -988,6 +1067,11 @@ function msgHtml(m){
   const cls = `msg${mine?' mine':''}${m.local==='sending'?' sending':''}${m.local==='failed'?' failed':''}`;
   if (m.deleted) return `<div class="${cls}"><div class="bubble gone">Mensaje borrado</div></div>`;
   const media = [];
+  if (m.media){
+    const md = m.media, src = mediaSrc(md);
+    if (md.kind === 'sticker') media.push(`<button type="button" class="stk-msg" data-act="media-view" data-id="${esc(m.id)}"><img ${src} alt="Sticker"></button>`);
+    else media.push(`<button type="button" class="m-img gif-msg" data-act="media-view" data-id="${esc(m.id)}"><img ${src} alt="GIF" ${md.w&&md.h?`width="${md.w}" height="${md.h}"`:''}></button>`);
+  }
   if (m.act) media.push(actCardHtml(m.act));
   if (m.localImg) media.push(imgTag(m.localImg));
   else if (m.img) media.push(`<button type="button" class="m-img" data-act="img-view"><img data-img="${esc(m.img)}" alt="Imagen" ${m.w&&m.h?`width="${m.w}" height="${m.h}"`:''}></button>`);
@@ -1037,18 +1121,25 @@ function chatUpdate(forceBottom){
   if (forceBottom || nearBottom) list.scrollTop = list.scrollHeight;
   list.querySelectorAll('img').forEach(i => { if (!i.complete) i.addEventListener('load', () => { if (forceBottom || nearBottom) list.scrollTop = list.scrollHeight; }, { once:true }); });
 }
+// Imágenes guardadas en el servidor: si hay PIN se piden con él y se muestran desde memoria.
 async function loadImgs(root){
-  for (const img of root.querySelectorAll('img[data-img]:not([src])')){
-    const id = img.dataset.img;
-    if (imgCache.has(id)){ img.src = imgCache.get(id); continue; }
-    if (!store.get(LS_PIN)){ img.src = `/api/chat?img=${encodeURIComponent(id)}`; continue; }
+  for (const img of root.querySelectorAll('img[data-img]:not([src]), img[data-api]:not([src])')){
+    const key = img.dataset.img || img.dataset.api;
+    const path = img.dataset.api || `/api/chat?img=${encodeURIComponent(key)}`;
+    if (imgCache.has(key)){ img.src = imgCache.get(key); continue; }
+    if (!store.get(LS_PIN)){ img.src = path; continue; }
     try {
-      const r = await apiTo(`/api/chat?img=${encodeURIComponent(id)}`, 'GET');
+      const r = await apiTo(path, 'GET');
       if (!r.ok) continue;
       const url = URL.createObjectURL(await r.blob());
-      imgCache.set(id, url); img.src = url;
+      imgCache.set(key, url); img.src = url;
     } catch(e){}
   }
+}
+// Atributo src para un GIF/sticker (de GIPHY o propio).
+function mediaSrc(md, preview){
+  if (md.src === 'own') return `data-api="/api/media?img=${encodeURIComponent(md.id)}"`;
+  return `src="${esc(preview && md.preview || md.url)}" loading="lazy" referrerpolicy="no-referrer"`;
 }
 
 function setChatStatus(s){
@@ -1101,7 +1192,7 @@ function markRead(){
 
 async function chatPost(msg, image){
   try {
-    const r = await apiTo('/api/chat', 'POST', { msg:{ id:msg.id, author:msg.author, text:msg.text, act:msg.act }, image, endpoint:notif.endpoint });
+    const r = await apiTo('/api/chat', 'POST', { msg:{ id:msg.id, author:msg.author, text:msg.text, act:msg.act, media:msg.media }, image, endpoint:notif.endpoint });
     if (r.status === 413) throw new Error('grande');
     if (!r.ok) throw new Error(String(r.status));
     const d = await r.json(), m = d.message;
@@ -1115,10 +1206,11 @@ async function chatPost(msg, image){
     return false;
   }
 }
-function chatSend({ text = '', act = null, image = null }){
+function chatSend({ text = '', act = null, image = null, media = null }){
   if (!me()){ whoAmIDialog(); return false; }
   if (chat.status === 'local' || chat.status === 'pin'){ toast(chat.status === 'pin' ? 'Falta el PIN (Ajustes)' : 'El chat necesita la base de datos en la nube'); return false; }
   const msg = { id:uid(), author:me(), text, act, at:Date.now(), local:'sending' };
+  if (media) msg.media = media;
   if (image) msg.localImg = image.data;
   chat.outbox.set(msg.id, { msg, image });
   chat.msgs.set(msg.id, msg); chatUpdate(true);
@@ -1161,7 +1253,7 @@ async function sendImageFile(file){
   catch(e){ toast(e.message === 'gif' ? 'Ese GIF pesa más de 2.8 MB' : e.message === 'tipo' ? 'Solo se pueden enviar imágenes' : 'No se pudo leer la imagen'); }
 }
 $('#chatFile').addEventListener('change', e => { const f = e.target.files[0]; if (f) sendImageFile(f); e.target.value = ''; });
-function growInput(){ const t = $('#chatIn'); if (!t) return; t.style.height = '40px'; t.style.height = Math.min(140, t.scrollHeight + 3) + 'px'; }
+function growInput(){ const t = $('#chatIn'); if (!t) return; t.style.height = '42px'; t.style.height = Math.min(140, t.scrollHeight) + 'px'; }
 function submitChat(){
   const t = $('#chatIn'); if (!t) return;
   const text = t.value.trim(); if (!text) return;
@@ -1174,11 +1266,250 @@ document.addEventListener('keydown', e => {
   if (e.target.id === 'chatIn' && e.key === 'Enter' && !e.shiftKey && !e.isComposing && matchMedia('(pointer:fine)').matches){ e.preventDefault(); submitChat(); }
 });
 document.addEventListener('input', e => { if (e.target.id === 'chatIn') growInput(); });
+// En el teléfono, al tocar el cuadro de texto se cierra el panel (como WhatsApp).
+document.addEventListener('focusin', e => { if (e.target.id === 'chatIn' && !matchMedia('(pointer:fine)').matches && $('#picker') && !$('#picker').hidden) togglePicker(false); });
 document.addEventListener('paste', e => {
   if (e.target.id !== 'chatIn') return;
   const f = [...(e.clipboardData && e.clipboardData.files || [])].find(x => /^image\//.test(x.type));
   if (f){ e.preventDefault(); sendImageFile(f); }
 });
+
+/* ---------- Panel de emojis, GIFs y stickers (como WhatsApp) ---------- */
+const LS_MEDIA = 'agenda-pareja-media', LS_RECENT = 'agenda-pareja-recientes';
+const EMOJI = [
+  ['🕘', 'Recientes', ''],
+  ['😀', 'Caras', '😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 😉 😊 😇 🥰 😍 🤩 😘 😗 😚 😙 🥲 😋 😛 😜 🤪 😝 🤗 🤭 🤫 🤔 🤐 🤨 😐 😑 😶 😏 😒 🙄 😬 😮‍💨 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🥵 🥶 🥴 😵 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 😟 🙁 😮 😯 😲 😳 🥺 🥹 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💀 💩 🤡 👻 👽 🤖 😺 😸 😹 😻 😼 😽 🙀 😿 😾'],
+  ['👍', 'Gestos', '👋 🤚 🖐️ ✋ 🖖 👌 🤌 🤏 ✌️ 🤞 🫰 🤟 🤘 🤙 👈 👉 👆 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 🫶 👐 🤲 🤝 🙏 💪 🫂 👀 👅 👄 💋 🧠 🙈 🙉 🙊 💃 🕺 🙆 🙅 🤷 🤦 🙋 🧏'],
+  ['❤️', 'Amor', '❤️ 🧡 💛 💚 💙 💜 🤎 🖤 🤍 💔 ❤️‍🔥 ❤️‍🩹 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟 💌 💐 🌹 🥀 🌷 🌸 💍 💑 💏 👩‍❤️‍👨 👨‍❤️‍👨 👩‍❤️‍👩 🥂 🍾 🎁 🧸 🔥 ✨ 💫 ⭐ 🌟 🌈 ☀️ 🌙'],
+  ['🐱', 'Animales', '🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐵 🐔 🐧 🐦 🐤 🦆 🦉 🐺 🐴 🦄 🐝 🦋 🐌 🐞 🐢 🐍 🦖 🐙 🦑 🦀 🐠 🐬 🐳 🦈 🐊 🐘 🦒 🐈 🐈‍⬛ 🐕 🐩 🐾 🌵 🌴 🌲 🍀 🌻 🌼'],
+  ['🍕', 'Comida', '🍏 🍎 🍐 🍊 🍋 🍌 🍉 🍇 🍓 🫐 🍒 🍑 🥭 🍍 🥥 🥑 🍆 🌽 🌶️ 🥕 🥔 🥐 🍞 🧀 🥚 🍳 🥓 🥩 🍗 🌭 🍔 🍟 🍕 🌮 🌯 🥗 🍝 🍜 🍲 🍣 🍱 🥟 🍤 🍦 🍩 🍪 🎂 🍰 🧁 🍫 🍬 🍭 🍿 ☕ 🍵 🧋 🍺 🍻 🍷 🍸 🍹 🥤'],
+  ['⚽', 'Actividades', '⚽ 🏀 🏈 ⚾ 🎾 🏐 🎱 🏓 🏸 🥊 🏋️ 🤸 🧘 🚴 🏊 🏃 🎮 🕹️ 🎲 🧩 ♟️ 🎯 🎳 🎤 🎧 🎬 🎨 🎭 🎸 🎹 🥁 🎻 📚 📖 ✏️ 🎟️ 🎉 🎊 🎈 🏖️ ⛱️ 🏕️ 🎡 🎢 ✈️ 🚗 🚲 🏠 🛋️ 🛏️ 🛁'],
+  ['💡', 'Objetos', '📱 💻 ⌚ 📷 📺 💡 🕯️ 💸 💳 🛒 🧹 🧺 🧼 🧽 🗑️ 🔑 🎀 🪴 ⏰ 📅 📌 📍 ✂️ 📝 ✅ ❌ ❓ ❗ 💯 🆗 🆒 🔔 💤 💬 💭 🗯️ ♻️ ⚠️ 🚫 ➕ ✔️'],
+];
+const pk = { tab:'emoji', saved:null, gifSearch:false, edit:false, lists:{}, q:{ gif:'', stk:'' }, res:{ gif:null, stk:null }, next:{}, timer:null, loading:false };
+try { const c = JSON.parse(store.get(LS_MEDIA)); if (c){ pk.saved = c.saved; pk.gifSearch = !!c.gifSearch; } } catch(e){}
+function recents(kind){ try { return (JSON.parse(store.get(LS_RECENT)) || {})[kind] || []; } catch(e){ return []; } }
+function addRecent(kind, item, max){
+  let all = {}; try { all = JSON.parse(store.get(LS_RECENT)) || {}; } catch(e){}
+  const k = x => typeof x === 'string' ? x : (x.src === 'own' ? 'own:' + x.id : x.url);
+  all[kind] = [item].concat((all[kind] || []).filter(x => k(x) !== k(item))).slice(0, max);
+  store.set(LS_RECENT, JSON.stringify(all));
+}
+
+function togglePicker(open){
+  const p = $('#picker'); if (!p) return;
+  const show = open === undefined ? p.hidden : open;
+  p.hidden = !show;
+  const tg = $('#pkToggle'); tg.setAttribute('aria-expanded', String(show)); tg.textContent = show ? '⌨️' : '😊';
+  if (show){
+    if (!matchMedia('(pointer:fine)').matches && document.activeElement === $('#chatIn')) $('#chatIn').blur(); // esconde el teclado
+    renderPicker(); loadSaved();
+  } else if (matchMedia('(pointer:fine)').matches) $('#chatIn').focus();
+  const l = $('#chatList'); if (l) l.scrollTop = l.scrollHeight;
+}
+async function loadSaved(){
+  try {
+    const r = await apiTo('/api/media', 'GET'); if (!r.ok) return;
+    const d = await r.json();
+    pk.saved = d.saved || []; pk.gifSearch = !!d.gifSearch;
+    store.set(LS_MEDIA, JSON.stringify({ saved:pk.saved, gifSearch:pk.gifSearch }));
+    const a = document.activeElement;
+    if (!$('#picker').hidden && !(a && a.classList.contains('pk-search'))) renderPicker();
+    if (pk.gifSearch && pk.tab === 'gif' && !pk.res.gif) search('gif');
+  } catch(e){}
+}
+const saved = type => (pk.saved || []).filter(x => x.type === type);
+
+function gridHtml(name, items, kind, opts = {}){
+  pk.lists[name] = items;
+  const tiles = items.map((it, i) => {
+    const star = opts.star ? `<button type="button" class="pk-star" data-act="pk-save" data-l="${name}" data-i="${i}" aria-label="Guardar" title="Guardar">☆</button>` : '';
+    const del = opts.del && pk.edit ? `<button type="button" class="pk-del" data-act="pk-del" data-id="${esc(it.id)}" aria-label="Quitar">✕</button>` : '';
+    return `<div class="pk-item"><button type="button" class="pk-pick" data-act="pk-send" data-k="${kind}" data-l="${name}" data-i="${i}" aria-label="Enviar ${kind === 'sticker' ? 'sticker' : 'GIF'}"><img ${mediaSrc(it, true)} alt=""></button>${star}${del}</div>`;
+  }).join('');
+  const lead = opts.create ? `<div class="pk-item"><button type="button" class="pk-new" data-act="pk-new"><b>+</b>Crear sticker</button></div>` : '';
+  return `<div class="pk-grid${kind === 'sticker' ? ' stk' : ''}">${lead}${tiles}</div>`;
+}
+function renderPicker(){
+  const body = $('#pkBody'); if (!body) return;
+  document.querySelectorAll('.pk-tabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.t === pk.tab)));
+  let h = '';
+  if (pk.tab === 'emoji'){
+    const rec = recents('emoji');
+    h = `<div class="emo-cats">${EMOJI.map(([ic, name], i) => (i || rec.length) ? `<button type="button" data-act="emo-cat" data-i="${i}" title="${name}" aria-label="${name}">${ic}</button>` : '').join('')}</div>`;
+    h += EMOJI.map(([, name, list], i) => {
+      const arr = i === 0 ? rec : list.split(' ');
+      if (!arr.length) return '';
+      return `<div class="pk-h" id="emo-${i}">${name}</div><div class="emo-grid">${arr.map(e => `<button type="button" data-act="emo" data-e="${e}">${e}</button>`).join('')}</div>`;
+    }).join('');
+  } else {
+    const isGif = pk.tab === 'gif', kind = isGif ? 'gif' : 'sticker', q = pk.q[pk.tab];
+    h = `<input class="pk-search" type="search" data-pk="${pk.tab}" value="${esc(q)}" placeholder="${isGif ? 'Buscar GIFs' : 'Buscar stickers'}" ${pk.gifSearch ? '' : 'disabled'} aria-label="Buscar">`;
+    if (!q){
+      const rec = recents(kind), mine = saved(kind);
+      if (rec.length) h += `<div class="pk-h">Recientes</div>${gridHtml('rec', rec.slice(0, isGif ? 6 : 8), kind)}`;
+      h += `<div class="pk-h">${isGif ? 'Nuestros GIFs' : 'Nuestros stickers'}${mine.length ? `<button type="button" data-act="pk-edit">${pk.edit ? 'Listo' : 'Editar'}</button>` : ''}</div>`;
+      if (mine.length || !isGif) h += gridHtml('saved', mine, kind, { del:true, create:!isGif });
+      else h += `<div class="pk-note">Toca ☆ en un GIF para guardarlo aquí.</div>`;
+      if (!isGif && !mine.length) h += `<div class="pk-note">Crea stickers con sus fotos o toca un sticker del chat para guardarlo.</div>`;
+    }
+    if (pk.gifSearch){
+      const res = pk.res[pk.tab];
+      h += `<div class="pk-h">${q ? 'Resultados' : 'Tendencias'}</div>`;
+      if (!res) h += `<div class="pk-note">Cargando…</div>`;
+      else if (!res.length) h += `<div class="pk-note">No se encontró nada.</div>`;
+      else h += gridHtml('res', res, kind, { star:true }) + (pk.next[pk.tab] ? `<button type="button" class="btn pk-more" data-act="pk-more">Ver más</button>` : '');
+      h += `<div class="giphy">Powered by GIPHY</div>`;
+    } else {
+      h += `<div class="pk-note">Para buscar ${isGif ? 'GIFs' : 'stickers'} de internet falta agregar la llave de GIPHY en Vercel (ver LEEME.md). Mientras tanto pueden pegar links de GIPHY en el chat.</div>`;
+    }
+  }
+  body.innerHTML = h;
+  loadImgs(body);
+}
+async function search(tab, more){
+  if (!pk.gifSearch) return;
+  const q = pk.q[tab], type = tab === 'gif' ? 'gifs' : 'stickers';
+  const offset = more ? (pk.next[tab] || 0) : 0;
+  if (!more){ pk.res[tab] = null; if (pk.tab === tab) renderPickerKeepSearch(); }
+  try {
+    const r = await apiTo(`/api/media?type=${type}&q=${encodeURIComponent(q)}&offset=${offset}`, 'GET');
+    const d = await r.json();
+    if (pk.q[tab] !== q) return; // ya cambió la búsqueda
+    pk.res[tab] = (more ? (pk.res[tab] || []) : []).concat((d.items || []).map(x => ({ ...x, src:'giphy' })));
+    pk.next[tab] = d.next || 0;
+  } catch(e){ pk.res[tab] = []; }
+  if (pk.tab === tab) renderPickerKeepSearch();
+}
+// Re-dibuja el panel sin quitarle el foco al buscador.
+function renderPickerKeepSearch(){
+  const a = document.activeElement, had = a && a.classList.contains('pk-search'), pos = had ? a.selectionStart : 0;
+  const top = $('#pkBody') ? $('#pkBody').scrollTop : 0;
+  renderPicker();
+  if ($('#pkBody')) $('#pkBody').scrollTop = top;
+  if (had){ const s = $('.pk-search'); if (s){ s.focus(); try { s.setSelectionRange(pos, pos); } catch(e){} } }
+}
+document.addEventListener('input', e => {
+  const t = e.target.dataset && e.target.dataset.pk; if (!t) return;
+  pk.q[t] = e.target.value.trim();
+  clearTimeout(pk.timer); pk.timer = setTimeout(() => search(t), 450);
+});
+
+function insertEmoji(em){
+  const t = $('#chatIn'); if (!t) return;
+  const s = t.selectionStart ?? t.value.length, en = t.selectionEnd ?? t.value.length;
+  t.value = t.value.slice(0, s) + em + t.value.slice(en);
+  const p = s + em.length; try { t.setSelectionRange(p, p); } catch(e){}
+  growInput(); addRecent('emoji', em, 24);
+}
+function sendMedia(kind, it){
+  const media = it.src === 'own'
+    ? { kind, src:'own', id:it.id, w:it.w, h:it.h }
+    : { kind, src:'giphy', url:it.url, w:it.w, h:it.h };
+  if (chatSend({ media })){ addRecent(kind, { ...media, preview:it.preview }, 16); if (!pk.q[pk.tab]) renderPickerKeepSearch(); }
+}
+async function saveMedia(type, it){
+  try {
+    const r = await apiTo('/api/media', 'POST', { save:{ type, url:it.url, preview:it.preview, w:it.w, h:it.h }, by:me() });
+    if (!r.ok) throw 0;
+    toast(type === 'gif' ? 'GIF guardado ⭐' : 'Sticker guardado ⭐');
+    await loadSaved();
+  } catch(e){ toast('No se pudo guardar'); }
+}
+async function removeMedia(id){
+  try { await apiTo('/api/media', 'POST', { remove:id }); pk.saved = (pk.saved || []).filter(x => x.id !== id); renderPicker(); loadSaved(); }
+  catch(e){ toast('No se pudo quitar'); }
+}
+
+/* Crear stickers con fotos propias (recorte cuadrado o circular y texto tipo meme) */
+const stk = { img:null, raw:null, gif:false };
+function stickerDialog(src){
+  stk.img = null; stk.raw = null; stk.gif = false;
+  openDialog('Crear sticker', `
+    <canvas id="stkCanvas" class="stk-preview" width="512" height="512"></canvas>
+    <button type="button" class="btn" data-dlg="x:pick" style="align-self:center">🖼️ Elegir foto</button>
+    <div class="choice" style="justify-content:center">
+      <label><input type="radio" name="shape" value="orig" checked> Original</label>
+      <label><input type="radio" name="shape" value="square"> Cuadrado</label>
+      <label><input type="radio" name="shape" value="circle"> Círculo</label>
+    </div>
+    <label class="f">Texto (opcional)<input name="txt" id="stkTxt" maxlength="40" placeholder="Ej. ¡Te amo!"></label>`,
+    () => { if (!stk.img){ toast('Primero elige una foto'); return false; } createSticker(); });
+  dlgExtra = { pick:() => $('#stkFile').click() };
+  if (src) loadImg(src).then(i => { stk.img = i; drawSticker(); }).catch(() => toast('No se pudo abrir la imagen'));
+  else $('#stkFile').click(); // dentro del mismo toque, para que el teléfono deje abrir la galería
+}
+function drawSticker(){
+  const c = $('#stkCanvas'); if (!c || !stk.img) return;
+  const ctx = c.getContext('2d'), S = 512, img = stk.img;
+  const shape = (form.querySelector('[name=shape]:checked') || {}).value || 'orig';
+  const txt = ($('#stkTxt') || {}).value || '';
+  ctx.clearRect(0, 0, S, S); ctx.save();
+  const iw = img.naturalWidth, ih = img.naturalHeight;
+  if (shape === 'orig'){
+    const s = Math.min(S / iw, S / ih), w = iw * s, h = ih * s;
+    ctx.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
+  } else {
+    if (shape === 'circle'){ ctx.beginPath(); ctx.arc(S / 2, S / 2, S / 2 - 6, 0, Math.PI * 2); ctx.clip(); }
+    else { ctx.beginPath(); ctx.roundRect ? ctx.roundRect(6, 6, S - 12, S - 12, 48) : ctx.rect(6, 6, S - 12, S - 12); ctx.clip(); }
+    const s = Math.max(S / iw, S / ih), w = iw * s, h = ih * s;
+    ctx.drawImage(img, (S - w) / 2, (S - h) / 2, w, h);
+  }
+  ctx.restore();
+  if (txt.trim()){
+    let size = 78; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.lineJoin = 'round';
+    do { ctx.font = `900 ${size}px Impact, 'Arial Black', sans-serif`; size -= 4; } while (ctx.measureText(txt).width > S - 30 && size > 28);
+    ctx.lineWidth = Math.max(6, size / 6); ctx.strokeStyle = '#000'; ctx.fillStyle = '#fff';
+    ctx.strokeText(txt, S / 2, S - 22); ctx.fillText(txt, S / 2, S - 22);
+  }
+}
+form.addEventListener('input', e => { if (e.target.id === 'stkTxt') drawSticker(); });
+form.addEventListener('change', e => { if (e.target.name === 'shape') drawSticker(); });
+$('#stkFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  try {
+    const data = await readData(f);
+    stk.img = await loadImg(data);
+    stk.gif = f.type === 'image/gif'; stk.raw = stk.gif && f.size < 1.4e6 ? data : null;
+    drawSticker();
+  } catch(err){ toast('No se pudo abrir la imagen'); }
+});
+async function createSticker(){
+  const c = $('#stkCanvas');
+  const shape = (form.querySelector('[name=shape]:checked') || {}).value, txt = (($('#stkTxt') || {}).value || '').trim();
+  let data, w = 512, h = 512;
+  // Un GIF sin recorte ni texto se guarda tal cual para que siga animado.
+  if (stk.raw && shape === 'orig' && !txt){ data = stk.raw; w = stk.img.naturalWidth; h = stk.img.naturalHeight; }
+  else { data = c.toDataURL('image/webp', 0.86); if (!/^data:image\/webp/.test(data)) data = c.toDataURL('image/png'); }
+  toast('Guardando sticker…');
+  try {
+    const r = await apiTo('/api/media', 'POST', { sticker:{ data, w, h }, by:me() });
+    if (!r.ok) throw new Error(r.status === 413 ? 'grande' : 'x');
+    const d = await r.json();
+    imgCache.set(d.item.id, data);
+    toast('Sticker creado 💟');
+    pk.tab = 'stk'; await loadSaved();
+    if (ui.view === 'chat'){ togglePicker(true); }
+  } catch(err){ toast(err.message === 'grande' ? 'La imagen es muy pesada para sticker' : 'No se pudo crear el sticker'); }
+}
+
+// Al tocar un GIF o sticker del chat: verlo en grande y guardarlo.
+function mediaView(m){
+  const md = m.media; if (!md) return;
+  const already = (pk.saved || []).some(x => (md.src === 'own' ? x.id === md.id : x.url === md.url));
+  const isStk = md.kind === 'sticker';
+  openDialog('', `<img class="imgview" ${mediaSrc(md)} alt="" style="${isStk ? 'width:220px' : ''}">
+    <div class="row" style="justify-content:center">
+      ${already ? `<span class="pk-note">⭐ Ya está en sus ${isStk ? 'stickers' : 'GIFs'}</span>`
+        : md.src === 'giphy' ? `<button type="button" class="btn primary" data-dlg="x:save">☆ Guardar ${isStk ? 'sticker' : 'GIF'}</button>` : ''}
+      <button type="button" class="btn" data-dlg="x:again">Enviar otra vez</button>
+    </div>`, null);
+  dlgExtra = {
+    save:() => { closeDialog(); saveMedia(md.kind, md); },
+    again:() => { closeDialog(); sendMedia(md.kind, md); },
+  };
+  loadImgs(form);
+}
 
 /* Compartir actividades */
 function actSnap(coll, item, date){
