@@ -87,7 +87,14 @@ button{cursor:pointer}
 .blk .time{font-size:11.5px;font-weight:600;opacity:.85;font-variant-numeric:tabular-nums}
 .blk .ttl{font-size:13.5px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
 .blk .who{font-size:11.5px;opacity:.85;margin-top:2px}
-.blk input[type=checkbox]{width:18px;height:18px;margin:2px 0 0;accent-color:var(--t-bd);flex-shrink:0}
+/* Botón grande para marcar como hecha (fácil de tocar con el dedo) */
+.blk{align-items:center}
+.done-btn{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:2.5px solid var(--t-bd);background:var(--card);color:transparent;font-size:17px;font-weight:800;line-height:1;display:grid;place-items:center;padding:0;transition:background .15s,color .15s,transform .1s}
+.done-btn:hover{color:color-mix(in srgb,var(--t-bd) 55%,transparent)}
+.done-btn:active{transform:scale(.88)}
+.done-btn[aria-pressed="true"]{background:var(--t-bd);color:#fff}
+.blk.done{opacity:.6}
+@media (pointer:coarse){ .done-btn{width:44px;height:44px;font-size:21px} }
 .t-pareja{--t-bg:var(--pa-bg);--t-bd:var(--pa-bd);--t-tx:var(--pa-tx)}
 .t-personal{--t-bg:var(--pe-bg);--t-bd:var(--pe-bd);--t-tx:var(--pe-tx)}
 .t-quehacer{--t-bg:var(--qu-bg);--t-bd:var(--qu-bd);--t-tx:var(--qu-tx)}
@@ -471,6 +478,13 @@ function blocksFor(date, all = false){
 }
 const eventsFor = key => live('events').filter(e => e.date === key).sort((a,b) => (a.title||'').localeCompare(b.title||''));
 const isDone = (id, key) => S.checks.some(c => c.id === `${id}|${key}` && c.done && !c.deleted);
+function toggleDone(id, key){
+  if (!id || !key) return;
+  const done = !isDone(id, key);
+  upsert('checks', { id:`${id}|${key}`, done });
+  if (done && navigator.vibrate) navigator.vibrate(30);
+  toast(done ? '¡Hecho! ✓' : 'Marcada como pendiente');
+}
 
 function render(){
   document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.view === ui.view ? 'page' : 'false'));
@@ -523,7 +537,7 @@ function viewWeek(){
     const bl = blocksFor(d).map(b => {
       const done = isDone(b.id, key);
       return `<div class="blk t-${esc(b.type)}${done?' done':''}">
-        <input type="checkbox" data-act="toggle" data-id="${esc(b.id)}" data-date="${key}" ${done?'checked':''} aria-label="Marcar como hecho: ${esc(b.title)}">
+        <button class="done-btn" data-act="toggle" data-id="${esc(b.id)}" data-date="${key}" aria-pressed="${done}" aria-label="${done?'Hecha':'Marcar como hecha'}: ${esc(b.title)}" title="${done?'Desmarcar':'Marcar como hecha'}">✓</button>
         <button class="main" data-act="edit-block" data-id="${esc(b.id)}" data-date="${key}">
           <div class="time">${esc(range(b.start, b.end))}${b.freq==='13'||b.freq==='24'?' · cada 2 semanas':''}</div>
           <div class="ttl">${esc(b.title)}</div>
@@ -548,7 +562,7 @@ function viewWeek(){
     <div class="daychips">${chips}</div>
     <div class="week">${cols}</div>
     <div class="legend">${Object.entries(TYPES).map(([k,l]) => `<span class="t-${k}"><i></i>${l}</span>`).join('')}
-      <span>Toca una actividad para editarla · marca la casilla cuando esté hecha</span></div>`;
+      <span>Toca el círculo ✓ cuando la hayan hecho · toca el nombre para ver o editar</span></div>`;
 }
 
 function viewMonth(){
@@ -682,7 +696,9 @@ function blockDialog(b, dateKey){
   const d = dateKey ? parseDk(dateKey) : new Date();
   b = b || { id:uid(), title:'', day:wdi(d), start:'18:00', end:'19:00', type:'pareja', who:'ambos', freq:'all', date:dateKey || todayKey() };
   const whoOpts = { ambos:'Ambos', a:S.settings.nameA, b:S.settings.nameB, cada:'Cada quien' };
+  const doneNow = !isNew && dateKey && isDone(b.id, dateKey);
   openDialog(isNew ? 'Nueva actividad' : 'Editar actividad', `
+    ${!isNew && dateKey ? `<button type="button" class="btn ${doneNow ? '' : 'primary'}" data-dlg="x:done" style="justify-content:center;min-height:48px;font-size:16px">${doneNow ? '↩ Marcar como pendiente' : '✓ Ya la hicimos'}</button>` : ''}
     <label class="f">Actividad<input name="title" required maxlength="80" value="${esc(b.title)}" placeholder="Ej. Cena con amigos"></label>
     <div class="fields">
       <label class="f">Inicio<input name="start" type="time" required value="${esc(b.start)}"></label>
@@ -708,6 +724,7 @@ function blockDialog(b, dateKey){
     },
     isNew ? null : () => { removeItem('blocks', b.id); toast('Actividad borrada'); },
     isNew ? null : () => shareActivity('blocks', b, dateKey || b.date || todayKey()));
+  dlgExtra = { done:() => { closeDialog(); toggleDone(b.id, dateKey); } };
   const toggleFreq = () => { const once = $('#freqSel').value === 'once'; $('#daySel').classList.toggle('hidden', once); $('#dateSel').classList.toggle('hidden', !once); };
   $('#freqSel').addEventListener('change', toggleFreq); toggleFreq();
 }
@@ -763,6 +780,7 @@ document.addEventListener('click', e => {
     case 'wk-today': ui.week = mondayOf(new Date()); ui.day = wdi(new Date()); render(); break;
     case 'pick-day': ui.day = Number(el.dataset.i); render(); break;
     case 'who': ui.who = el.dataset.v; render(); break;
+    case 'toggle': toggleDone(id, date); break;
     case 'add-block': blockDialog(null, date); break;
     case 'edit-block': blockDialog(live('blocks').find(x => x.id === id), date); break;
     case 'add-event': eventDialog(null, date); break;
@@ -850,10 +868,7 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('change', e => {
   const el = e.target;
-  if (el.dataset.act === 'toggle'){
-    const cid = `${el.dataset.id}|${el.dataset.date}`;
-    upsert('checks', { id:cid, done:el.checked });
-  } else if (el.dataset.act === 'me'){ store.set(LS_ME, el.value); refreshPush(); }
+  if (el.dataset.act === 'me'){ store.set(LS_ME, el.value); refreshPush(); }
   else if (el.dataset.pref){ setPrefs({ [el.dataset.pref]:el.checked }); refreshPush(); }
   else if (el.dataset.set){
     const val = el.value.trim(); if (!val) return;
