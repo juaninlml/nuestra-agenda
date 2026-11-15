@@ -42,10 +42,27 @@ En la pestaña **Chat** pueden:
 
 La pestaña muestra cuántos mensajes nuevos hay sin leer.
 
-## 4. Avisos (notificaciones)
+## 4. Instalarla en el teléfono
 
-En cada teléfono: **Ajustes → Avisos → Activar avisos en este teléfono** y acepta el permiso.
-Llega un aviso **10 minutos antes de cada actividad** (las tuyas y las de los dos; no las del otro) y cuando te escriben en el chat.
+Al abrirla en el celular aparece arriba **📲 Instala la app en tu teléfono → Instalar**
+(también está en **Ajustes → App en el teléfono**).
+
+- **Android (Chrome):** toca **Instalar** y acepta. Si no aparece la ventana, menú **⋮ → Instalar app**.
+- **iPhone (Safari):** botón **Compartir ⬆️ → Agregar a pantalla de inicio → Agregar**.
+
+Queda con su ícono de corazón, se abre a pantalla completa como cualquier app y funciona aunque no haya internet
+(los cambios se envían al volver la conexión). Manteniendo presionado el ícono hay atajos a **Chat** y **Semana**.
+
+## 5. Avisos (notificaciones) estilo WhatsApp
+
+Abre la app instalada y toca **🔔 Activar** en el aviso de arriba (o **Ajustes → Avisos**) y acepta el permiso.
+
+- Los mensajes del chat llegan con el nombre de quien escribe; si llegan varios seguidos se juntan en un solo aviso ("Ella (3 mensajes)"), suenan y vibran.
+- El aviso tiene los botones **Responder** (abre el chat) y **Marcar como leído**.
+- El ícono de la app muestra el numerito de mensajes sin leer (en los teléfonos que lo permiten) y se borra al abrir el chat.
+- Los avisos de actividades se quedan en pantalla hasta que los veas, con el botón **Ver en la agenda**.
+
+Hay que activarlos una vez en cada teléfono. Llega un aviso **10 minutos antes de cada actividad** (las tuyas y las de los dos; no las del otro) y cuando te escriben en el chat.
 Las actividades marcadas como hechas no avisan.
 
 - **iPhone:** primero agrega la app a la pantalla de inicio (Safari → Compartir → *Agregar a pantalla de inicio*), ábrela desde ese ícono y ahí activa los avisos. Es una regla de Apple.

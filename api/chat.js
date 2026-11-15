@@ -55,7 +55,7 @@ async function notifyOthers(msg, endpoint) {
     let txt = msg.text;
     if (msg.act) txt = `📅 ${msg.act.title}${msg.act.time ? ' · ' + msg.act.time : ''}${txt ? ' — ' + txt : ''}`;
     if (msg.img) txt = '📷 ' + (txt || 'Te mandó una imagen');
-    await sendTo(subs, { title: from, body: (txt || '').slice(0, 140), tag: 'chat', url: '/?view=chat' });
+    await sendTo(subs, { title: from, body: (txt || '').slice(0, 140), tag: 'chat', kind: 'chat', url: '/?view=chat' });
   } catch (e) {}
 }
 

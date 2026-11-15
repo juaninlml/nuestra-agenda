@@ -199,6 +199,15 @@ iframe.yt{background:#000}
 .imgview{max-width:100%;max-height:75vh;display:block;margin:0 auto;border-radius:12px}
 .check{display:flex;align-items:center;gap:10px;font-size:15px;min-height:40px}
 .check input{width:20px;height:20px;accent-color:var(--accent)}
+.banner{display:flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--accent) 12%,var(--card));border:1.5px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
+.banner .ico{font-size:24px}
+.banner .txt{flex:1;min-width:0;font-size:13.5px}
+.banner .btn{flex-shrink:0;padding:8px 12px}
+.banner .x{flex-shrink:0}
+.banner .txt b{display:block;font-size:15px}
+.banner .x{border:0;background:transparent;width:36px;height:36px;border-radius:50%;font-size:16px;color:var(--muted)}
+.steps{margin:6px 0 0;padding-left:20px;color:var(--muted)}
+.steps li{margin:3px 0}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;font-weight:500;box-shadow:var(--shadow);z-index:10}
 
 @media (max-width:900px){
@@ -243,6 +252,7 @@ iframe.yt{background:#000}
     <div class="spacer"></div>
     <button class="sync" id="sync" data-view="ajustes" data-mode="checking"><i></i><span>Conectando…</span></button>
   </header>
+  <div id="banner"></div>
   <main id="main"></main>
 </div>
 
@@ -423,6 +433,7 @@ const isDone = (id, key) => S.checks.some(c => c.id === `${id}|${key}` && c.done
 
 function render(){
   document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.view === ui.view ? 'page' : 'false'));
+  renderBanner();
   const main = $('#main');
   if (ui.view === 'chat'){
     // El chat se arma una sola vez y luego se actualiza por partes (para no cortar videos que se estén viendo).
@@ -751,6 +762,8 @@ document.addEventListener('click', e => {
     case 'notif-on': enableNotifs(); break;
     case 'notif-off': disableNotifs(); break;
     case 'notif-test': testNotif(); break;
+    case 'install': installApp(); break;
+    case 'banner-x': store.set(LS_BANNER + el.dataset.b, String(now())); renderBanner(); fitChat(); break;
     case 'pin-save': store.set(LS_PIN, $('#pinIn').value.trim()); toast('PIN guardado'); push(); chatPull(); refreshPush(); break;
     case 'sync-now': push(); toast('Sincronizando…'); break;
     case 'export': {
@@ -1079,6 +1092,11 @@ function markRead(){
   const max = Math.max(0, ...[...chat.msgs.values()].map(m => m.at || 0));
   if (max > Number(store.get(LS_READ) || 0)) store.set(LS_READ, String(max));
   updateBadge();
+  // Quita los avisos del chat y el numerito del ícono, como cuando abres WhatsApp.
+  try {
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) navigator.serviceWorker.controller.postMessage({ type:'chat-read' });
+    if (navigator.clearAppBadge) navigator.clearAppBadge().catch(() => {});
+  } catch(e){}
 }
 
 async function chatPost(msg, image){
@@ -1205,6 +1223,50 @@ function prefs(){ try { return Object.assign({ on:false, acts:true, chat:true },
 function setPrefs(p){ store.set(LS_NOTIF, JSON.stringify({ ...prefs(), ...p })); }
 const canNotify = () => 'Notification' in window && Notification.permission === 'granted';
 
+/* Instalar la app en el teléfono */
+const LS_BANNER = 'agenda-pareja-banner-';
+const inst = { prompt:null };
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); inst.prompt = e; renderBanner(); if (ui.view === 'ajustes') safeRender(); });
+window.addEventListener('appinstalled', () => { inst.prompt = null; toast('¡App instalada! Ábrela desde tu pantalla de inicio'); renderBanner(); if (ui.view === 'ajustes') safeRender(); });
+const isAndroid = /Android/i.test(navigator.userAgent);
+async function installApp(){
+  if (inst.prompt){
+    inst.prompt.prompt();
+    try { await inst.prompt.userChoice; } catch(e){}
+    inst.prompt = null; renderBanner(); if (ui.view === 'ajustes') safeRender();
+    return;
+  }
+  openDialog('Instalar la app', `<p style="margin:0;color:var(--muted)">${installSteps()}</p>`, null);
+}
+function installSteps(){
+  if (isIOS) return `En iPhone hay que usar <b>Safari</b>:<ol class="steps"><li>Toca el botón <b>Compartir</b> (el cuadrito con la flecha ⬆️).</li><li>Elige <b>Agregar a pantalla de inicio</b> y luego <b>Agregar</b>.</li><li>Abre la app desde el nuevo ícono y activa los avisos.</li></ol>`;
+  if (isAndroid) return `En Chrome toca el menú <b>⋮</b> (arriba a la derecha) y elige <b>Instalar app</b> o <b>Agregar a pantalla principal</b>. Luego ábrela desde el ícono y activa los avisos.`;
+  return `En Chrome o Edge usa el ícono de instalar en la barra de direcciones (o menú ⋮ → <b>Instalar Nuestra agenda</b>).`;
+}
+const dismissed = k => now() - Number(store.get(LS_BANNER + k) || 0) < 3 * 864e5; // se vuelve a mostrar a los 3 días
+function renderBanner(){
+  const el = $('#banner'); if (!el) return;
+  const p = prefs();
+  let html = '';
+  if (!standalone() && (inst.prompt || isIOS || isAndroid) && !dismissed('install')){
+    html = `<div class="banner"><span class="ico">📲</span>
+      <span class="txt"><b>Instala la app en tu teléfono</b>Así te llegan los mensajes y los recordatorios como en WhatsApp.</span>
+      <button class="btn primary" data-act="install">Instalar</button>
+      <button class="x" data-act="banner-x" data-b="install" aria-label="Ocultar">✕</button></div>`;
+  } else if ('Notification' in window && Notification.permission !== 'denied' && !(p.on && canNotify()) && !dismissed('notif')){
+    html = `<div class="banner"><span class="ico">🔔</span>
+      <span class="txt"><b>Activa los avisos</b>Te avisamos de mensajes nuevos y ${LEAD_MIN} minutos antes de cada actividad.</span>
+      <button class="btn primary" data-act="notif-on">Activar</button>
+      <button class="x" data-act="banner-x" data-b="notif" aria-label="Ocultar">✕</button></div>`;
+  }
+  if (el.innerHTML !== html) el.innerHTML = html;
+}
+function installPanel(){
+  if (standalone()) return `<p>✅ Estás usando la app instalada.</p>`;
+  return `<p>Instálala en la pantalla de inicio para usarla como una app normal y recibir los avisos como en WhatsApp.</p>
+    ${inst.prompt ? '<div class="row"><button class="btn primary" data-act="install">📲 Instalar app</button></div>' : `<p>${installSteps()}</p>`}`;
+}
+
 function notifPanel(){
   const p = prefs(), supported = 'Notification' in window && 'serviceWorker' in navigator;
   let body;
@@ -1225,7 +1287,8 @@ function notifPanel(){
       ${me() ? '' : '<p>Elige arriba quién usa este teléfono para recibir solo tus actividades y las de los dos.</p>'}
       <div class="row"><button class="btn" data-act="notif-test">Probar aviso</button><button class="btn" data-act="notif-off">Desactivar</button></div>`;
   }
-  return `<section class="panel"><h3>Avisos</h3>${body}</section>`;
+  return `<section class="panel"><h3>App en el teléfono</h3>${installPanel()}</section>
+    <section class="panel"><h3>Avisos</h3>${body}</section>`;
 }
 
 async function swReg(){
@@ -1283,7 +1346,7 @@ async function disableNotifs(){
 async function showLocal(title, body, tag, url){
   try {
     const reg = await swReg();
-    const opts = { body, tag, icon:'/icon-192.png', badge:'/icon-192.png', data:{ url } };
+    const opts = { body, tag, icon:'/icon-192.png', badge:'/icon-192.png', vibrate:[180, 80, 180], renotify:true, requireInteraction:tag.startsWith('act:'), data:{ url, kind:tag.startsWith('act:') ? 'act' : '' } };
     if (reg) await reg.showNotification(title, opts);
     else { const n = new Notification(title, opts); n.onclick = () => { window.focus(); openUrl(url); n.close(); }; }
   } catch(e){}
@@ -1331,7 +1394,7 @@ render();
 push();
 chatPull().then(updateBadge);
 if (new URLSearchParams(location.search).has('view')){ openUrl(location.href); history.replaceState(null, '', location.pathname); }
-if (prefs().on && canNotify()){ swReg().then(refreshPush); localReminders(); }
+swReg().then(() => { if (prefs().on && canNotify()){ refreshPush(); localReminders(); } });
 if (!me()) setTimeout(whoAmIDialog, 300);
 })();
 </script>

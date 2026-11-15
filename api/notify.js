@@ -64,6 +64,7 @@ module.exports = async (req, res) => {
             title: `En ${until} min: ${b.title}`,
             body: `${t12(b.start)}${b.end ? ' – ' + t12(b.end) : ''}${who ? ' · ' + who : ''}`,
             tag: `act:${b.id}|${dkey}`,
+            kind: 'act',
             url: `/?view=semana&date=${dkey}`,
           });
         }
