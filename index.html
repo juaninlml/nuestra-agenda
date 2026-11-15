@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#fffdf9">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fffdf9">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#16171a">
 <title>Nuestra agenda</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/icon-192.png">
@@ -278,6 +279,168 @@ iframe.yt{background:#000}
   .composer{padding:6px}
   .ib{width:34px}
 }
+
+/* =====================================================================
+   Capa visual moderna: superficies de vidrio, profundidad suave,
+   respuesta al tocar y movimiento con resorte.
+   ===================================================================== */
+:root{
+  --r:16px; --r-lg:20px;
+  --ease:cubic-bezier(.22,.8,.24,1); --spring:cubic-bezier(.34,1.45,.64,1);
+  --shadow:0 1px 2px rgba(31,35,40,.05),0 8px 24px -10px rgba(31,35,40,.16);
+  --shadow-lg:0 28px 70px -16px rgba(31,35,40,.32);
+  --glass:color-mix(in srgb,var(--bg) 76%,transparent);
+  --accent-2:#ff8a65;
+  --grad:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--accent-2)));
+}
+@media (prefers-color-scheme:dark){
+  :root{ --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 28px -12px rgba(0,0,0,.6); --shadow-lg:0 30px 80px -16px rgba(0,0,0,.7); --accent:#ec6a9c }
+}
+html{-webkit-tap-highlight-color:transparent}
+body{background:
+  radial-gradient(900px 520px at 0% -8%,color-mix(in srgb,var(--accent) 9%,transparent),transparent 65%),
+  radial-gradient(800px 480px at 100% 0%,color-mix(in srgb,#81d4fa 9%,transparent),transparent 60%),
+  var(--bg);background-attachment:fixed}
+button,a,input,select,textarea{touch-action:manipulation}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:10px}
+::selection{background:color-mix(in srgb,var(--accent) 30%,transparent)}
+
+/* Encabezado fijo de vidrio */
+.top{position:sticky;top:0;z-index:20;margin:-16px -16px 16px;padding:12px 16px;background:var(--glass);
+  -webkit-backdrop-filter:saturate(1.7) blur(16px);backdrop-filter:saturate(1.7) blur(16px);
+  border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.brand h1{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rainbow{height:5px}
+
+/* Pestañas con indicador que se desliza */
+.tabs{position:relative;gap:2px;flex-wrap:nowrap;background:color-mix(in srgb,var(--soft) 80%,transparent)}
+.tabs button{position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;color:var(--muted);transition:color .25s var(--ease),transform .15s var(--ease)}
+.tabs button:active{transform:scale(.94)}
+.tabs button[aria-current="page"]{background:transparent;box-shadow:none;color:var(--ink)}
+.tabs svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tabs svg .dots{stroke-width:2.6}
+.tab-ind{position:absolute;z-index:0;top:4px;left:0;height:calc(100% - 8px);width:0;border-radius:999px;background:var(--card);box-shadow:var(--shadow);
+  transition:transform .42s var(--spring),width .42s var(--spring);pointer-events:none}
+.tab-ind.no-anim{transition:none}
+.badge{animation:pop .4s var(--spring)}
+.sync{transition:background .2s}
+.sync[data-mode="cloud"] i{box-shadow:0 0 0 3px color-mix(in srgb,#3fae5a 25%,transparent)}
+
+/* Botones: respuesta táctil */
+.btn,.icon-btn,.send,.ib,.add,.seg button,.daychips button{transition:transform .14s var(--ease),background .2s,box-shadow .2s,border-color .2s}
+.btn:active,.icon-btn:active,.send:active,.ib:active,.add:active,.seg button:active,.daychips button:active{transform:scale(.93)}
+.btn:hover,.icon-btn:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.btn.primary,.send{background:var(--grad);border-color:transparent;box-shadow:0 6px 16px -6px color-mix(in srgb,var(--accent) 70%,transparent)}
+.btn.primary:hover{border-color:transparent;filter:brightness(1.05)}
+.seg button[aria-pressed="true"]{color:var(--accent)}
+
+/* Tarjetas */
+.day,.panel,.upcoming,.chat{border-radius:var(--r-lg);border-color:color-mix(in srgb,var(--line) 80%,transparent)}
+.day{transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+@media (hover:hover){ .day:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)} }
+.day>header{background:linear-gradient(180deg,color-mix(in srgb,var(--dc) 46%,var(--card)),color-mix(in srgb,var(--dc) 26%,var(--card)))}
+.day.today>header{box-shadow:none}
+.day.today>header .dn::after{content:'Hoy';margin-left:6px;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--ink);color:var(--bg);vertical-align:1px}
+.day .list{gap:7px;padding:9px}
+.blk{border-radius:14px;padding:7px 8px;transition:opacity .3s var(--ease),transform .2s var(--ease),background .2s}
+.blk .main{cursor:pointer}
+.blk .ttl{transition:opacity .3s}
+.done-btn{box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.done-btn.pop{animation:check .5s var(--spring)}
+.mark{border-radius:12px;transition:transform .15s var(--ease)}
+.mark:active{transform:scale(.97)}
+.daychips{scroll-snap-type:x proximity;scrollbar-width:none}
+.daychips::-webkit-scrollbar{display:none}
+.daychips button{scroll-snap-align:center;border-radius:14px;min-width:56px;padding:8px 10px}
+.daychips button[aria-pressed="true"]{box-shadow:var(--shadow);transform:translateY(-1px)}
+.cell{border-radius:14px;transition:transform .15s var(--ease),box-shadow .2s}
+@media (hover:hover){ .cell:hover{box-shadow:var(--shadow);transform:translateY(-1px)} }
+.cell:active{transform:scale(.97)}
+.up-row{border-radius:12px;padding:10px 8px;transition:background .2s}
+.up-row:hover{background:var(--soft)}
+.note{transition:transform .3s var(--spring),box-shadow .3s}
+@media (hover:hover){ .note:hover{transform:rotate(0) translateY(-3px);box-shadow:0 2px 0 rgba(0,0,0,.06),0 18px 30px -10px rgba(31,35,40,.3)} }
+label.f input,label.f select,label.f textarea{border-radius:12px;transition:border-color .2s,box-shadow .2s}
+label.f input:focus,label.f select:focus,label.f textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.banner{border-radius:var(--r-lg);animation:rise .45s var(--ease) both}
+
+/* Chat */
+.chat-list{background-image:radial-gradient(color-mix(in srgb,var(--ink) 7%,transparent) 1px,transparent 1.4px);background-size:20px 20px}
+.bubble{box-shadow:0 1px 1.5px rgba(0,0,0,.08);background:var(--card);border:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.msg.mine .bubble{background:var(--grad);border-color:transparent}
+.msg.in{animation:msg-in .34s var(--spring) both;transform-origin:0 100%}
+.msg.mine.in{transform-origin:100% 100%}
+.day-sep{position:sticky;top:2px;z-index:2;background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+.m-img,.yt,.actcard,.linkcard{transition:transform .15s var(--ease)}
+.m-img:active,.yt:active,.actcard:active,.stk-msg:active{transform:scale(.97)}
+.picker:not([hidden]){animation:rise .26s var(--ease)}
+.pk-tabs button{transition:color .2s,border-color .25s}
+.pk-pick{transition:transform .15s var(--ease)}
+.pk-pick:active{transform:scale(.92)}
+.emo-grid button{transition:transform .12s var(--spring)}
+.emo-grid button:active{transform:scale(1.3)}
+.send{transition:transform .14s var(--ease),filter .2s}
+
+/* Diálogos y avisos */
+dialog{border-radius:24px;box-shadow:var(--shadow-lg)}
+dialog[open]{animation:dlg-in .3s var(--ease)}
+dialog::backdrop{background:rgba(14,14,20,.42);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+dialog[open]::backdrop{animation:fade .3s ease}
+.toast{background:color-mix(in srgb,var(--ink) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:11px 18px;box-shadow:var(--shadow-lg);animation:toast-in .4s var(--spring);z-index:60}
+
+/* Entrada suave al cambiar de sección */
+#main.enter>*{animation:rise .4s var(--ease) both}
+#main.enter>*:nth-child(2){animation-delay:.04s}
+#main.enter>*:nth-child(3){animation-delay:.08s}
+#main.enter>*:nth-child(n+4){animation-delay:.12s}
+#main.enter .day{animation:rise .45s var(--ease) both}
+#main.enter .day:nth-child(2){animation-delay:.03s}
+#main.enter .day:nth-child(3){animation-delay:.06s}
+#main.enter .day:nth-child(4){animation-delay:.09s}
+#main.enter .day:nth-child(5){animation-delay:.12s}
+#main.enter .day:nth-child(6){animation-delay:.15s}
+#main.enter .day:nth-child(7){animation-delay:.18s}
+
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{0%{transform:scale(.4)}100%{transform:scale(1)}}
+@keyframes check{0%{transform:scale(.6)}55%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes msg-in{from{opacity:0;transform:translateY(10px) scale(.92)}}
+@keyframes dlg-in{from{opacity:0;transform:translateY(14px) scale(.96)}}
+@keyframes sheet-in{from{transform:translateY(100%)}}
+@keyframes toast-in{from{opacity:0;transform:translate(-50%,16px) scale(.9)}}
+
+/* Celular: barra de navegación abajo (al alcance del pulgar) y diálogos tipo hoja */
+@media (max-width:640px){
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  /* Sin desenfoque aquí: un backdrop-filter haría que la barra fija de abajo quede atrapada dentro del encabezado */
+  .top{flex-wrap:nowrap;margin:-12px -12px 12px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:color-mix(in srgb,var(--bg) 94%,transparent)}
+  .brand h1{font-size:22px}
+  .rainbow{width:130px;height:4px}
+  .sync{padding:8px 10px}
+  .sync span{font-size:12px}
+  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;width:auto;border-radius:0;flex-wrap:nowrap;gap:0;
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));background:var(--glass);
+    -webkit-backdrop-filter:saturate(1.7) blur(18px);backdrop-filter:saturate(1.7) blur(18px);border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+  .tabs button{flex:1;flex-direction:column;justify-content:center;gap:3px;min-height:56px;padding:4px 0 2px;font-size:11px;font-weight:600;border-radius:16px}
+  .tabs button[aria-current="page"]{color:var(--accent)}
+  .tabs svg{width:24px;height:24px;margin-top:3px}
+  .tab-ind{top:8px;height:32px;background:color-mix(in srgb,var(--accent) 16%,transparent);box-shadow:none}
+  .tabs .badge{position:absolute;top:3px;left:calc(50% + 5px);margin:0;border:2px solid var(--bg)}
+  .toast{bottom:calc(88px + env(safe-area-inset-bottom))}
+  dialog{width:100%;max-width:100%;margin:auto 0 0;border-radius:26px 26px 0 0;max-height:92dvh}
+  dialog[open]{animation:sheet-in .36s var(--ease)}
+  .dlg{padding:10px 16px calc(18px + env(safe-area-inset-bottom))}
+  .dlg::before{content:'';align-self:center;width:42px;height:5px;border-radius:3px;background:var(--line);margin-bottom:4px}
+  .dlg .actions .btn{flex:1;justify-content:center;min-height:46px}
+  .dlg .actions .danger{flex:0 1 auto}
+}
+
+/* Para quien prefiere menos movimiento en su teléfono */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
@@ -290,11 +453,12 @@ iframe.yt{background:#000}
       </div>
     </div>
     <nav class="tabs" aria-label="Secciones">
-      <button data-view="semana">Semana</button>
-      <button data-view="mes">Mes</button>
-      <button data-view="chat">Chat<span class="badge" id="chatBadge"></span></button>
-      <button data-view="notas">Notitas</button>
-      <button data-view="ajustes">Ajustes</button>
+      <span class="tab-ind no-anim" aria-hidden="true"></span>
+      <button data-view="semana"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8.5 13.5v3M12 13.5v3M15.5 13.5v3"/></svg><span class="tl">Semana</span></button>
+      <button data-view="mes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><path class="dots" d="M7.5 13.5h.01M12 13.5h.01M16.5 13.5h.01M7.5 17h.01M12 17h.01"/></svg><span class="tl">Mes</span></button>
+      <button data-view="chat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.4 7.6L3.5 20.5l1.4-4.4A8.5 8.5 0 1 1 20.5 11.5z"/></svg><span class="tl">Chat</span><span class="badge" id="chatBadge"></span></button>
+      <button data-view="notas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h14A1.5 1.5 0 0 1 20.5 5v9.5l-6 6H5A1.5 1.5 0 0 1 3.5 19V5A1.5 1.5 0 0 1 5 3.5z"/><path d="M20.5 14.5h-4.5a1.5 1.5 0 0 0-1.5 1.5v4.5"/></svg><span class="tl">Notitas</span></button>
+      <button data-view="ajustes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h9M18.5 7.5H20M4 16.5h2.5M11 16.5h9"/><circle cx="16" cy="7.5" r="2.5"/><circle cx="8.5" cy="16.5" r="2.5"/></svg><span class="tl">Ajustes</span></button>
     </nav>
     <div class="spacer"></div>
     <button class="sync" id="sync" data-view="ajustes" data-mode="checking"><i></i><span>Conectando…</span></button>
@@ -481,18 +645,27 @@ const isDone = (id, key) => S.checks.some(c => c.id === `${id}|${key}` && c.done
 function toggleDone(id, key){
   if (!id || !key) return;
   const done = !isDone(id, key);
+  ui.pop = `${id}|${key}`;
   upsert('checks', { id:`${id}|${key}`, done });
+  ui.pop = '';
   if (done && navigator.vibrate) navigator.vibrate(30);
   toast(done ? '¡Hecho! ✓' : 'Marcada como pendiente');
 }
 
 function render(){
   document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.view === ui.view ? 'page' : 'false'));
+  moveTabInd();
   renderBanner();
   const main = $('#main');
+  // La animación de entrada solo corre al cambiar de sección, no en cada sincronización.
+  main.classList.remove('enter');
+  if (ui.enter){ void main.offsetWidth; main.classList.add('enter'); ui.enter = false; }
   if (ui.view === 'chat'){
     // El chat se arma una sola vez y luego se actualiza por partes (para no cortar videos que se estén viendo).
-    if (!$('#chatShell')){ main.innerHTML = viewChat(); fitChat(); chatUpdate(true); $('#chatIn') && matchMedia('(pointer:fine)').matches && $('#chatIn').focus(); }
+    if (!$('#chatShell')){
+      chat.ready = false; main.innerHTML = viewChat(); fitChat(); chatUpdate(true); chat.ready = true;
+      $('#chatIn') && matchMedia('(pointer:fine)').matches && $('#chatIn').focus();
+    }
     else chatUpdate();
     return;
   }
@@ -537,7 +710,7 @@ function viewWeek(){
     const bl = blocksFor(d).map(b => {
       const done = isDone(b.id, key);
       return `<div class="blk t-${esc(b.type)}${done?' done':''}">
-        <button class="done-btn" data-act="toggle" data-id="${esc(b.id)}" data-date="${key}" aria-pressed="${done}" aria-label="${done?'Hecha':'Marcar como hecha'}: ${esc(b.title)}" title="${done?'Desmarcar':'Marcar como hecha'}">✓</button>
+        <button class="done-btn${ui.pop===b.id+'|'+key?' pop':''}" data-act="toggle" data-id="${esc(b.id)}" data-date="${key}" aria-pressed="${done}" aria-label="${done?'Hecha':'Marcar como hecha'}: ${esc(b.title)}" title="${done?'Desmarcar':'Marcar como hecha'}">✓</button>
         <button class="main" data-act="edit-block" data-id="${esc(b.id)}" data-date="${key}">
           <div class="time">${esc(range(b.start, b.end))}${b.freq==='13'||b.freq==='24'?' · cada 2 semanas':''}</div>
           <div class="ttl">${esc(b.title)}</div>
@@ -660,7 +833,8 @@ function openDialog(title, body, save, del, share){
       <button type="button" class="btn" data-dlg="cancel">Cancelar</button>
       ${save ? '<button type="submit" class="btn primary" value="ok">Guardar</button>' : ''}</div>`;
   dlg.showModal();
-  const f = form.querySelector('input:not([type=radio]),textarea'); if (f && save) f.focus();
+  // En el teléfono no se enfoca solo: el teclado taparía la hoja apenas se abre.
+  const f = form.querySelector('input:not([type=radio]),textarea'); if (f && save && matchMedia('(pointer:fine)').matches) f.focus();
 }
 function closeDialog(){ dlg.close(); if (pendingRender){ pendingRender = false; render(); } }
 form.addEventListener('submit', e => {
@@ -936,6 +1110,7 @@ window.addEventListener('online', push);
 
 /* ---------- Navegación ---------- */
 function go(view){
+  if (view !== ui.view) ui.enter = true;
   ui.view = view; render(); window.scrollTo(0,0);
   if (view === 'chat'){ chatPull(); markRead(); }
 }
@@ -1003,9 +1178,21 @@ function fitChat(){
   const sh = $('#chatShell'); if (!sh) return;
   const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
   const top = sh.getBoundingClientRect().top;
-  sh.style.height = Math.max(340, vh - top - 14) + 'px';
+  const nav = $('.tabs'), navH = nav && getComputedStyle(nav).position === 'fixed' ? nav.offsetHeight : 0;
+  sh.style.height = Math.max(320, vh - top - navH - 12) + 'px';
 }
-window.addEventListener('resize', fitChat);
+// Indicador de la pestaña activa que se desliza (en el celular es una "píldora" detrás del ícono).
+function moveTabInd(){
+  const ind = $('.tab-ind'), b = document.querySelector('.tabs button[aria-current="page"]');
+  if (!ind || !b) return;
+  const mobile = getComputedStyle($('.tabs')).position === 'fixed';
+  const w = mobile ? Math.min(60, b.offsetWidth - 8) : b.offsetWidth;
+  const x = mobile ? b.offsetLeft + (b.offsetWidth - w) / 2 : b.offsetLeft;
+  ind.style.width = w + 'px'; ind.style.transform = `translateX(${x}px)`;
+  if (!ui.indReady){ ui.indReady = true; requestAnimationFrame(() => requestAnimationFrame(() => ind.classList.remove('no-anim'))); }
+}
+window.addEventListener('resize', () => { const ind = $('.tab-ind'); if (ind){ ind.classList.add('no-anim'); moveTabInd(); requestAnimationFrame(() => ind.classList.remove('no-anim')); } fitChat(); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveTabInd);
 if (window.visualViewport) window.visualViewport.addEventListener('resize', () => { fitChat(); const l = $('#chatList'); if (l) l.scrollTop = l.scrollHeight; });
 
 /* Links, videos y GIFs */
@@ -1129,7 +1316,7 @@ function chatUpdate(forceBottom){
     const tmp = document.createElement('div'); tmp.innerHTML = it.html || msgHtml(it.m);
     const n = tmp.firstElementChild; n.dataset.key = it.key; n.dataset.ver = it.ver;
     if (ex){ if (ex === cur) cur = cur.nextElementSibling; ex.replaceWith(n); if (n.nextElementSibling !== cur) list.insertBefore(n, cur); }
-    else list.insertBefore(n, cur);
+    else { if (chat.ready && it.m) n.classList.add('in'); list.insertBefore(n, cur); }
   }
   while (cur){ const nx = cur.nextElementSibling; cur.remove(); cur = nx; }
   loadImgs(list);
