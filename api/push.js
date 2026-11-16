@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
         const raw = await redis(['HGET', K.subs, hash(b.test)]);
         if (!raw) return res.status(404).json({ error: 'nf' });
         const n = await sendTo([{ key: hash(b.test), ...JSON.parse(raw) }],
-          { title: 'Nuestra agenda', body: '¡Listo! Así se verán los avisos.', tag: 'test', url: '/' });
+          { title: 'Michis', body: '¡Listo! Así se verán los avisos. 🐾', tag: 'test', url: '/' });
         return res.status(200).json({ ok: n > 0 });
       }
       const sub = b.sub;

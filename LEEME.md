@@ -1,4 +1,6 @@
-# Nuestra agenda — cómo subirla a Vercel
+# Michis 🐾 — nuestra agenda
+
+Agenda, chat y notitas para los dos. Cómo subirla a Vercel:
 
 Archivos principales:
 

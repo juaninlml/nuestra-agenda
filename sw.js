@@ -1,7 +1,7 @@
 // Service worker: permite instalar la app, abrirla sin internet y mostrar los avisos
 // (aunque la app esté cerrada) al estilo WhatsApp.
-const CACHE = 'agenda-v2';
-const SHELL = ['/', '/manifest.json', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png'];
+const CACHE = 'michis-v3';
+const SHELL = ['/', '/manifest.json', '/logo.svg', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png', '/apple-touch-icon.png', '/badge-96.png', '/favicon-48.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {}));
@@ -44,13 +44,13 @@ async function show(d) {
     body: d.body || '',
     tag: d.tag || undefined,
     icon: ICON,
-    badge: ICON,
+    badge: '/badge-96.png',  // silueta blanca para la barra de avisos de Android
     renotify: !!d.tag,          // suena y vibra otra vez aunque reemplace al anterior
     vibrate: [180, 80, 180],
     timestamp: Date.now(),
     data: { url: d.url || '/', kind: d.kind || '' },
   };
-  let title = d.title || 'Nuestra agenda';
+  let title = d.title || 'Michis';
 
   if (d.kind === 'chat') {
     // Como WhatsApp: los mensajes seguidos se juntan en un solo aviso.

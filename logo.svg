@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Michis</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6f9f"/>
+      <stop offset="1" stop-color="#ffb38a"/>
+    </linearGradient>
+    <!-- Cabeza de gato: óvalo + dos orejas redondeadas (centro en 0,0) -->
+    <g id="cabeza">
+      <ellipse cx="0" cy="0" rx="72" ry="61"/>
+      <path d="M-68-18 L-60-96 L-14-56Z M68-18 L60-96 L14-56Z" stroke-linejoin="round"/>
+    </g>
+  </defs>
+
+  <!-- Fondo (de orilla a orilla para que Android lo pueda recortar en círculo, gota o cuadrado) -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="268" r="196" fill="#fff" opacity=".10"/>
+
+  <!-- Dibujo: se escala desde el centro (1.16 para el ícono normal; 1 para el ícono adaptable de Android) -->
+  <g id="michis" transform="translate(256 262) scale(1.16) translate(-256 -262)">
+
+  <!-- Corazón -->
+  <path d="M256 166c-36-23-41-54-20-65 12-5 20 2 20 2s8-7 20-2c21 11 16 42-20 65z" fill="#fff"/>
+
+  <!-- Michi negro (atrás, inclinado hacia el otro) -->
+  <g transform="translate(196 304) rotate(-9) scale(1.18)">
+    <use href="#cabeza" fill="#2f2438" stroke="#2f2438" stroke-width="16"/>
+    <path d="M-56-30 L-52-74 L-26-50Z M56-30 L52-74 L26-50Z" fill="#ff9fbd" stroke="#ff9fbd" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="-27" cy="-4" rx="11" ry="14" fill="#ffd36b"/>
+    <ellipse cx="27" cy="-4" rx="11" ry="14" fill="#ffd36b"/>
+    <ellipse cx="-27" cy="-3" rx="3.6" ry="10" fill="#2f2438"/>
+    <ellipse cx="27" cy="-3" rx="3.6" ry="10" fill="#2f2438"/>
+    <path d="M-7 15h14l-7 8z" fill="#ff9fbd" stroke="#ff9fbd" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-12 28q6 7 12 0q6 7 12 0" fill="none" stroke="#ff9fbd" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Michi blanco (adelante); primero un contorno del color del fondo para separarlos -->
+  <g transform="translate(320 318) rotate(9) scale(1.1)">
+    <use href="#cabeza" fill="#ff8aa6" stroke="#ff8aa6" stroke-width="34"/>
+    <use href="#cabeza" fill="#fffaf6" stroke="#fffaf6" stroke-width="16"/>
+    <path d="M-56-30 L-52-74 L-26-50Z M56-30 L52-74 L26-50Z" fill="#ffb3c8" stroke="#ffb3c8" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M-40-2q13-15 26 0M14-2q13-15 26 0" fill="none" stroke="#2f2438" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="-44" cy="18" rx="13" ry="8" fill="#ff8fb0" opacity=".45"/>
+    <ellipse cx="44" cy="18" rx="13" ry="8" fill="#ff8fb0" opacity=".45"/>
+    <path d="M0 22c-9-6-10-13-5-15 3-1 5 1 5 1s2-2 5-1c5 2 4 9-5 15z" fill="#ff6f9f"/>
+    <path d="M-12 31q6 7 12 0q6 7 12 0" fill="none" stroke="#2f2438" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-60 12l-30-5M-60 22l-30 4M60 12l30-5M60 22l30 4" stroke="#2f2438" stroke-width="3.5" stroke-linecap="round" opacity=".55"/>
+  </g>
+  </g>
+</svg>
