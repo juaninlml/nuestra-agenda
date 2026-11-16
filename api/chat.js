@@ -22,6 +22,17 @@ function clean(m) {
     if (md.src === 'own' && ID_RE.test(md.id || '')) out.media = { kind, src: 'own', id: md.id, w, h };
     else if (/^https:\/\/(media\d*|i)\.giphy\.com\/[^\s"'<>]{4,300}$/.test(md.url || '')) out.media = { kind, src: 'giphy', url: md.url, w, h };
   }
+  if (m.reply && typeof m.reply === 'object' && ID_RE.test(m.reply.id || '')) {
+    // Respuesta a otro mensaje: guardamos un resumen para mostrar la cita
+    const r = m.reply, th = String(r.thumb || '');
+    out.reply = {
+      id: r.id,
+      author: ['a', 'b'].includes(r.author) ? r.author : '',
+      kind: ['text', 'gif', 'sticker', 'img', 'act'].includes(r.kind) ? r.kind : 'text',
+      text: String(r.text || '').slice(0, 140),
+      thumb: /^(own|img):[A-Za-z0-9-]{6,64}$/.test(th) || /^https:\/\/(media\d*|i)\.giphy\.com\/[^\s"'<>]{4,300}$/.test(th) ? th : '',
+    };
+  }
   if (m.act && typeof m.act === 'object') {
     const a = m.act;
     out.act = {

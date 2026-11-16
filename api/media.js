@@ -73,6 +73,16 @@ module.exports = async (req, res) => {
         // La imagen se conserva: puede seguir apareciendo en mensajes viejos del chat.
         return res.status(200).json({ ok: true });
       }
+      if (b.avatar) {
+        // Foto de perfil: se guarda la imagen; el id se anota en los ajustes compartidos.
+        const a = b.avatar;
+        if (typeof a.data !== 'string' || !/^data:image\/(png|webp|jpeg);base64,/.test(a.data) || a.data.length > 600 * 1024) {
+          return res.status(413).json({ error: 'img' });
+        }
+        const aid = 'av-' + id();
+        await redis(['SET', IMG(aid), a.data]);
+        return res.status(200).json({ id: aid });
+      }
       if (b.sticker) {
         const s = b.sticker;
         if (typeof s.data !== 'string' || !/^data:image\/(png|webp|gif|jpeg);base64,/.test(s.data) || s.data.length > MAX_STICKER) {

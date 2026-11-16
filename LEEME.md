@@ -48,6 +48,12 @@ En la pestaña **Chat** pueden:
 
 La pestaña muestra cuántos mensajes nuevos hay sin leer.
 
+**Como WhatsApp:**
+- **Fotos de perfil:** en **Ajustes → Nombres y fotos** toca el círculo de cada quien para ponerle foto (o toca la foto arriba en el chat). Las ven los dos.
+- Arriba del chat se ve la foto y el nombre de la otra persona, y cuándo escribió por última vez.
+- **Responder un mensaje:** desliza el mensaje a la derecha con el dedo (o toca **Responder** debajo). Puedes contestar con texto, GIF, sticker o foto. Al tocar la cita te lleva al mensaje original.
+- **Fondo del chat:** toca el ícono de la paleta arriba a la derecha y elige uno o pon una foto tuya. El fondo es de cada teléfono.
+
 **Pasar sus stickers de WhatsApp:**
 
 En 😊 → **Stickers** → **⬇ Importar** pueden elegir varios a la vez. Se guardan tal cual (los animados siguen animados y con fondo transparente) y le aparecen a los dos.

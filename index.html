@@ -458,6 +458,78 @@ dialog[open]::backdrop{animation:fade .3s ease}
   .dlg .actions .danger{flex:0 1 auto}
 }
 
+/* Íconos de línea */
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:block}
+.ico .dots{stroke-width:2.7}
+.ib{color:var(--muted)}
+.ib:hover{color:var(--ink)}
+.ib[aria-expanded="true"]{color:var(--accent)}
+.send .ico{width:21px;height:21px;stroke:#fff;stroke-width:2;margin-left:-2px}
+.send{padding:0}
+.pk-tabs button{display:flex;align-items:center;justify-content:center;gap:6px}
+.pk-tabs .ico{width:19px;height:19px}
+
+/* Fotos de perfil */
+.av{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--soft)}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+.av-ini{color:#fff;font-weight:700;font-family:'Space Grotesk',sans-serif;background:linear-gradient(135deg,#3aa7d9,#8c6bc8)}
+.av-ini[data-w="b"]{background:linear-gradient(135deg,#e05b8f,#ff8a65)}
+.av-md{width:42px;height:42px;font-size:18px}
+.av-lg{width:72px;height:72px;font-size:28px}
+.av-xl{width:110px;height:110px;font-size:42px;box-shadow:var(--shadow)}
+.av-row{display:flex;gap:22px;margin:4px 0 14px}
+.av-pick{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:transparent;padding:0;font-weight:600;color:var(--muted)}
+.av-pick .av{transition:transform .15s var(--ease)}
+.av-pick:active .av{transform:scale(.94)}
+.av-cam{position:absolute;top:48px;left:50%;margin-left:12px;width:28px;height:28px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;border:2px solid var(--card)}
+.av-cam .ico{width:15px;height:15px;stroke-width:2.1}
+.profs{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;padding:6px 0}
+.prof{display:flex;flex-direction:column;align-items:center;gap:8px}
+.prof b small{font-weight:500;color:var(--muted)}
+
+/* Encabezado del chat (como WhatsApp) */
+.chat-head{display:flex;align-items:center;gap:6px;padding:8px 8px 8px 10px;border-bottom:1px solid var(--line);background:var(--card);z-index:3}
+.ch-who{flex:1;min-width:0;display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:2px 4px;border-radius:14px;text-align:left;color:inherit}
+.ch-who:hover{background:var(--soft)}
+.ch-info{display:flex;flex-direction:column;min-width:0}
+.ch-info b{font-size:16px;line-height:1.2}
+.ch-info small{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Fondos del chat */
+.chat-list.bg-dark .day-sep{background:rgba(0,0,0,.45);color:#fff}
+.chat-list.bg-dark .m-meta{color:rgba(255,255,255,.88);text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.chat-list.bg-dark .chat-empty{color:#fff}
+.bg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bg-sw{display:flex;flex-direction:column;align-items:center;gap:5px;border:0;background:transparent;padding:0;font-size:12px;font-weight:600;color:var(--muted)}
+.bg-prev{display:block;width:100%;aspect-ratio:3/4;border-radius:12px;border:2px solid var(--line);background:var(--bg)}
+.bg-prev.dots{background-image:radial-gradient(color-mix(in srgb,var(--ink) 18%,transparent) 1px,transparent 1.4px);background-size:10px 10px}
+.bg-sw.on .bg-prev{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.bg-sw.on{color:var(--accent)}
+
+/* Responder mensajes */
+.quote{display:flex;align-items:center;gap:8px;width:100%;min-width:0;max-width:300px;text-align:left;border:0;border-left:4px solid var(--qc,#8c6bc8);border-radius:10px;padding:6px 8px;background:color-mix(in srgb,var(--qc,#8c6bc8) 12%,var(--card));color:var(--ink);margin-bottom:3px}
+.q-a{--qc:#3aa7d9}
+.q-b{--qc:#e05b8f}
+.q-txt{flex:1;min-width:0;display:flex;flex-direction:column}
+.q-txt b{font-size:12.5px;color:var(--qc)}
+.q-txt small{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q-th{width:40px;height:40px;border-radius:7px;object-fit:cover;flex-shrink:0}
+.q-th.stk{object-fit:contain}
+.msg.mine .quote{align-self:flex-end}
+.replying{display:flex;align-items:center;gap:6px;padding:8px 8px 0;background:var(--card);border-top:1px solid var(--line);animation:rise .22s var(--ease)}
+.replying[hidden]{display:none}
+.replying .quote{max-width:none;margin:0}
+.m-rep{display:inline-flex;align-items:center;gap:3px}
+.m-rep .ico{width:13px;height:13px;stroke-width:2.2}
+.msg{transition:transform .2s var(--ease)}
+.msg.swiping{transition:none}
+.msg.flash>.bubble,.msg.flash>.m-media,.msg.flash>.quote{animation:flash 1.3s ease}
+@keyframes flash{0%,40%{box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 45%,transparent)}100%{box-shadow:0 0 0 0 transparent}}
+@media (hover:hover){
+  .m-rep{opacity:0;transition:opacity .15s}
+  .msg:hover .m-rep{opacity:1}
+}
+
 /* Para quien prefiere menos movimiento en su teléfono */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -492,6 +564,8 @@ dialog[open]::backdrop{animation:fade .3s ease}
 <input type="file" id="importFile" accept="application/json" class="hidden">
 <input type="file" id="chatFile" accept="image/*" class="hidden">
 <input type="file" id="stkFile" accept="image/*" class="hidden">
+<input type="file" id="avatarFile" accept="image/*" class="hidden">
+<input type="file" id="bgFile" accept="image/*" class="hidden">
 <input type="file" id="stkImport" accept="image/webp,image/png,image/gif,image/jpeg,.webp" multiple class="hidden">
 
 <script>
@@ -685,16 +759,17 @@ function render(){
   if (ui.view === 'chat'){
     // El chat se arma una sola vez y luego se actualiza por partes (para no cortar videos que se estén viendo).
     if (!$('#chatShell')){
-      chat.ready = false; main.innerHTML = viewChat(); fitChat(); chatUpdate(true); chat.ready = true;
+      chat.ready = false; main.innerHTML = viewChat(); applyChatBg(); loadImgs($('#chatShell .chat-head')); fitChat(); chatUpdate(true); chat.ready = true;
+      if (chat.replyTo) setReply(chat.replyTo);
       $('#chatIn') && matchMedia('(pointer:fine)').matches && $('#chatIn').focus();
     }
-    else chatUpdate();
+    else { chatUpdate(); refreshChatHead(); }
     return;
   }
   if (ui.view === 'semana'){ main.innerHTML = viewWeek(); centerDayChips(); }
   else if (ui.view === 'mes') main.innerHTML = viewMonth();
   else if (ui.view === 'notas'){ main.innerHTML = viewNotes(); loadImgs(main); }
-  else main.innerHTML = viewSettings();
+  else { main.innerHTML = viewSettings(); loadImgs(main); }
 }
 // Deja el día elegido en medio de los 5 visibles (en lunes/martes y sábado/domingo se queda en la orilla).
 // Parte de donde estaba la tira y se desliza suave hasta su lugar.
@@ -855,7 +930,10 @@ function viewSettings(){
     error:'No se pudo conectar ahorita. Tus cambios se guardan aquí y se enviarán al volver la conexión.',
     checking:'Conectando…'
   }[m];
-  return `<section class="panel"><h3>Nombres</h3>
+  return `<section class="panel"><h3>Nombres y fotos</h3>
+      <div class="av-row">
+        ${['a','b'].map(w => `<button type="button" class="av-pick" data-act="avatar" data-w="${w}" aria-label="Cambiar foto de ${esc(nameOf(w))}">${avatarHtml(w, 'av-lg')}<span class="av-cam">${ic('camera')}</span><small>${esc(nameOf(w))}</small></button>`).join('')}
+      </div>
       <div class="fields">
         <label class="f">Persona 1<input data-set="nameA" value="${esc(S.settings.nameA)}" maxlength="24"></label>
         <label class="f">Persona 2<input data-set="nameB" value="${esc(S.settings.nameB)}" maxlength="24"></label>
@@ -1067,6 +1145,12 @@ document.addEventListener('click', e => {
       break;
     }
     case 'media-view': { const m = chat.msgs.get(id); if (m) mediaView(m); break; }
+    case 'msg-reply': { const m = chat.msgs.get(id); if (m) setReply(m); break; }
+    case 'reply-cancel': setReply(null); break;
+    case 'quote-go': gotoMsg(id); break;
+    case 'profiles': profilesDialog(); break;
+    case 'chat-bg': bgDialog(); break;
+    case 'avatar': ui.avatarFor = el.dataset.w; $('#avatarFile').click(); break;
     case 'picker': togglePicker(); break;
     case 'pk-tab': {
       pk.tab = el.dataset.t; pk.edit = false; renderPicker();
@@ -1225,28 +1309,70 @@ function saveChat(){
   store.set(LS_CHAT, JSON.stringify({ cursor:chat.cursor, msgs:arr }));
 }
 
+/* Íconos sencillos de línea, del mismo estilo que el menú principal */
+const ICONS = {
+  smile:'<circle cx="12" cy="12" r="8.75"/><path d="M8.5 14.25a4.6 4.6 0 0 0 7 0"/><path class="dots" d="M9.2 9.6h.01M14.8 9.6h.01"/>',
+  keyboard:'<rect x="2.75" y="6" width="18.5" height="12" rx="2.75"/><path class="dots" d="M6.75 10h.01M10 10h.01M13.5 10h.01M17 10h.01"/><path d="M8 14.25h8"/>',
+  clip:'<path d="M20 11.4l-8 8a5 5 0 0 1-7.1-7.1l8.3-8.3a3.3 3.3 0 0 1 4.7 4.7l-8.3 8.3a1.65 1.65 0 0 1-2.35-2.35l7.6-7.6"/>',
+  calendar:'<rect x="3.5" y="5" width="17" height="15.5" rx="3.25"/><path d="M3.5 9.75h17M8 3v4M16 3v4"/><path class="dots" d="M8.25 13.75h.01M12 13.75h.01M15.75 13.75h.01M8.25 17h.01M12 17h.01"/>',
+  send:'<path d="M5 12 3.6 4.9a.8.8 0 0 1 1.1-.9l15.6 7.3a.8.8 0 0 1 0 1.4L4.7 20a.8.8 0 0 1-1.1-.9L5 12zm0 0h7"/>',
+  sticker:'<path d="M20.25 12.75V7.5A3.75 3.75 0 0 0 16.5 3.75h-9A3.75 3.75 0 0 0 3.75 7.5v9a3.75 3.75 0 0 0 3.75 3.75h5.25l7.5-7.5z"/><path d="M12.75 20.25v-3.5a4 4 0 0 1 4-4h3.5"/>',
+  gif:'<rect x="2.75" y="5" width="18.5" height="14" rx="3.25"/><path d="M10 10.25H8.25a1.5 1.5 0 0 0-1.5 1.5v.5a1.5 1.5 0 0 0 1.5 1.5H10v-1.6H9M13 10v4M16 14v-4h2.2M16 12h1.7"/>',
+  palette:'<path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.15 0 1.75-.8 1.75-1.7 0-1.25-1.1-1.55-1.1-2.65 0-.95.8-1.65 1.8-1.65h2.2a3.85 3.85 0 0 0 3.85-3.85C20.5 6.75 16.7 3.5 12 3.5z"/><path class="dots" d="M7.6 11.2h.01M9.6 7.6h.01M14.2 7.4h.01"/>',
+  reply:'<path d="M9.5 7 4.5 12l5 5"/><path d="M4.5 12H14a5.5 5.5 0 0 1 5.5 5.5V19"/>',
+  close:'<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+  camera:'<path d="M4 8.25A2.25 2.25 0 0 1 6.25 6h1.5l1.5-2h5.5l1.5 2h1.5A2.25 2.25 0 0 1 20 8.25v9.5A2.25 2.25 0 0 1 17.75 20H6.25A2.25 2.25 0 0 1 4 17.75z"/><circle cx="12" cy="12.75" r="3.5"/>',
+  image:'<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="9.75" r="1.75"/><path d="M20.5 15.5 15.75 11 6.5 19.5"/>',
+};
+const ic = (name, cls = '') => `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] || ''}</svg>`;
+
+/* Fotos de perfil (compartidas entre los dos en los ajustes) */
+const avatarId = who => S.settings[who === 'b' ? 'avatarB' : 'avatarA'] || '';
+const otherOf = who => who === 'b' ? 'a' : 'b';
+function avatarHtml(who, cls = ''){
+  const id = avatarId(who), name = nameOf(who) || '?';
+  if (id) return `<span class="av ${cls}"><img data-api="/api/media?img=${encodeURIComponent(id)}" alt="Foto de ${esc(name)}"></span>`;
+  const ini = name.trim().slice(0, 1).toUpperCase();
+  return `<span class="av av-ini ${cls}" data-w="${who}" aria-label="${esc(name)}">${esc(ini)}</span>`;
+}
+
 function viewChat(){
+  const other = otherOf(me() || 'a');
   return `<div class="chat" id="chatShell">
+    <div class="chat-head">
+      <button type="button" class="ch-who" data-act="profiles" aria-label="Ver fotos de perfil">${avatarHtml(other, 'av-md')}
+        <span class="ch-info"><b>${esc(nameOf(other))}</b><small id="chatStatus">${esc(chatStatusText())}</small></span></button>
+      <button type="button" class="ib" data-act="chat-bg" aria-label="Cambiar fondo del chat" title="Fondo del chat">${ic('palette')}</button>
+    </div>
     <div class="chat-list" id="chatList"></div>
     <div class="chat-note" id="chatNote">${chatNoteText()}</div>
+    <div class="replying" id="replying" hidden></div>
     <form class="composer" id="composer" autocomplete="off">
       <div class="inbox">
-        <button type="button" class="ib" id="pkToggle" data-act="picker" aria-label="Emojis, GIFs y stickers" aria-expanded="false" title="Emojis, GIFs y stickers">😊</button>
+        <button type="button" class="ib" id="pkToggle" data-act="picker" aria-label="Emojis, GIFs y stickers" aria-expanded="false" title="Emojis, GIFs y stickers">${ic('smile')}</button>
         <textarea id="chatIn" rows="1" maxlength="2000" placeholder="Mensaje" aria-label="Mensaje"></textarea>
-        <button type="button" class="ib" data-act="chat-img" aria-label="Enviar foto o meme" title="Foto o meme">📎</button>
-        <button type="button" class="ib" data-act="chat-act" aria-label="Compartir una actividad de la agenda" title="Compartir actividad">📅</button>
+        <button type="button" class="ib" data-act="chat-img" aria-label="Enviar foto o meme" title="Foto o meme">${ic('clip')}</button>
+        <button type="button" class="ib" data-act="chat-act" aria-label="Compartir una actividad de la agenda" title="Compartir actividad">${ic('calendar')}</button>
       </div>
-      <button type="submit" class="send" aria-label="Enviar">➤</button>
+      <button type="submit" class="send" aria-label="Enviar">${ic('send')}</button>
     </form>
     <div class="picker" id="picker" hidden>
       <div class="pk-tabs" role="tablist">
-        <button type="button" role="tab" data-act="pk-tab" data-t="emoji">😊 Emoji</button>
-        <button type="button" role="tab" data-act="pk-tab" data-t="gif">GIF</button>
-        <button type="button" role="tab" data-act="pk-tab" data-t="stk">💟 Stickers</button>
+        <button type="button" role="tab" data-act="pk-tab" data-t="emoji">${ic('smile')}<span>Emoji</span></button>
+        <button type="button" role="tab" data-act="pk-tab" data-t="gif">${ic('gif')}<span>GIF</span></button>
+        <button type="button" role="tab" data-act="pk-tab" data-t="stk">${ic('sticker')}<span>Stickers</span></button>
       </div>
       <div class="pk-body" id="pkBody"></div>
     </div>
   </div>`;
+}
+// Debajo del nombre, como WhatsApp: cuándo escribió por última vez la otra persona.
+function chatStatusText(){
+  const other = otherOf(me() || 'a');
+  const last = Math.max(0, ...[...chat.msgs.values()].filter(m => m.author === other && !m.local).map(m => m.at || 0));
+  if (!last) return 'Toca aquí para ver sus fotos';
+  const d = new Date(last), key = dk(d);
+  return `Último mensaje: ${key === todayKey() ? 'hoy' : dayLabel(key).toLowerCase()} ${hm(last)}`;
 }
 function chatNoteText(){
   return { local:'El chat necesita la base de datos en la nube (Ajustes → Sincronización). Mientras tanto no se pueden enviar mensajes.',
@@ -1363,16 +1489,165 @@ function msgHtml(m){
   const onlyLink = emb && m.text.trim() === first;
   const text = m.text && !onlyLink ? `<div class="bubble">${linkify(m.text)}</div>` : '';
   let meta = hm(m.at || Date.now());
-  if (!mine && m.author) meta = esc(nameOf(m.author)) + ' · ' + meta;
   if (m.local === 'sending') meta += ' · Enviando…';
   if (m.local === 'failed') meta += ` · No se envió <button type="button" data-act="msg-retry" data-id="${esc(m.id)}">Reintentar</button>`;
-  else if (mine && !m.local) meta += ` <button type="button" data-act="msg-del" data-id="${esc(m.id)}">Borrar</button>`;
-  return `<div class="${cls}">${text}${media.length ? `<div class="m-media">${media.join('')}</div>` : ''}<div class="m-meta">${meta}</div></div>`;
+  if (!m.local) meta += ` <button type="button" class="m-rep" data-act="msg-reply" data-id="${esc(m.id)}" aria-label="Responder">${ic('reply')}Responder</button>`;
+  if (mine && !m.local) meta += ` <button type="button" data-act="msg-del" data-id="${esc(m.id)}">Borrar</button>`;
+  return `<div class="${cls}" data-mid="${esc(m.id)}">${m.reply ? quoteHtml(m.reply) : ''}${text}${media.length ? `<div class="m-media">${media.join('')}</div>` : ''}<div class="m-meta">${meta}</div></div>`;
 }
+
+/* ---------- Responder mensajes ---------- */
+// Resumen del mensaje citado (lo que se ve arriba de la respuesta)
+function replySnap(m){
+  const r = { id:m.id, author:m.author || '', kind:'text', text:(m.text || '').slice(0, 140), thumb:'' };
+  if (m.media){ r.kind = m.media.kind; r.text = ''; r.thumb = m.media.src === 'own' ? 'own:' + m.media.id : (m.media.url || ''); }
+  else if (m.img){ r.kind = 'img'; r.thumb = 'img:' + m.img; }
+  else if (m.act){ r.kind = 'act'; r.text = m.act.title + (m.act.time ? ' · ' + m.act.time : ''); }
+  return r;
+}
+function thumbAttr(t){
+  if (!t) return '';
+  if (t.startsWith('own:')) return `data-api="/api/media?img=${encodeURIComponent(t.slice(4))}"`;
+  if (t.startsWith('img:')) return `data-img="${esc(t.slice(4))}"`;
+  return `src="${esc(t)}" referrerpolicy="no-referrer"`;
+}
+function quoteBody(r){
+  const label = { gif:'GIF', sticker:'Sticker', img:'Foto', act:'📅 Actividad' }[r.kind];
+  const txt = r.text ? esc(r.text) : (label || '');
+  const who = r.author && r.author === me() ? 'Tú' : nameOf(r.author) || 'Mensaje';
+  return `<span class="q-txt"><b>${esc(who)}</b><small>${r.kind !== 'text' && r.text && label ? esc(label) + ' · ' : ''}${txt}</small></span>${r.thumb ? `<img class="q-th${r.kind === 'sticker' ? ' stk' : ''}" ${thumbAttr(r.thumb)} alt="">` : ''}`;
+}
+const quoteHtml = r => `<button type="button" class="quote q-${esc(r.author || 'x')}" data-act="quote-go" data-id="${esc(r.id)}">${quoteBody(r)}</button>`;
+function setReply(m){
+  chat.replyTo = m || null;
+  const bar = $('#replying'); if (!bar) return;
+  if (!m){ bar.hidden = true; bar.innerHTML = ''; fitChat(); return; }
+  const r = replySnap(m);
+  bar.innerHTML = `<div class="quote q-${esc(r.author || 'x')}">${quoteBody(r)}</div>
+    <button type="button" class="ib" data-act="reply-cancel" aria-label="Cancelar respuesta">${ic('close')}</button>`;
+  bar.hidden = false; loadImgs(bar);
+  const t = $('#chatIn'); if (t && ($('#picker').hidden)) t.focus();
+}
+function gotoMsg(id){
+  const n = document.querySelector(`#chatList [data-mid="${CSS.escape(id)}"]`);
+  if (!n){ toast('Ese mensaje ya no está'); return; }
+  n.scrollIntoView({ block:'center', behavior:'smooth' });
+  n.classList.remove('flash'); void n.offsetWidth; n.classList.add('flash');
+}
+/* ---------- Fotos de perfil ---------- */
+function refreshChatHead(){
+  const h = document.querySelector('.chat-head .ch-who'); if (!h) return;
+  const other = otherOf(me() || 'a');
+  const html = `${avatarHtml(other, 'av-md')}<span class="ch-info"><b>${esc(nameOf(other))}</b><small id="chatStatus">${esc(chatStatusText())}</small></span>`;
+  if (h.dataset.html !== html){ h.innerHTML = html; h.dataset.html = html; loadImgs(h); }
+}
+function profilesDialog(){
+  const card = w => `<div class="prof">${avatarHtml(w, 'av-xl')}<b>${esc(nameOf(w))}${w === me() ? ' <small>(tú)</small>' : ''}</b>
+    <button type="button" class="btn" data-dlg="x:av-${w}">${ic('camera')} ${avatarId(w) ? 'Cambiar foto' : 'Poner foto'}</button></div>`;
+  openDialog('Fotos de perfil', `<div class="profs">${card('a')}${card('b')}</div>
+    <p style="margin:0;color:var(--muted);font-size:13px;text-align:center">Las fotos se ven en los teléfonos de los dos.</p>`, null);
+  const pick = w => () => { closeDialog(); ui.avatarFor = w; $('#avatarFile').click(); };
+  dlgExtra = { 'av-a':pick('a'), 'av-b':pick('b') };
+  loadImgs(form);
+}
+$('#avatarFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = ''; const who = ui.avatarFor;
+  if (!f || !who) return;
+  if (location.protocol === 'file:' || sync.mode === 'local'){ toast('Las fotos necesitan la base de datos en la nube'); return; }
+  try {
+    // Recorte cuadrado al centro, 320 px: ligera y nítida para el círculo.
+    const img = await loadImg(await readData(f)), SIZE = 320, side = Math.min(img.naturalWidth, img.naturalHeight);
+    const c = document.createElement('canvas'); c.width = c.height = SIZE;
+    c.getContext('2d').drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, SIZE, SIZE);
+    const data = c.toDataURL('image/jpeg', 0.86);
+    toast('Subiendo foto…');
+    const r = await apiTo('/api/media', 'POST', { avatar:{ data } });
+    if (!r.ok) throw 0;
+    const { id } = await r.json();
+    imgCache.set(id, data);
+    S.settings = { ...S.settings, [who === 'b' ? 'avatarB' : 'avatarA']:id, updatedAt:now() };
+    commit(); toast('Foto de perfil lista 📸');
+  } catch(err){ toast('No se pudo subir la foto'); }
+});
+
+/* ---------- Fondo del chat (de cada teléfono, como WhatsApp) ---------- */
+const LS_BG = 'agenda-pareja-fondo', LS_BGPHOTO = 'agenda-pareja-fondo-foto';
+const HEARTS = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 38s-9.5-5.9-9.5-11.8A5 5 0 0 1 28 23.4a5 5 0 0 1 9.5 2.8C37.5 32.1 28 38 28 38z' fill='%23e05b8f' fill-opacity='.16'/%3E%3C/svg%3E")`;
+const BGS = {
+  puntos:{ l:'Puntitos', css:'' },
+  liso:{ l:'Liso', css:'background:var(--bg)' },
+  rosa:{ l:'Rosita', css:'background:linear-gradient(160deg,#ffe3ee,#ffd9c7)' },
+  cielo:{ l:'Cielo', css:'background:linear-gradient(160deg,#dff1ff,#e9e1ff)' },
+  menta:{ l:'Menta', css:'background:linear-gradient(160deg,#dcf7e6,#e6f7ff)' },
+  corazones:{ l:'Corazones', css:`background:${HEARTS},linear-gradient(160deg,#fff0f5,#fff5ec);background-size:56px 56px,auto` },
+  noche:{ l:'Noche', css:'background:radial-gradient(rgba(255,255,255,.35) 1px,transparent 1.6px) 0 0/26px 26px,linear-gradient(170deg,#1b2140,#3b2350)' },
+  foto:{ l:'Mi foto', css:'' },
+};
+function bgCss(id){
+  if (id === 'foto'){
+    const p = store.get(LS_BGPHOTO);
+    return p ? `background:linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.12)),url("${p}") center/cover no-repeat` : '';
+  }
+  return (BGS[id] || BGS.puntos).css;
+}
+function applyChatBg(){
+  const l = $('#chatList'); if (!l) return;
+  const id = store.get(LS_BG) || 'puntos';
+  l.style.cssText = bgCss(id);
+  l.classList.toggle('bg-dark', id === 'noche' || id === 'foto');
+}
+function bgDialog(){
+  const cur = store.get(LS_BG) || 'puntos';
+  const sw = Object.entries(BGS).filter(([k]) => k !== 'foto' || store.get(LS_BGPHOTO)).map(([k, v]) =>
+    `<button type="button" class="bg-sw${k === cur ? ' on' : ''}" data-dlg="x:bg-${k}"><span class="bg-prev${k === 'puntos' ? ' dots' : ''}" style="${esc(bgCss(k))}"></span>${esc(v.l)}</button>`).join('');
+  openDialog('Fondo del chat', `<div class="bg-grid">${sw}</div>
+    <button type="button" class="btn" data-dlg="x:photo" style="align-self:center">${ic('image')} Elegir una foto</button>
+    <p style="margin:0;color:var(--muted);font-size:13px;text-align:center">El fondo es solo de este teléfono, como en WhatsApp.</p>`, null);
+  dlgExtra = { photo:() => { closeDialog(); $('#bgFile').click(); } };
+  Object.keys(BGS).forEach(k => { dlgExtra['bg-' + k] = () => { store.set(LS_BG, k); applyChatBg(); closeDialog(); }; });
+}
+$('#bgFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  try {
+    const img = await loadImg(await readData(f)), max = 1080, s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement('canvas'); c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    const data = c.toDataURL('image/jpeg', 0.8);
+    store.set(LS_BGPHOTO, data);
+    if (store.get(LS_BGPHOTO) !== data){ toast('La foto es muy pesada para guardarla'); return; }
+    store.set(LS_BG, 'foto'); applyChatBg(); toast('Fondo cambiado');
+  } catch(err){ toast('No se pudo usar esa foto'); }
+});
+
+// Deslizar un mensaje a la derecha para responder (como WhatsApp)
+(() => {
+  let s = null;
+  document.addEventListener('touchstart', e => {
+    const m = e.target.closest && e.target.closest('#chatList .msg[data-mid]');
+    if (!m || m.querySelector('.gone') || e.target.closest('iframe')) return;
+    s = { m, x:e.touches[0].clientX, y:e.touches[0].clientY, dx:0, lock:null, buzz:false };
+  }, { passive:true });
+  document.addEventListener('touchmove', e => {
+    if (!s) return;
+    const dx = e.touches[0].clientX - s.x, dy = e.touches[0].clientY - s.y;
+    if (s.lock === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) s.lock = Math.abs(dx) > Math.abs(dy) && dx > 0 ? 'x' : 'y';
+    if (s.lock !== 'x') return;
+    s.dx = Math.max(0, Math.min(80, dx));
+    s.m.style.transform = `translateX(${s.dx}px)`; s.m.classList.add('swiping');
+    if (s.dx > 56 && !s.buzz){ s.buzz = true; if (navigator.vibrate) navigator.vibrate(12); }
+  }, { passive:true });
+  document.addEventListener('touchend', () => {
+    if (!s) return;
+    const { m, dx } = s; s = null;
+    m.classList.remove('swiping'); m.style.transform = '';
+    if (dx > 56){ const msg = chat.msgs.get(m.dataset.mid); if (msg) setReply(msg); }
+  });
+})();
 
 // Actualiza la lista sin rehacer los mensajes que no cambiaron.
 function chatUpdate(forceBottom){
   const list = $('#chatList'); if (!list) return;
+  refreshChatHead();
   const note = $('#chatNote'); if (note) note.textContent = chatNoteText();
   const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 120;
   const items = [];
@@ -1473,7 +1748,7 @@ function markRead(){
 
 async function chatPost(msg, image){
   try {
-    const r = await apiTo('/api/chat', 'POST', { msg:{ id:msg.id, author:msg.author, text:msg.text, act:msg.act, media:msg.media }, image, endpoint:notif.endpoint });
+    const r = await apiTo('/api/chat', 'POST', { msg:{ id:msg.id, author:msg.author, text:msg.text, act:msg.act, media:msg.media, reply:msg.reply }, image, endpoint:notif.endpoint });
     if (r.status === 413) throw new Error('grande');
     if (!r.ok) throw new Error(String(r.status));
     const d = await r.json(), m = d.message;
@@ -1492,6 +1767,7 @@ function chatSend({ text = '', act = null, image = null, media = null }){
   if (chat.status === 'local' || chat.status === 'pin'){ toast(chat.status === 'pin' ? 'Falta el PIN (Ajustes)' : 'El chat necesita la base de datos en la nube'); return false; }
   const msg = { id:uid(), author:me(), text, act, at:Date.now(), local:'sending' };
   if (media) msg.media = media;
+  if (chat.replyTo){ msg.reply = replySnap(chat.replyTo); setReply(null); }
   if (image) msg.localImg = image.data;
   chat.outbox.set(msg.id, { msg, image });
   chat.msgs.set(msg.id, msg); chatUpdate(true);
@@ -1583,8 +1859,8 @@ function notePicker(noteId){
   if (pk.tab === 'emoji') pk.tab = 'gif';
   openDialog('Agregar a la notita', `
     <div class="pk-tabs" role="tablist">
-      <button type="button" role="tab" data-act="pk-tab" data-t="gif">GIF</button>
-      <button type="button" role="tab" data-act="pk-tab" data-t="stk">💟 Stickers</button>
+      <button type="button" role="tab" data-act="pk-tab" data-t="gif">${ic('gif')}<span>GIF</span></button>
+      <button type="button" role="tab" data-act="pk-tab" data-t="stk">${ic('sticker')}<span>Stickers</span></button>
     </div>
     <div class="pk-body note-pk" id="pkBody"></div>`, null);
   renderPicker(); loadSaved();
@@ -1606,7 +1882,7 @@ function togglePicker(open){
   pk.target = null;
   const show = open === undefined ? p.hidden : open;
   p.hidden = !show;
-  const tg = $('#pkToggle'); tg.setAttribute('aria-expanded', String(show)); tg.textContent = show ? '⌨️' : '😊';
+  const tg = $('#pkToggle'); tg.setAttribute('aria-expanded', String(show)); tg.innerHTML = ic(show ? 'keyboard' : 'smile');
   if (show){
     if (!matchMedia('(pointer:fine)').matches && document.activeElement === $('#chatIn')) $('#chatIn').blur(); // esconde el teclado
     renderPicker(); loadSaved();
