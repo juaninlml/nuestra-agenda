@@ -122,7 +122,10 @@ En **Semana**:
 - **Ánimo del día:** cada quien elige cómo se siente (y una nota opcional). El del otro también se ve junto a su nombre en el chat.
 - **Cuenta regresiva** de las próximas fechas importantes, **Resumen** de la semana (también llega como aviso los domingos a las 5 PM) y **Balance de quehaceres** con botón para intercambiarlos.
 
-En **Michis** 🐱: agreguen a sus gatos, registren comida, agua, arenero… con un toque (se ve quién y hace cuánto) y lleven vacunas, desparasitante y veterinario con repetición automática. El aviso llega a las 9 AM del día que toca.
+En **Michis** 🐱:
+- Cada gato tiene **perfil**: foto (toca su carita), nombre, pelaje (smoking, vaca, negro, gris atigrado con blanco y cafecito, naranja, calicó…), sexo, fecha de nacimiento (calcula la **edad** sola) y notas. Sin foto se dibuja una carita con los colores de su pelaje.
+- En el perfil llevan su historial: **peso** (con gráfica y si subió o bajó), **vacunas**, **desparasitaciones** y **visitas al veterinario**. Si anotan "próxima dosis/cita", se crea el recordatorio con aviso a las 9 AM.
+- Registren comida, agua, arenero… con un toque (se ve quién y hace cuánto). Al marcar ✓ Hecho una vacuna, desparasitación o visita, queda en el historial del michi.
 
 En **Notitas → 💡 Ideas para citas:** guarden ideas por tipo y costo, y cuando no sepan qué hacer usen la ruleta **🎲 ¿Qué hacemos hoy?**. Desde cualquier idea pueden proponer el plan.
 

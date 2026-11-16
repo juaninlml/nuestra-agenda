@@ -727,6 +727,56 @@ dialog[open]::backdrop{animation:fade .3s ease}
 .swatch-pick i{display:block;width:32px;height:32px;border-radius:50%;border:2px solid var(--line)}
 .swatch-pick input:checked+i{outline:3px solid var(--accent);outline-offset:2px}
 .choice .swatch-pick{border:0;padding:2px;min-height:0}
+/* Perfiles de michis */
+.cat-av{display:inline-grid;place-items:center;border-radius:50%;overflow:hidden;flex-shrink:0;background:color-mix(in srgb,var(--cb,#ccc) 22%,var(--soft));width:44px;height:44px}
+.cat-av img{width:100%;height:100%;object-fit:cover;display:block}
+.cat-av .cat-face{width:92%;height:92%;margin-top:6%}
+.cat-av.md{width:72px;height:72px}
+.cat-av.lg{width:96px;height:96px}
+.cat-av.xl{width:128px;height:128px;box-shadow:var(--shadow-lg)}
+.cat-av.plus{border:2px dashed var(--line);background:transparent;color:var(--accent);font-size:30px;font-weight:300}
+.cat-cards{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:4px 2px 14px;margin:0 -2px}
+.cat-cards::-webkit-scrollbar{display:none}
+.cat-card{flex:0 0 auto;width:118px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid color-mix(in srgb,var(--line) 80%,transparent);background:var(--card);border-radius:18px;padding:12px 8px;box-shadow:var(--shadow);text-align:center;transition:transform .15s var(--ease)}
+.cat-card:active{transform:scale(.95)}
+.cat-card b{font-size:15px;font-family:'Space Grotesk',sans-serif}
+.cat-card small{font-size:11.5px;color:var(--muted);line-height:1.3}
+.cat-card.add{box-shadow:none;border-style:dashed;background:transparent}
+.chips-l{align-self:center;font-size:13px;font-weight:600;color:var(--muted);flex-shrink:0}
+.cat-hero{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow);margin-bottom:12px;max-width:720px;animation:rise .4s var(--ease) both}
+.cat-photo{position:relative;border:0;background:none;padding:0;border-radius:50%}
+.cat-photo .av-cam{top:auto;bottom:4px;left:auto;right:4px;margin:0;width:34px;height:34px}
+.cat-id{min-width:0}
+.cat-id h2{font-size:28px;margin-bottom:4px}
+.cat-id p{margin:2px 0;color:var(--muted);font-size:14px}
+.cat-age{color:var(--ink)!important;font-weight:600}
+.cat-age small{color:var(--muted);font-weight:400}
+.cat-notes{font-style:italic}
+.linkish{border:0;background:none;padding:0;color:var(--accent);font-weight:600;font-size:14px}
+.c-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;max-width:720px}
+.c-stat{display:flex;flex-direction:column;align-items:center;gap:1px;background:var(--card);border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:16px;padding:10px 4px;text-align:center;box-shadow:var(--shadow)}
+.c-stat>span{font-size:20px}
+.c-stat b{font-size:14.5px;font-family:'Space Grotesk',sans-serif}
+.c-stat small{font-size:11px;color:var(--muted)}
+.c-stat .up{color:#e3a21a}.c-stat .down{color:#3aa7d9}
+.w-chart{width:100%;height:90px;display:block;margin:2px 0 8px}
+.w-area{fill:color-mix(in srgb,var(--accent) 14%,transparent)}
+.w-line{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.w-dot{fill:var(--card);stroke:var(--accent);stroke-width:2;vector-effect:non-scaling-stroke}
+.h-list{list-style:none;margin:0;padding:0}
+.h-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:9px 2px;color:inherit}
+.h-list li:first-child .h-row{border-top:0}
+.h-row:hover{background:var(--soft)}
+.h-date{min-width:86px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.h-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.h-main small{color:var(--muted);font-size:12.5px}
+.h-next{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,#3aa7d9 16%,var(--card));white-space:nowrap}
+.coat-prev{display:flex;justify-content:center}
+@media (max-width:640px){
+  .cat-hero{flex-direction:column;text-align:center;padding:16px}
+  .c-stats{grid-template-columns:repeat(2,1fr)}
+  .h-date{min-width:74px}
+}
 /* Ideas de citas */
 .notes-seg{margin-bottom:12px;width:max-content;max-width:100%}
 .roulette-btn{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;align-items:center;width:100%;max-width:560px;text-align:left;border:0;border-radius:var(--r-lg);padding:14px 18px;margin-bottom:12px;background:var(--grad);color:#fff;box-shadow:0 10px 24px -10px color-mix(in srgb,var(--accent) 70%,transparent);transition:transform .14s var(--ease)}
@@ -808,6 +858,7 @@ dialog[open]::backdrop{animation:fade .3s ease}
 <input type="file" id="stkFile" accept="image/*" class="hidden">
 <input type="file" id="avatarFile" accept="image/*" class="hidden">
 <input type="file" id="bgFile" accept="image/*" class="hidden">
+<input type="file" id="catPhotoFile" accept="image/*" class="hidden">
 <input type="file" id="stkImport" accept="image/webp,image/png,image/gif,image/jpeg,.webp" multiple class="hidden">
 
 <script>
@@ -922,7 +973,7 @@ function seedBlocks(){
 
 /* ---------- Estado ---------- */
 // Colecciones que se sincronizan entre los dos teléfonos
-const COLLS = ['blocks', 'events', 'notes', 'checks', 'plans', 'moods', 'cats', 'catlog', 'catcare', 'ideas'];
+const COLLS = ['blocks', 'events', 'notes', 'checks', 'plans', 'moods', 'cats', 'catlog', 'catcare', 'cathealth', 'ideas'];
 const KEEP_MS = { catlog:90 * 864e5, moods:120 * 864e5 }; // registros que se limpian solos con el tiempo
 const empty = () => Object.assign({ v:1, settings:{ nameA:'Él', nameB:'Ella', updatedAt:0 } }, Object.fromEntries(COLLS.map(c => [c, []])));
 function load(){
@@ -1013,10 +1064,11 @@ function render(){
     else { chatUpdate(); refreshChatHead(); }
     return;
   }
-  if (ui.view === 'semana'){ main.innerHTML = viewWeek(); centerDayChips(); }
+  // loadImgs carga las fotos de perfil (ánimo del día, balance de quehaceres, michis…)
+  if (ui.view === 'semana'){ main.innerHTML = viewWeek(); centerDayChips(); loadImgs(main); }
   else if (ui.view === 'mes') main.innerHTML = viewMonth();
   else if (ui.view === 'notas'){ main.innerHTML = ui.notesTab === 'ideas' ? viewIdeas() : viewNotes(); loadImgs(main); }
-  else if (ui.view === 'gatos') main.innerHTML = viewCats();
+  else if (ui.view === 'gatos'){ main.innerHTML = viewCats(); loadImgs(main); }
   else { main.innerHTML = viewSettings(); loadImgs(main); }
 }
 // Deja el día elegido en medio de los 5 visibles (en lunes/martes y sábado/domingo se queda en la orilla).
@@ -1373,7 +1425,12 @@ document.addEventListener('click', e => {
       toast(`✓ Anotado: ${c[1]} ${c[2]}${ui.cat ? ' de ' + catName(ui.cat) : ''}`); break;
     }
     case 'cat-log-del': removeItem('catlog', id); break;
-    case 'care-add': careDialog(); break;
+    case 'care-add': careDialog(null, ui.catProfile || ui.cat || ''); break;
+    case 'cat-open': ui.catProfile = id; ui.enter = true; render(); window.scrollTo(0, 0); break;
+    case 'cat-back': ui.catProfile = ''; ui.enter = true; render(); window.scrollTo(0, 0); break;
+    case 'cat-photo': ui.photoFor = id; $('#catPhotoFile').click(); break;
+    case 'health-add': healthDialog(ui.catProfile, el.dataset.t); break;
+    case 'health-edit': { const h = live('cathealth').find(x => x.id === id); if (h) healthDialog(h.cat, h.type, h); break; }
     case 'care-edit': careDialog(live('catcare').find(c => c.id === id)); break;
     case 'care-done': careDone(id); break;
     // Notitas / ideas
@@ -1847,19 +1904,86 @@ function celebrate(){
 /* --- Michis: cuidado de los gatos --- */
 const CARE_LOG = [['comida','🍗','Comida'], ['agua','💧','Agua'], ['arenero','🧻','Arenero'], ['medicina','💊','Medicina'], ['cepillado','✨','Cepillado'], ['juego','🧶','Juego']];
 const CARE_KIND = { vet:['🩺','Veterinario'], vacuna:['💉','Vacuna'], despar:['💊','Desparasitar'], bano:['🛁','Baño'], unas:['✂️','Cortar uñas'], otro:['🐾','Otro'] };
-const CAT_COLORS = ['#2f2438', '#f2a65a', '#9e9e9e', '#c98b5e', '#f5f0e8', '#8c6bc8'];
 const REPEAT = { 0:'No se repite', 30:'Cada mes', 90:'Cada 3 meses', 180:'Cada 6 meses', 365:'Cada año' };
 const catName = id => (live('cats').find(c => c.id === id) || {}).name || '';
+const catById = id => live('cats').find(c => c.id === id);
+
+/* Pelajes: con ellos se dibuja la carita del michi cuando no tiene foto */
+const COATS = {
+  smoking:{ l:'Smoking (negro con pecho blanco)', base:'#2b2630', white:true, eyes:'#f2c94c' },
+  vaca:{ l:'Vaca (blanco con manchas negras)', base:'#f8f4ee', spots:'#2b2630', eyes:'#8bc34a' },
+  negro:{ l:'Negro', base:'#2b2630', eyes:'#f2c94c' },
+  grisbc:{ l:'Gris atigrado con blanco y cafecito', base:'#8f8b87', stripes:'#5e5a56', white:true, tint:'#b98b5f', eyes:'#9ccc65' },
+  gris:{ l:'Gris', base:'#8f8b87', eyes:'#f2c94c' },
+  naranja:{ l:'Naranja atigrado', base:'#eea052', stripes:'#c9722b', eyes:'#9ccc65' },
+  cafe:{ l:'Café atigrado', base:'#9c7350', stripes:'#694a2f', eyes:'#9ccc65' },
+  blanco:{ l:'Blanco', base:'#f8f4ee', eyes:'#64b5f6' },
+  calico:{ l:'Calicó (tres colores)', base:'#f8f4ee', spots:'#2b2630', spots2:'#eea052', eyes:'#9ccc65' },
+  siames:{ l:'Siamés', base:'#efe3cf', mask:'#5b4636', eyes:'#64b5f6' },
+};
+const coatOf = c => COATS[c && c.coat] || { base:(c && c.color) || '#9e9e9e', eyes:'#f2c94c' };
+let faceN = 0;
+function catFace(cat){
+  const k = coatOf(cat), id = 'cf' + (++faceN), dark = /^#[0-4]/.test(k.base);
+  const clip = `clip-path="url(#${id})"`;
+  let pat = '';
+  if (k.spots) pat += `<ellipse cx="-40" cy="-34" rx="34" ry="28" fill="${k.spots}" ${clip}/><ellipse cx="46" cy="22" rx="22" ry="17" fill="${k.spots}" ${clip}/>`;
+  if (k.spots2) pat += `<ellipse cx="38" cy="-38" rx="26" ry="22" fill="${k.spots2}" ${clip}/>`;
+  if (k.tint) pat += `<ellipse cx="-44" cy="-18" rx="24" ry="20" fill="${k.tint}" opacity=".7" ${clip}/>`;
+  if (k.stripes) pat += `<path d="M-22-56l6 20M0-60v22M22-56l-6 20M-72 4h22M-72 17h19M72 4h-22M72 17h-19" stroke="${k.stripes}" stroke-width="6" stroke-linecap="round" fill="none" ${clip}/>`;
+  if (k.mask) pat += `<ellipse cx="0" cy="18" rx="40" ry="34" fill="${k.mask}" opacity=".9" ${clip}/>`;
+  if (k.white) pat += `<path d="M-9-24h18l20 40a40 30 0 0 1-58 0z" fill="#fbf8f3" ${clip}/><ellipse cx="0" cy="34" rx="42" ry="28" fill="#fbf8f3" ${clip}/>`;
+  const earIn = k.mask ? k.mask : k.spots && !k.white ? '#2b2630' : '#f7a8c0';
+  return `<svg class="cat-face" viewBox="-100 -112 200 200" aria-hidden="true"><defs><clipPath id="${id}"><ellipse rx="72" ry="61"/></clipPath></defs>
+    <path d="M-68-18L-60-96L-14-56ZM68-18L60-96L14-56Z" fill="${k.spots && !k.white ? k.spots : k.base}" stroke="${k.spots && !k.white ? k.spots : k.base}" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M-56-32L-52-76L-28-52ZM56-32L52-76L28-52Z" fill="${earIn}" opacity="${k.mask || (k.spots && !k.white) ? 1 : .85}"/>
+    <ellipse rx="72" ry="61" fill="${k.base}"/>${pat}
+    <ellipse cx="-27" cy="-4" rx="11" ry="13" fill="${k.eyes}"/><ellipse cx="27" cy="-4" rx="11" ry="13" fill="${k.eyes}"/>
+    <ellipse cx="-27" cy="-3" rx="3.5" ry="9.5" fill="#1d1a20"/><ellipse cx="27" cy="-3" rx="3.5" ry="9.5" fill="#1d1a20"/>
+    <path d="M-7 15h14l-7 8z" fill="#f48fb1"/><path d="M-12 28q6 7 12 0q6 7 12 0" fill="none" stroke="${dark && !k.white ? '#f48fb1' : '#5b4a4f'}" stroke-width="3.5" stroke-linecap="round"/></svg>`;
+}
+// Foto del michi o, si no tiene, su carita dibujada según el pelaje
+function catAvatar(cat, cls = ''){
+  if (cat && cat.photo) return `<span class="cat-av ${cls}"><img data-api="/api/media?img=${encodeURIComponent(cat.photo)}" alt="Foto de ${esc(cat.name)}"></span>`;
+  return `<span class="cat-av face ${cls}" style="--cb:${coatOf(cat).base}">${catFace(cat)}</span>`;
+}
+function ageText(birth){
+  if (!birth) return '';
+  const b = parseDk(birth), n = new Date();
+  let m = (n.getFullYear() - b.getFullYear()) * 12 + n.getMonth() - b.getMonth(); if (n.getDate() < b.getDate()) m--;
+  if (m < 0) return '';
+  if (m < 1) { const d = Math.max(0, Math.round((n - b) / 864e5)); return `${d} día${d === 1 ? '' : 's'}`; }
+  if (m < 12) return `${m} mes${m === 1 ? '' : 'es'}`;
+  const y = Math.floor(m / 12), r = m % 12;
+  return `${y} año${y === 1 ? '' : 's'}${r ? ` y ${r} mes${r === 1 ? '' : 'es'}` : ''}`;
+}
+const HEALTH = { peso:['⚖️','Peso'], vacuna:['💉','Vacuna'], despar:['💊','Desparasitación'], vet:['🩺','Visita al veterinario'] };
+const healthOf = (catId, type) => live('cathealth').filter(h => h.cat === catId && h.type === type).sort((a, b) => b.date.localeCompare(a.date) || (b.updatedAt || 0) - (a.updatedAt || 0));
+const fmtKg = v => `${Number(v).toLocaleString('es-MX', { maximumFractionDigits:2 })} kg`;
 function lastLog(type){
   const l = live('catlog').filter(x => x.type === type && (!ui.cat || !x.cat || x.cat === ui.cat)).sort((a, b) => b.at - a.at)[0];
   return l;
 }
+function careItemHtml(c, showCat = true){
+  const k = CARE_KIND[c.kind] || CARE_KIND.otro, n = daysUntil(c.date);
+  const when = n < 0 ? `Atrasado ${-n} día${n < -1 ? 's' : ''}` : n === 0 ? '¡Hoy!' : n === 1 ? 'Mañana' : `En ${n} días`;
+  return `<div class="care-item ${n < 0 ? 'late' : n <= 3 ? 'soon' : ''}"><span class="care-e">${k[0]}</span>
+    <button type="button" class="care-main" data-act="care-edit" data-id="${esc(c.id)}"><b>${esc(c.title)}${showCat && c.cat ? ' · ' + esc(catName(c.cat)) : ''}</b>
+      <small>${esc(shortDay(c.date))}${c.every ? ' · ' + esc(REPEAT[c.every] || `cada ${c.every} días`).toLowerCase() : ''}</small></button>
+    <span class="care-when">${when}</span>
+    <button type="button" class="btn sm" data-act="care-done" data-id="${esc(c.id)}">✓ Hecho</button></div>`;
+}
 function viewCats(){
+  const cat = ui.catProfile && catById(ui.catProfile);
+  if (cat) return catProfileView(cat);
+  ui.catProfile = '';
   const cats = live('cats'), t = todayKey();
-  const chips = `<div class="cat-chips"><button type="button" class="cat-chip" data-act="cat-pick" data-id="" aria-pressed="${!ui.cat}">🐾 Todos</button>
-    ${cats.map(c => `<button type="button" class="cat-chip" data-act="cat-pick" data-id="${esc(c.id)}" aria-pressed="${ui.cat === c.id}"><i style="background:${esc(c.color || '#999')}"></i>${esc(c.name)}</button>`).join('')}
-    ${ui.cat ? `<button type="button" class="cat-chip ghost" data-act="cat-edit" data-id="${esc(ui.cat)}">${ic('pencil')}Editar</button>` : ''}
-    <button type="button" class="cat-chip ghost" data-act="cat-add">+ Agregar michi</button></div>`;
+  const cards = `<div class="cat-cards">${cats.map(c => { const w = healthOf(c.id, 'peso')[0], age = ageText(c.birth);
+      return `<button type="button" class="cat-card" data-act="cat-open" data-id="${esc(c.id)}">${catAvatar(c, 'md')}
+        <b>${esc(c.name)}</b><small>${esc([age, w ? fmtKg(w.kg) : ''].filter(Boolean).join(' · ') || (COATS[c.coat] || {}).l || 'Ver perfil')}</small></button>`; }).join('')}
+      <button type="button" class="cat-card add" data-act="cat-add"><span class="cat-av md plus">+</span><b>Agregar</b><small>nuevo michi</small></button></div>`;
+  const chips = cats.length > 1 ? `<div class="cat-chips"><span class="chips-l">Para:</span><button type="button" class="cat-chip" data-act="cat-pick" data-id="" aria-pressed="${!ui.cat}">🐾 Todos</button>
+    ${cats.map(c => `<button type="button" class="cat-chip" data-act="cat-pick" data-id="${esc(c.id)}" aria-pressed="${ui.cat === c.id}"><i style="background:${esc(coatOf(c).base)}"></i>${esc(c.name)}</button>`).join('')}</div>` : '';
   const quick = `<div class="care-grid">${CARE_LOG.map(([k, e, l]) => { const last = lastLog(k);
     return `<button type="button" class="care-btn" data-act="cat-log" data-t="${k}"><span class="care-e">${e}</span><b>${l}</b>
       <small>${last ? `${ago(last.at)} · ${esc(last.by ? nameOf(last.by) : '')}` : 'Sin registro'}</small></button>`; }).join('')}</div>`;
@@ -1869,32 +1993,119 @@ function viewCats(){
         <button type="button" class="mini-x" data-act="cat-log-del" data-id="${esc(x.id)}" aria-label="Borrar registro">${ic('close')}</button></li>`; }).join('')}</ul>`
     : '<p class="hint">Hoy no hay registros. Toca un botón de arriba cuando les den de comer, limpien el arenero, etc.</p>';
   const care = live('catcare').filter(c => !ui.cat || !c.cat || c.cat === ui.cat).sort((a, b) => a.date.localeCompare(b.date));
-  const careHtml = care.length ? care.map(c => { const k = CARE_KIND[c.kind] || CARE_KIND.otro, n = daysUntil(c.date);
-      const when = n < 0 ? `Atrasado ${-n} día${n < -1 ? 's' : ''}` : n === 0 ? '¡Hoy!' : n === 1 ? 'Mañana' : `En ${n} días`;
-      return `<div class="care-item ${n < 0 ? 'late' : n <= 3 ? 'soon' : ''}"><span class="care-e">${k[0]}</span>
-        <button type="button" class="care-main" data-act="care-edit" data-id="${esc(c.id)}"><b>${esc(c.title)}${c.cat ? ' · ' + esc(catName(c.cat)) : ''}</b>
-          <small>${esc(shortDay(c.date))}${c.every ? ' · ' + esc(REPEAT[c.every] || `cada ${c.every} días`).toLowerCase() : ''}</small></button>
-        <span class="care-when">${when}</span>
-        <button type="button" class="btn sm" data-act="care-done" data-id="${esc(c.id)}">✓ Hecho</button></div>`; }).join('')
+  const careHtml = care.length ? care.map(c => careItemHtml(c)).join('')
     : '<p class="hint">Agreguen vacunas, desparasitante, visitas al veterinario… Les llega un aviso a las 9 AM el día que toca.</p>';
   return `<div class="bar"><h2>Michis 🐱</h2><div class="spacer"></div></div>
-    ${cats.length ? chips : `<div class="panel cat-empty"><p>Agreguen a sus michis para llevar su cuidado juntos.</p><button class="btn primary" data-act="cat-add">+ Agregar michi</button></div>`}
-    <section class="panel"><h3>Registrar</h3>${quick}</section>
+    ${cats.length ? cards : `<div class="panel cat-empty"><p>Agreguen a sus michis: foto, pelaje, edad, peso, vacunas y más.</p><button class="btn primary" data-act="cat-add">+ Agregar michi</button></div>`}
+    <section class="panel"><h3>Registrar</h3>${chips}${quick}</section>
     <section class="panel"><h3>Hoy</h3>${logs}</section>
     <section class="panel"><div class="bal-head"><h3>Próximos cuidados</h3><button type="button" class="btn sm primary" data-act="care-add">+ Agregar</button></div>${careHtml}</section>`;
 }
-function catDialog(cat){
-  const isNew = !cat; cat = cat || { id:uid(), name:'', color:CAT_COLORS[live('cats').length % CAT_COLORS.length] };
-  openDialog(isNew ? 'Agregar michi' : 'Editar michi', `
-    <label class="f">Nombre<input name="name" required maxlength="24" value="${esc(cat.name)}" placeholder="Ej. Luna"></label>
-    <div class="f-l">Color</div><div class="choice">${CAT_COLORS.map(c => `<label class="swatch-pick"><input type="radio" name="color" value="${c}" ${c === cat.color ? 'checked' : ''}><i style="background:${c}"></i></label>`).join('')}</div>`,
-    fd => { const name = fd.get('name').trim(); if (!name) return false; upsert('cats', { ...cat, name, color:fd.get('color') || cat.color }); ui.cat = cat.id; toast(isNew ? `¡Bienvenid@ ${name}! 🐱` : 'Guardado'); },
-    isNew ? null : () => { removeItem('cats', cat.id); ui.cat = ''; toast('Michi quitado'); });
+
+/* --- Perfil de cada michi --- */
+function weightChart(list){
+  const pts = list.slice(0, 10).reverse(); if (pts.length < 2) return '';
+  const vals = pts.map(p => Number(p.kg)), min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
+  const W = 300, H = 90, P = 10;
+  const xy = vals.map((v, i) => [P + i * (W - 2 * P) / (vals.length - 1), H - P - (v - min) / span * (H - 2 * P)]);
+  const line = xy.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+  return `<svg class="w-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Gráfica de peso: de ${fmtKg(vals[0])} a ${fmtKg(vals.at(-1))}">
+    <polygon points="${P},${H} ${line} ${W - P},${H}" class="w-area"/><polyline points="${line}" class="w-line"/>
+    ${xy.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" class="w-dot"/>`).join('')}</svg>`;
 }
-function careDialog(c){
-  const isNew = !c; c = c || { id:uid(), kind:'vacuna', title:'', cat:ui.cat || '', date:todayKey(), every:0 };
+function healthListHtml(cat, type, empty){
+  const list = healthOf(cat.id, type);
+  if (!list.length) return `<p class="hint">${empty}</p>`;
+  return `<ul class="h-list">${list.slice(0, 6).map(h => `<li><button type="button" class="h-row" data-act="health-edit" data-id="${esc(h.id)}">
+      <span class="h-date">${esc(shortDay(h.date))}</span>
+      <span class="h-main"><b>${esc(type === 'peso' ? fmtKg(h.kg) : h.title || HEALTH[type][1])}</b>${h.note ? `<small>${esc(h.note)}</small>` : ''}</span>
+      ${h.next ? `<span class="h-next">Próx. ${esc(shortDay(h.next))}</span>` : ''}</button></li>`).join('')}</ul>
+    ${list.length > 6 ? `<p class="hint">y ${list.length - 6} registro${list.length - 6 > 1 ? 's' : ''} más antiguos</p>` : ''}`;
+}
+function catProfileView(cat){
+  const k = COATS[cat.coat], age = ageText(cat.birth);
+  const w = healthOf(cat.id, 'peso'), last = w[0], prev = w[1];
+  const diff = last && prev ? Number(last.kg) - Number(prev.kg) : 0;
+  const lastOf = t => healthOf(cat.id, t)[0];
+  const stat = (e, l, v, s) => `<div class="c-stat"><span>${e}</span><b>${v}</b><small>${l}${s ? ' · ' + s : ''}</small></div>`;
+  const lv = lastOf('vacuna'), ld = lastOf('despar'), lt = lastOf('vet');
+  const care = live('catcare').filter(c => c.cat === cat.id).sort((a, b) => a.date.localeCompare(b.date));
+  const section = (type, title, empty) => `<section class="panel"><div class="bal-head"><h3>${HEALTH[type][0]} ${title}</h3>
+      <button type="button" class="btn sm primary" data-act="health-add" data-t="${type}">+ Agregar</button></div>${healthListHtml(cat, type, empty)}</section>`;
+  return `<div class="bar"><button class="icon-btn" data-act="cat-back" aria-label="Volver a Michis">‹</button><h2>Michis</h2><div class="spacer"></div>
+      <button class="btn" data-act="cat-edit" data-id="${esc(cat.id)}">${ic('pencil')}Editar perfil</button></div>
+    <section class="cat-hero">
+      <button type="button" class="cat-photo" data-act="cat-photo" data-id="${esc(cat.id)}" aria-label="Cambiar foto de ${esc(cat.name)}">${catAvatar(cat, 'xl')}<span class="av-cam">${ic('camera')}</span></button>
+      <div class="cat-id"><h2>${esc(cat.name)}</h2>
+        <p>${esc([k ? k.l : '', cat.sex === 'h' ? 'Hembra' : cat.sex === 'm' ? 'Macho' : ''].filter(Boolean).join(' · '))}</p>
+        <p class="cat-age">${age ? `🎂 ${esc(age)}` : '<button type="button" class="linkish" data-act="cat-edit" data-id="' + esc(cat.id) + '">+ Agregar fecha de nacimiento</button>'}${cat.birth ? `<small> · nació ${esc(shortDay(cat.birth))} ${parseDk(cat.birth).getFullYear()}</small>` : ''}</p>
+        ${cat.notes ? `<p class="cat-notes">“${esc(cat.notes)}”</p>` : ''}</div>
+    </section>
+    <div class="c-stats">
+      ${stat('⚖️', 'Peso', last ? fmtKg(last.kg) : '—', last && prev ? `<span class="${diff > 0 ? 'up' : diff < 0 ? 'down' : ''}">${diff > 0 ? '▲' : diff < 0 ? '▼' : '='} ${Math.abs(diff).toLocaleString('es-MX', { maximumFractionDigits:2 })}</span>` : '')}
+      ${stat('💉', 'Última vacuna', lv ? esc(shortDay(lv.date)) : '—')}
+      ${stat('💊', 'Desparasitado', ld ? esc(shortDay(ld.date)) : '—')}
+      ${stat('🩺', 'Veterinario', lt ? esc(shortDay(lt.date)) : '—')}
+    </div>
+    <section class="panel"><div class="bal-head"><h3>⚖️ Peso</h3><button type="button" class="btn sm primary" data-act="health-add" data-t="peso">+ Registrar peso</button></div>
+      ${weightChart(w)}${healthListHtml(cat, 'peso', 'Registren su peso de vez en cuando para ver cómo va.')}</section>
+    ${section('vacuna', 'Vacunas', 'Sin vacunas registradas.')}
+    ${section('despar', 'Desparasitaciones', 'Sin desparasitaciones registradas.')}
+    ${section('vet', 'Visitas al veterinario', 'Sin visitas registradas.')}
+    <section class="panel"><div class="bal-head"><h3>📅 Próximos cuidados</h3><button type="button" class="btn sm" data-act="care-add">+ Recordatorio</button></div>
+      ${care.length ? care.map(c => careItemHtml(c, false)).join('') : '<p class="hint">Al registrar una vacuna o desparasitación con "próxima fecha", aquí aparece el recordatorio.</p>'}</section>`;
+}
+function catDialog(cat){
+  const isNew = !cat; cat = cat || { id:uid(), name:'', coat:'', birth:'', sex:'', notes:'' };
+  openDialog(isNew ? 'Agregar michi' : `Editar a ${cat.name}`, `
+    <div class="coat-prev" id="coatPrev">${catAvatar({ ...cat, photo:'' }, 'lg')}</div>
+    <label class="f">Nombre<input name="name" required maxlength="24" value="${esc(cat.name)}" placeholder="Ej. Luna"></label>
+    <label class="f">Pelaje<select name="coat" id="coatSel"><option value="">Elige su pelaje…</option>${Object.entries(COATS).map(([v, c]) => `<option value="${v}" ${v === cat.coat ? 'selected' : ''}>${esc(c.l)}</option>`).join('')}</select></label>
+    <div class="fields">
+      <label class="f">Nacimiento (aprox.)<input name="birth" type="date" value="${esc(cat.birth || '')}" max="${todayKey()}"></label>
+      <label class="f">Sexo<select name="sex">${opt({ '':'—', h:'Hembra', m:'Macho' }, cat.sex || '')}</select></label>
+    </div>
+    <label class="f">Notas (opcional)<input name="notes" maxlength="120" value="${esc(cat.notes || '')}" placeholder="Ej. Le encanta el atún, odia la escoba"></label>
+    ${isNew ? '<p class="hint">' + ic('info') + 'La foto se pone desde su perfil (toca su carita).</p>' : ''}`,
+    fd => {
+      const name = fd.get('name').trim(); if (!name) return false;
+      upsert('cats', { ...cat, name, coat:fd.get('coat'), birth:fd.get('birth'), sex:fd.get('sex'), notes:fd.get('notes').trim() });
+      ui.catProfile = cat.id; toast(isNew ? `¡Bienvenid${fd.get('sex') === 'm' ? 'o' : fd.get('sex') === 'h' ? 'a' : 'o/a'} ${name}! 🐱` : 'Perfil guardado');
+    },
+    isNew ? null : () => { removeItem('cats', cat.id); ui.catProfile = ''; ui.cat = ''; toast('Michi quitado'); });
+  // Vista previa de la carita al cambiar el pelaje
+  form.onchange = e => { if (e.target.id === 'coatSel') $('#coatPrev').innerHTML = catAvatar({ coat:e.target.value }, 'lg'); };
+}
+function healthDialog(catId, type, h){
+  const cat = catById(catId); if (!cat) return;
+  const isNew = !h; h = h || { id:uid(), cat:catId, type, date:todayKey() };
+  const [e, l] = HEALTH[type];
+  const ph = { vacuna:'Ej. Triple felina, rabia', despar:'Ej. Milbemax, Revolution', vet:'Ej. Revisión general, vómito' }[type];
+  openDialog(`${e} ${isNew ? '' : 'Editar '}${l.toLowerCase()} · ${cat.name}`, `
+    <div class="fields">
+      <label class="f">Fecha<input name="date" type="date" required value="${esc(h.date)}" max="${todayKey()}"></label>
+      ${type === 'peso' ? `<label class="f">Peso (kg)<input name="kg" type="number" inputmode="decimal" step="0.01" min="0.1" max="20" required value="${esc(h.kg || '')}" placeholder="4.25"></label>` : ''}
+    </div>
+    ${type !== 'peso' ? `<label class="f">${type === 'vet' ? 'Motivo' : type === 'vacuna' ? 'Vacuna' : 'Producto'}<input name="title" maxlength="60" value="${esc(h.title || '')}" placeholder="${ph}"></label>
+      <label class="f">${type === 'vet' ? 'Diagnóstico / indicaciones' : 'Nota'} (opcional)<input name="note" maxlength="160" value="${esc(h.note || '')}"></label>
+      <label class="f">${type === 'vet' ? 'Próxima cita' : 'Próxima dosis'} (opcional)<input name="next" type="date" value="${esc(h.next || '')}" min="${todayKey()}"></label>
+      <p class="hint">${ic('bell')}Si pones próxima fecha, se crea el recordatorio y les llega un aviso ese día.</p>`
+    : `<label class="f">Nota (opcional)<input name="note" maxlength="120" value="${esc(h.note || '')}" placeholder="Ej. En el veterinario"></label>`}`,
+    fd => {
+      const rec = { ...h, date:fd.get('date'), note:(fd.get('note') || '').trim() };
+      if (!rec.date) return false;
+      if (type === 'peso'){ const kg = parseFloat(String(fd.get('kg')).replace(',', '.')); if (!(kg > 0)) return false; rec.kg = Math.round(kg * 100) / 100; }
+      else { rec.title = (fd.get('title') || '').trim() || l; rec.next = fd.get('next') || ''; }
+      upsert('cathealth', rec);
+      syncHealthReminder(rec);
+      toast(type === 'peso' ? `${cat.name}: ${fmtKg(rec.kg)} anotado ⚖️` : 'Guardado en su historial 🐾');
+    },
+    isNew ? null : () => { removeItem('cathealth', h.id); const r = live('catcare').find(c => c.id === h.id + '-n'); if (r) removeItem('catcare', r.id); toast('Registro borrado'); });
+}
+function careDialog(c, defCat = ''){
+  const isNew = !c; c = c || { id:uid(), kind:'vacuna', title:'', cat:defCat, date:todayKey(), every:0 };
   const catOpts = { '':'Todos', ...Object.fromEntries(live('cats').map(x => [x.id, x.name])) };
-  openDialog(isNew ? 'Nuevo cuidado' : 'Editar cuidado', `
+  openDialog(isNew ? 'Nuevo recordatorio' : 'Editar recordatorio', `
     <div class="fields">
       <label class="f">Tipo<select name="kind">${Object.entries(CARE_KIND).map(([k, v]) => `<option value="${k}" ${k === c.kind ? 'selected' : ''}>${v[0]} ${v[1]}</option>`).join('')}</select></label>
       <label class="f">Michi<select name="cat">${opt(catOpts, c.cat || '')}</select></label>
@@ -1909,13 +2120,42 @@ function careDialog(c){
       if (!fd.get('date')) return false;
       upsert('catcare', { ...c, kind, title, cat:fd.get('cat'), date:fd.get('date'), every:Number(fd.get('every')) || 0 }); toast('Guardado 🐾');
     },
-    isNew ? null : () => { removeItem('catcare', c.id); toast('Cuidado borrado'); });
+    isNew ? null : () => { removeItem('catcare', c.id); toast('Recordatorio borrado'); });
 }
+// "Próxima dosis/cita" = recordatorio en Próximos cuidados (con aviso a las 9 AM)
+function syncHealthReminder(rec){
+  if (rec.type === 'peso') return;
+  const rid = rec.id + '-n', cur = live('catcare').find(c => c.id === rid);
+  if (rec.next) upsert('catcare', { ...(cur || {}), id:rid, kind:rec.type, title:rec.title, cat:rec.cat, date:rec.next, every:0, fromHealth:rec.id });
+  else if (cur) removeItem('catcare', rid);
+}
+// Al marcar un cuidado como hecho, si es vacuna/desparasitación/veterinario queda en el historial del michi
 function careDone(id){
   const c = live('catcare').find(x => x.id === id); if (!c) return;
-  upsert('catlog', { id:uid(), type:'cuidado', emo:(CARE_KIND[c.kind] || CARE_KIND.otro)[0], note:c.title, cat:c.cat || '', by:me(), at:now() });
+  const k = CARE_KIND[c.kind] || CARE_KIND.otro;
+  upsert('catlog', { id:uid(), type:'cuidado', emo:k[0], note:c.title, cat:c.cat || '', by:me(), at:now() });
+  if (HEALTH[c.kind] && c.kind !== 'peso'){
+    const cats = c.cat ? [c.cat] : live('cats').map(x => x.id);
+    cats.forEach(cid => upsert('cathealth', { id:uid(), cat:cid, type:c.kind, date:todayKey(), title:c.title, note:'' }));
+  }
   if (c.every){ upsert('catcare', { ...c, date:dk(addDays(new Date(), c.every)) }); toast(`¡Listo! El próximo es ${shortDay(dk(addDays(new Date(), c.every)))}`); }
-  else { removeItem('catcare', c.id); toast('¡Listo! 🐾'); }
+  else { removeItem('catcare', c.id); toast('¡Listo! Quedó en su historial 🐾'); }
+}
+$('#catPhotoFile').addEventListener('change', e => { const f = e.target.files[0]; e.target.value = ''; if (f) uploadCatPhoto(ui.photoFor, f); });
+async function uploadCatPhoto(catId, file){
+  const cat = catById(catId); if (!cat || !file) return;
+  if (location.protocol === 'file:' || sync.mode === 'local'){ toast('Las fotos necesitan la base de datos en la nube'); return; }
+  try {
+    const img = await loadImg(await readData(file)), SIZE = 400, side = Math.min(img.naturalWidth, img.naturalHeight);
+    const c = document.createElement('canvas'); c.width = c.height = SIZE;
+    c.getContext('2d').drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, SIZE, SIZE);
+    const data = c.toDataURL('image/jpeg', 0.86);
+    toast('Subiendo foto…');
+    const r = await apiTo('/api/media', 'POST', { avatar:{ data } });
+    if (!r.ok) throw 0;
+    const { id } = await r.json(); imgCache.set(id, data);
+    upsert('cats', { ...cat, photo:id }); toast(`¡Qué guap${cat.sex === 'm' ? 'o' : 'a'}! 📸`);
+  } catch(e){ toast('No se pudo subir la foto'); }
 }
 
 /* --- Ideas de citas y ruleta --- */
@@ -1978,6 +2218,7 @@ function roulette(){
 /* ---------- Navegación ---------- */
 function go(view){
   if (view !== ui.view) ui.enter = true;
+  else if (view === 'gatos' && ui.catProfile){ ui.catProfile = ''; ui.enter = true; } // tocar "Michis" otra vez regresa a la lista
   ui.view = view; render(); window.scrollTo(0,0);
   if (view === 'chat'){ chatPull(); markRead(); }
 }
