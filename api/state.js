@@ -2,8 +2,11 @@
 // Usa Upstash Redis (Vercel → Storage). No necesita dependencias.
 
 const KEY = 'agenda-pareja:v1';
+const DAY = 864e5;
+// Registros que solo sirven un tiempo (para que la base no crezca sin fin)
+const KEEP = { catlog: 90 * DAY, moods: 120 * DAY };
 
-function mergeColl(a = [], b = []) {
+function mergeColl(a = [], b = [], keep) {
   const m = new Map();
   for (const x of a) if (x && x.id) m.set(x.id, x);
   for (const y of b) {
@@ -11,20 +14,23 @@ function mergeColl(a = [], b = []) {
     const x = m.get(y.id);
     if (!x || (y.updatedAt || 0) > (x.updatedAt || 0)) m.set(y.id, y);
   }
-  return [...m.values()];
+  let out = [...m.values()];
+  if (keep) { const min = Date.now() - keep; out = out.filter(x => (x.updatedAt || 0) >= min); }
+  return out;
 }
 
+// Une cualquier colección (blocks, events, notes, checks, plans, moods, cats, catlog, catcare, ideas…)
 function merge(s1, s2) {
   s1 = s1 || {}; s2 = s2 || {};
   const a = s1.settings || {}, b = s2.settings || {};
-  return {
-    v: 1,
-    settings: (b.updatedAt || 0) > (a.updatedAt || 0) ? b : a,
-    blocks: mergeColl(s1.blocks, s2.blocks),
-    events: mergeColl(s1.events, s2.events),
-    notes: mergeColl(s1.notes, s2.notes),
-    checks: mergeColl(s1.checks, s2.checks),
-  };
+  const out = { v: 1, settings: (b.updatedAt || 0) > (a.updatedAt || 0) ? b : a };
+  const keys = new Set([...Object.keys(s1), ...Object.keys(s2)].filter(k => Array.isArray(s1[k]) || Array.isArray(s2[k])));
+  for (const k of ['blocks', 'events', 'notes', 'checks']) keys.add(k);
+  for (const k of keys) {
+    if (!/^[a-z]{2,20}$/.test(k)) continue;
+    out[k] = mergeColl(Array.isArray(s1[k]) ? s1[k] : [], Array.isArray(s2[k]) ? s2[k] : [], KEEP[k]);
+  }
+  return out;
 }
 
 async function redis(cmd) {
@@ -70,3 +76,5 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: 'server' });
   }
 };
+
+module.exports.merge = merge;

@@ -56,6 +56,12 @@ La pestaña muestra cuántos mensajes nuevos hay sin leer.
 - **Responder un mensaje:** desliza el mensaje a la derecha con el dedo (o toca **Responder** debajo). Puedes contestar con texto, GIF, sticker o foto. Al tocar la cita te lleva al mensaje original.
 - **Fondo del chat:** toca el ícono de la paleta arriba a la derecha y elige uno o pon una foto tuya. El fondo es de cada teléfono.
 
+**Más cosas del chat:**
+- **Estados rápidos** (ícono del rayo): "🚗 Saliendo del trabajo", "⏱️ Llego en 20 min", "💕 Te extraño"… o uno propio. Le llega un aviso al otro y se ve arriba del chat por 3 horas.
+- **Reacciones:** mantén presionado un mensaje (o clic derecho en la compu) para reaccionar ❤️😂😮… responder, copiar o borrar.
+- **Visto:** ✓ = enviado · ✓✓ azul = ya lo leyó.
+- **Notas de voz:** sin texto escrito, el botón redondo es un micrófono. Tócalo para grabar (hasta 5 min), ➤ para enviar o el bote para cancelar.
+
 **Pasar sus stickers de WhatsApp:**
 
 En 😊 → **Stickers** → **⬇ Importar** pueden elegir varios a la vez. Se guardan tal cual (los animados siguen animados y con fondo transparente) y le aparecen a los dos.
@@ -106,6 +112,19 @@ Las actividades marcadas como hechas no avisan.
 
 Sin este paso los avisos de actividades solo salen mientras la app está abierta (los del chat sí llegan siempre).
 Las llaves de los avisos se generan solas la primera vez; no hay que configurarlas.
+
+## 6. Para coordinarse mejor
+
+En **Semana**:
+- **💌 Proponer plan:** el otro responde *Sí*, *No puedo* u *Otra hora* desde el chat o desde la Semana. Si dice que sí, se agrega solo a la agenda de los dos.
+- **🕐 Libres juntos:** muestra los huecos donde ninguno tiene nada (el tiempo personal aparece aparte, punteado). Toca uno para proponer un plan. El horario a considerar se ajusta ahí mismo.
+- **Choques:** al crear o editar una actividad, avisa si se cruza con otra de esa persona.
+- **Ánimo del día:** cada quien elige cómo se siente (y una nota opcional). El del otro también se ve junto a su nombre en el chat.
+- **Cuenta regresiva** de las próximas fechas importantes, **Resumen** de la semana (también llega como aviso los domingos a las 5 PM) y **Balance de quehaceres** con botón para intercambiarlos.
+
+En **Michis** 🐱: agreguen a sus gatos, registren comida, agua, arenero… con un toque (se ve quién y hace cuánto) y lleven vacunas, desparasitante y veterinario con repetición automática. El aviso llega a las 9 AM del día que toca.
+
+En **Notitas → 💡 Ideas para citas:** guarden ideas por tipo y costo, y cuando no sepan qué hacer usen la ruleta **🎲 ¿Qué hacemos hoy?**. Desde cualquier idea pueden proponer el plan.
 
 ## Consejos
 

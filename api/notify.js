@@ -37,6 +37,45 @@ function t12(t) {
   return `${h % 12 || 12}:${pad(m)} ${h < 12 ? 'AM' : 'PM'}`;
 }
 
+const once = async key => (await redis(['SET', K.sent(key), '1', 'NX', 'EX', String(8 * 86400)])) === 'OK';
+const addDaysKey = (key, n) => { let k = key; for (let i = 0; i < n; i++) k = nextKey(k); return k; };
+const wdOf = key => { const [y, m, d] = key.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)).getUTCDay(); };
+const DOW = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+
+// Resumen del domingo a las 5 PM (la hora de "Planear la semana") y cuidados de los gatos a las 9 AM.
+async function extras(subs, state, names) {
+  let sent = 0;
+  const live = k => (state[k] || []).filter(x => !x.deleted);
+  for (const s of subs) {
+    const { key, min } = localNow(s.tz || 'UTC');
+    // Domingo 5:00–5:10 PM: resumen de la semana que viene
+    if (wdOf(key) === 0 && min >= 17 * 60 && min < 17 * 60 + 10 && await once(`sum|${key}|${s.key}`)) {
+      const days = Array.from({ length: 7 }, (_, i) => addDaysKey(key, i + 1));
+      const evs = live('events').filter(e => days.includes(e.date));
+      let salidas = 0; const chores = { a: 0, b: 0 };
+      for (const d of days) for (const b of blocksOn({ ...state, checks: [] }, d)) {
+        if (b.type === 'salida') salidas++;
+        if (b.type === 'quehacer') { if (b.who === 'a' || b.who === 'b') chores[b.who]++; else { chores.a++; chores.b++; } }
+      }
+      const bits = [];
+      if (evs.length) bits.push('📌 ' + evs.slice(0, 2).map(e => `${e.title} (${DOW[wdOf(e.date)]})`).join(', ') + (evs.length > 2 ? ` y ${evs.length - 2} más` : ''));
+      if (salidas) bits.push(`💜 ${salidas} salida${salidas > 1 ? 's' : ''}`);
+      bits.push(`🧹 Quehaceres: ${names.nameA || 'Él'} ${chores.a} · ${names.nameB || 'Ella'} ${chores.b}`);
+      sent += await sendTo([s], { title: 'Su semana en Michis 🐾', body: bits.join('\n'), tag: 'resumen', kind: 'act', url: '/?view=semana' });
+    }
+    // 9:00–9:10 AM: cuidados de los gatos que tocan hoy
+    if (min >= 9 * 60 && min < 9 * 60 + 10) {
+      const cats = Object.fromEntries(live('cats').map(c => [c.id, c.name]));
+      for (const c of live('catcare').filter(c => c.date === key)) {
+        if (!(await once(`cat|${c.id}|${key}|${s.key}`))) continue;
+        const cat = c.cat && cats[c.cat] ? ` de ${cats[c.cat]}` : '';
+        sent += await sendTo([s], { title: `🐱 Hoy toca: ${c.title}${cat}`, body: 'Márquenlo como hecho en la sección Michis.', tag: `cat:${c.id}|${key}`, kind: 'act', url: '/?view=gatos' });
+      }
+    }
+  }
+  return sent;
+}
+
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if (!hasDb()) return res.status(501).json({ error: 'no-db' });
@@ -70,6 +109,7 @@ module.exports = async (req, res) => {
         }
       }
     }
+    sent += await extras(subs, state, names);
     return res.status(200).json({ sent });
   } catch (e) {
     return res.status(500).json({ error: 'server' });
